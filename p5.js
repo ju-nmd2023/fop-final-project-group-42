@@ -1,13 +1,13 @@
 let width = 800;
 let heigth = 800;
+let gameIsRunning = false;
 
 function setup(){
     createCanvas(800, 800);
-    background(255, 0, 0);
 }
 
 function startScreen(){
-    background(255, 255, 255);
+    background(0);
     push();
     fill(11, 218, 81); 
     textSize(60); 
@@ -20,6 +20,14 @@ function startScreen(){
     pop();
 }
 
+function showGame() {
+    background(255);
+}
+
 function draw (){
-    startScreen();
+    if (gameIsRunning === false) {
+        startScreen();
+    } else if (gameIsRunning === true) {
+        showGame();
+    }
 }
