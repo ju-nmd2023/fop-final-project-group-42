@@ -1,10 +1,17 @@
-body {
-    margin: 2000px;
-    padding: 2000px;
-    background-color: black;
+* {
+    margin: 0;
+    padding: 0;
 }
 
-* {
-    margin: 2000px;
-    padding: 200px;
+.buttonContainer {
+    width: 6rem;
+    text-align: center;
+}
+
+#startButton {
+    border: 1px solid black;
+    margin: 3px;
+    padding: 5px;
+    background-color: green;
+    cursor: pointer;
 }
