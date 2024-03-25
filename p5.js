@@ -1,24 +1,30 @@
-let width = 800;
-let heigth = 800;
 let gameIsRunning = false;
 
+
 function setup(){
-    createCanvas(800, 800);
+    createCanvas(innerWidth, innerHeight);
+}
+
+function keyPressed(){
+    if (keyCode === 32){
+        gameIsRunning = true;
+    }
 }
 
 function startScreen(){
     background(0);
     push();
     fill(11, 218, 81); 
-    textSize(60); 
+    textSize(65); 
+    textAlign(CENTER);
+    text("Maze Shadow Legends", width/2, 300);
+
+    textSize(65); 
     textAlign(CENTER);
     text("Start", width/2, 600);
-
-    textSize(100); 
-    textAlign(CENTER);
-    text("Name", width/2, heigth/3);
     pop();
 }
+
 
 function showGame() {
     background(255);
