@@ -3,8 +3,10 @@ let customFont;
 let startButton;
 
 
+
 function setup(){
-    createCanvas(innerWidth, innerHeight);
+    let canvas = createCanvas(innerWidth, innerHeight);
+    canvas.style('cursor', 'auto');
     customFont = loadFont('dragonHunter.otf');
 }
 
@@ -30,7 +32,7 @@ class Button {
         fill("#4d4d4d");
         textSize(this.height / 2);
         textAlign(CENTER);
-        text(this.text, 0, this.height / 2, this.width);
+        text(this.text, 0, this.height-20, this.width);
         pop();
     }
 }
@@ -40,7 +42,18 @@ const buttonHeight = 60;
 const buttonX = (innerWidth - buttonWidth) /2;
 const myButton = new Button(buttonX, 500, 200, 60, "Start");
 
-
+function mouseMoved() {
+    if (
+        mouseX >= myButton.x &&
+        mouseX <= myButton.x + myButton.width &&
+        mouseY >= myButton.y &&
+        mouseY <= myButton.y + myButton.height
+    ) {
+        cursor('pointer');
+    } else {
+        cursor('auto');
+    }
+}
 
 function keyPressed(){
     if (keyCode === 32){
@@ -89,5 +102,4 @@ function draw (){
             startScreen();
 
     }
-
 }

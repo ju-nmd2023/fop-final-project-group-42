@@ -2,16 +2,3 @@
     margin: 0;
     padding: 0;
 }
-
-.buttonContainer {
-    width: 6rem;
-    text-align: center;
-}
-
-#startButton {
-    border: 1px solid black;
-    margin: 3px;
-    padding: 5px;
-    background-color: green;
-    cursor: pointer;
-}
