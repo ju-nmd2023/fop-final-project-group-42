@@ -3,16 +3,11 @@ let customFont;
 let startButton;
 
 
-
 function setup(){
     createCanvas(innerWidth, innerHeight);
-    if (customFont) {
-        textFont(customFont);
-    }
+    customFont = loadFont('dragonHunter.otf');
 }
-function titleFont(){
-    customFont = loadFont('dragonHUnter.otf');
-}
+
 
 class Button {
     constructor(x, y, width, height, text) {
@@ -35,7 +30,7 @@ class Button {
         fill("#4d4d4d");
         textSize(this.height / 2);
         textAlign(CENTER);
-        text(this.text, 0, this.height / 4, this.width);
+        text(this.text, 0, this.height / 2, this.width);
         pop();
     }
 }
@@ -52,6 +47,16 @@ function keyPressed(){
         gameIsRunning = true;
     }
 }
+function mousePressed(){
+    if (
+    mouseX >= myButton.x &&
+    mouseX <= myButton.x + myButton.width &&
+    mouseY >= myButton.y &&
+    mouseY <= myButton.y + myButton.height
+    ) {
+        gameIsRunning = true;
+    }
+}
 
 
 function showGame() {
@@ -59,23 +64,18 @@ function showGame() {
     push();
     pop();
 }
-
-function startBackground() {
-    push();
-
-    pop();
-}
-function title(){
+function title() {
+    fill(11, 218, 81); 
     textSize(65); 
     textAlign(CENTER);
-    
+    textFont(customFont);
     text("Maze Shadow", innerWidth/2, 300);
     text("Legends", innerWidth/2, 400);
 }
+
 function startScreen() {
     background(0);
     push();
-    fill(11, 218, 81); 
     title();
     myButton.draw();
     pop();
@@ -86,10 +86,8 @@ function draw (){
     if (gameIsRunning === true) {
         showGame();
     } else if (gameIsRunning === false) {
-        if (customFont) {
             startScreen();
-        }
-        
+
     }
 
 }
