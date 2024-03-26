@@ -1,4 +1,4 @@
-let gameIsRunning = false;
+let gameIsRunning = true;
 let customFont;
 let startButton;
 
@@ -71,12 +71,36 @@ function mousePressed(){
     }
 }
 
+function maze(){
+    push();
+    fill(0);
+    strokeWeight(10);
+    //Maze Outline
+    line(300, 150, 1600, 150); //north
+    line(300, 150, 300, 1050); // west
+    line(1600, 1050, 1600, 150); //east
+    line(300, 1050, 1600, 1050); //south
+
+    //Maze Center Outline
+    line(875, 675, 925, 675); // south right
+    line(975, 675, 1025, 675); // south left
+
+    line(875, 675, 875, 625); //west south
+    line(875, 525, 875, 575); //west north
+
+    line(875, 525, 925, 525); //north left
+    line(1025, 525, 975, 525); //north right
+
+    line(1025, 675, 1025, 625); // east south
+    line(1025, 525, 1025, 575); // east north
+    pop();
+}
 
 function showGame() {
     background(255);
-    push();
-    pop();
+    maze();
 }
+
 function title() {
     fill(11, 218, 81); 
     textSize(65); 
@@ -94,12 +118,10 @@ function startScreen() {
     pop();
 }
 
-
 function draw (){
     if (gameIsRunning === true) {
         showGame();
     } else if (gameIsRunning === false) {
             startScreen();
-
     }
 }
