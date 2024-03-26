@@ -2,13 +2,17 @@ let gameIsRunning = false;
 let customFont;
 let startButton;
 
+
+
 function setup(){
     createCanvas(innerWidth, innerHeight);
+    if (customFont) {
+        textFont(customFont);
+    }
 }
 function titleFont(){
-    customFont = loadFont('astron_boy.otf');
+    customFont = loadFont('dragonHUnter.otf');
 }
-
 
 class Button {
     constructor(x, y, width, height, text) {
@@ -39,7 +43,7 @@ class Button {
 const buttonWidth = 200;
 const buttonHeight = 60;
 const buttonX = (innerWidth - buttonWidth) /2;
-const myButton = new Button(buttonX, 500, 200, 60, "Start game");
+const myButton = new Button(buttonX, 500, 200, 60, "Start");
 
 
 
@@ -64,6 +68,7 @@ function startBackground() {
 function title(){
     textSize(65); 
     textAlign(CENTER);
+    
     text("Maze Shadow", innerWidth/2, 300);
     text("Legends", innerWidth/2, 400);
 }
@@ -73,7 +78,6 @@ function startScreen() {
     fill(11, 218, 81); 
     title();
     myButton.draw();
-
     pop();
 }
 
@@ -82,7 +86,10 @@ function draw (){
     if (gameIsRunning === true) {
         showGame();
     } else if (gameIsRunning === false) {
-        startScreen();
+        if (customFont) {
+            startScreen();
+        }
+        
     }
 
 }
