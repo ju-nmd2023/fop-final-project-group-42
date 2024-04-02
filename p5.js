@@ -71,34 +71,52 @@ function mousePressed(){
     }
 }
 
-function maze(){
+function mazeOutline(){
     push();
     fill(0);
     strokeWeight(10);
-    //Maze Outline
-    line(300, 150, 1600, 150); //north
-    line(300, 150, 300, 1050); // west
-    line(1600, 1050, 1600, 150); //east
-    line(300, 1050, 1600, 1050); //south
 
-    //Maze Center Outline
-    line(875, 675, 925, 675); // south right
-    line(975, 675, 1025, 675); // south left
 
-    line(875, 675, 875, 625); //west south
-    line(875, 525, 875, 575); //west north
+    let leftMargin = innerWidth * 0.1;
+    let rightMargin = innerWidth * 0.9;
+    let topMargin = innerHeight * 0.12;
+    let bottomMargin = innerHeight * 0.98;
+    let centerHorizontal = (rightMargin + leftMargin) / 2;
+    let centerVertical = (bottomMargin + topMargin) / 2;
+    
+    // Maze Outline
+    line(leftMargin, topMargin, rightMargin, topMargin); //north
+    line(leftMargin, topMargin, leftMargin, bottomMargin); // west
+    line(rightMargin, bottomMargin, rightMargin, topMargin); //east
+    line(leftMargin, bottomMargin, rightMargin, bottomMargin); //south
 
-    line(875, 525, 925, 525); //north left
-    line(1025, 525, 975, 525); //north right
+    // Maze Center Outline
 
-    line(1025, 675, 1025, 625); // east south
-    line(1025, 525, 1025, 575); // east north
+    line(centerHorizontal + 50, centerVertical + 50, centerHorizontal + 100, centerVertical + 50); // south right
+    line(centerHorizontal - 100, centerVertical + 50, centerHorizontal - 50, centerVertical + 50); // south left
+
+    line(centerHorizontal - 100, centerVertical + 50, centerHorizontal - 100, centerVertical ); //west south
+    line(centerHorizontal - 100, centerVertical - 50, centerHorizontal - 100, centerVertical -100); //west north
+
+
+
+    line(centerHorizontal - 100, centerVertical - 100, centerHorizontal - 50, centerVertical - 100); //north left
+    line(centerHorizontal + 100, centerVertical - 100, centerHorizontal + 50, centerVertical - 100); //north right
+
+    line(centerHorizontal + 100, centerVertical + 50, centerHorizontal + 100, centerVertical); // east south
+    line(centerHorizontal + 100, centerVertical - 50, centerHorizontal + 100, centerVertical -100); // east north
+
+    //Maze Right
+
+    line()
+
     pop();
 }
 
+
 function showGame() {
     background(255);
-    maze();
+    mazeOutline();
 }
 
 function title() {
