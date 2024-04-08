@@ -10,7 +10,7 @@
 
 #healthPlayerOne {
     grid-column: 1;
-    background-color: lightblue;
+    background-color: lightcoral;
 }
 
 #healthPlayerTwo {
@@ -18,6 +18,6 @@
     background-color: lightgreen;
 }
 
-.canvas-container {
-    grid-column: 2 / span 3; /* This spans from the 2nd to the 4th grid column */
+#canvasContainer {
+    grid-column: 2 / span 3;
 }

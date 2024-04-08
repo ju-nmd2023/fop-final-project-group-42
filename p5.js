@@ -2,11 +2,9 @@ let gameIsRunning = true;
 let customFont;
 let startButton;
 
-
-
-function setup(){
+function setup() {
     let canvas = createCanvas(innerWidth, innerHeight);
-    canvas.style('cursor', 'auto');
+    canvas.parent('canvasContainer');
     customFont = loadFont('dragonHunter.otf');
 }
 
@@ -77,8 +75,8 @@ function mazeOutline(){
     strokeWeight(10);
 
 
-    let leftMargin = innerWidth * 0.1;
-    let rightMargin = innerWidth * 0.9;
+    let leftMargin = innerWidth * 0.2;
+    let rightMargin = innerWidth * 0.8;
     let topMargin = innerHeight * 0.12;
     let bottomMargin = innerHeight * 0.98;
     let centerHorizontal = (rightMargin + leftMargin) / 2;
@@ -135,6 +133,8 @@ function startScreen() {
     myButton.draw();
     pop();
 }
+
+
 
 function draw (){
     if (gameIsRunning === true) {
