@@ -3,7 +3,7 @@ let customFont;
 let startButton;
 
 function setup() {
-    let canvas = createCanvas(innerWidth, innerHeight);
+    let canvas = createCanvas(1200, 1200);
     canvas.parent('canvasContainer');
     customFont = loadFont('dragonHunter.otf');
 }
@@ -75,10 +75,10 @@ function mazeOutline(){
     strokeWeight(10);
 
 
-    let leftMargin = innerWidth * 0.2;
-    let rightMargin = innerWidth * 0.8;
-    let topMargin = innerHeight * 0.12;
-    let bottomMargin = innerHeight * 0.98;
+    let leftMargin = 800;
+    let rightMargin = 800;
+    let topMargin = 800;
+    let bottomMargin = 800;
     let centerHorizontal = (rightMargin + leftMargin) / 2;
     let centerVertical = (bottomMargin + topMargin) / 2;
     
