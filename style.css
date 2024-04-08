@@ -2,3 +2,22 @@
     margin: 0;
     padding: 0;
 }
+
+#gridContainer {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+#healthPlayerOne {
+    grid-column: 1;
+    background-color: lightblue;
+}
+
+#healthPlayerTwo {
+    grid-column: 5;
+    background-color: lightgreen;
+}
+
+.canvas-container {
+    grid-column: 2 / span 3; /* This spans from the 2nd to the 4th grid column */
+}
