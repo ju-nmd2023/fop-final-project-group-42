@@ -9,19 +9,14 @@
     height: 100vh;
 }
 
+#canvasContainer {
+    grid-column: 2 / span 3;
+}
+
 #playerOne {
     grid-column: 1;
     background-color: white;
     margin: 1rem;
-}
-
-#playerTwo {
-    grid-column: 5;
-    background-color: lightgreen;
-}
-
-#canvasContainer {
-    grid-column: 2 / span 3;
 }
 
 #playerOneContainer {
@@ -56,7 +51,8 @@
 #healthBarOne {
     width: 20rem;
     height: 2.5rem;
-    background-color: black;
+    background-color: red;
+    border: 1px solid;
     grid-row: 2;
     grid-column: 1 / span 3;
     margin-left: auto;
@@ -90,4 +86,95 @@
     background-color: lightblue;
     border: 1px solid;
     margin-top: 1rem;
+}
+
+#playerTwo {
+    grid-column: 5;
+    background-color: white;
+    margin: 1rem;
+}
+
+#playerTwoContainer {
+    width: 100%;
+    height: 12.5rem;
+    background-color: lightblue;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    justify-content: center;
+    align-items: center; 
+}
+
+#namePlayerTwo {
+    grid-row: 1;
+    grid-column: 1 / span 2;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+#pictureTwo {
+    grid-row: 1;
+    grid-column: 3;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    background-color: black;
+    margin-top: 1rem;
+}
+
+#healthBarTwo {
+    width: 20rem;
+    height: 2.5rem;
+    background-color: red;
+    border: 1px solid;
+    grid-row: 2;
+    grid-column: 1 / span 3;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#playerTwoPromptBox {
+    width: 100%;
+    height: 40rem;
+    display: grid;
+    background-color: lightblue;
+    margin-top: 2rem;
+    grid-template-rows: repeat(9, 1fr);
+    border: 1px solid;
+}
+
+#promptTwo {
+    grid-row: 1 / span 6;
+    text-indent: 5px;
+    border-bottom: 1px solid;
+}
+
+#answerTwo {
+    grid-row: 7 / span 9;
+    text-indent: 5px;
+}
+
+#playerTwoAnswerBox {
+    width: 100%;
+    height: 10rem;
+    background-color: lightblue;
+    border: 1px solid;
+    margin-top: 1rem;
+}
+
+#buttonContainer {
+    display: flex;
+    gap: 1rem;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100%;
+}
+
+.answerButton {
+    height: 4rem;
+    width: 5rem;
+    border: none;
+    border-radius: 25%;
+    font-size: 1.5rem;
 }

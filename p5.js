@@ -143,3 +143,27 @@ function draw (){
             startScreen();
     }
 }
+
+
+//Testing buttons, will remove later
+
+document.addEventListener("DOMContentLoaded", function() {
+document.getElementById("button4").addEventListener("click", function() {
+    console.log("4");
+});
+document.getElementById("button5").addEventListener("click", function() {
+    console.log("5");
+});
+document.getElementById("button6").addEventListener("click", function() {
+    console.log("6");
+});
+document.getElementById("button1").addEventListener("click", function() {
+    console.log("1");
+});
+document.getElementById("button2").addEventListener("click", function() {
+    console.log("2");
+});
+document.getElementById("button3").addEventListener("click", function() {
+    console.log("3");
+});
+});
