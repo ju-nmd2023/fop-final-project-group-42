@@ -3,7 +3,7 @@ let customFont;
 let startButton;
 
 function setup() {
-    let canvas = createCanvas(1200, 1200);
+    let canvas = createCanvas(900, 900);
     canvas.parent('canvasContainer');
     customFont = loadFont('dragonHunter.otf');
 }
@@ -72,15 +72,16 @@ function mousePressed(){
 function mazeOutline(){
     push();
     fill(0);
-    strokeWeight(10);
+    strokeWeight(8);
 
+    let gridSize = 700; // Adjust this value to change the size of the grid
+    let gridCenterX = (width / 2) + 50;
+    let gridCenterY = 540;
 
-    let leftMargin = 800;
-    let rightMargin = 800;
-    let topMargin = 800;
-    let bottomMargin = 800;
-    let centerHorizontal = (rightMargin + leftMargin) / 2;
-    let centerVertical = (bottomMargin + topMargin) / 2;
+    let leftMargin = gridCenterX - gridSize / 2;
+    let rightMargin = gridCenterX + gridSize / 2;
+    let topMargin = gridCenterY - gridSize / 2;
+    let bottomMargin = gridCenterY + gridSize / 2;
     
     // Maze Outline
     line(leftMargin, topMargin, rightMargin, topMargin); //north
@@ -89,27 +90,84 @@ function mazeOutline(){
     line(leftMargin, bottomMargin, rightMargin, bottomMargin); //south
 
     // Maze Center Outline
+    let centerHorizontal = gridCenterX;
+    let centerVertical = gridCenterY;
 
-    line(centerHorizontal + 50, centerVertical + 50, centerHorizontal + 100, centerVertical + 50); // south right
-    line(centerHorizontal - 100, centerVertical + 50, centerHorizontal - 50, centerVertical + 50); // south left
+    line(centerHorizontal + 25, centerVertical + 25, centerHorizontal + 50, centerVertical + 25); // south right
+    line(centerHorizontal - 50, centerVertical + 25, centerHorizontal - 25, centerVertical + 25); // south left
 
-    line(centerHorizontal - 100, centerVertical + 50, centerHorizontal - 100, centerVertical ); //west south
-    line(centerHorizontal - 100, centerVertical - 50, centerHorizontal - 100, centerVertical -100); //west north
+    line(centerHorizontal - 50, centerVertical + 25, centerHorizontal - 50, centerVertical ); //west south
+    line(centerHorizontal - 50, centerVertical - 30, centerHorizontal - 50, centerVertical - 50); //west north
 
+    line(centerHorizontal - 50, centerVertical - 50, centerHorizontal - 25, centerVertical - 50); //north left
+    line(centerHorizontal + 50, centerVertical - 50, centerHorizontal + 25, centerVertical - 50); //north right
 
+    line(centerHorizontal + 50, centerVertical + 25, centerHorizontal + 50, centerVertical); // east south
+    line(centerHorizontal + 50, centerVertical - 25, centerHorizontal + 50, centerVertical - 50); // east north
 
-    line(centerHorizontal - 100, centerVertical - 100, centerHorizontal - 50, centerVertical - 100); //north left
-    line(centerHorizontal + 100, centerVertical - 100, centerHorizontal + 50, centerVertical - 100); //north right
-
-    line(centerHorizontal + 100, centerVertical + 50, centerHorizontal + 100, centerVertical); // east south
-    line(centerHorizontal + 100, centerVertical - 50, centerHorizontal + 100, centerVertical -100); // east north
-
-    //Maze Right
-
-    line()
+    //Maze
+    line(centerHorizontal -25, centerVertical + 25, centerHorizontal -25, 700);
+    line(centerHorizontal + 25, centerVertical + 25, centerHorizontal + 25, 650);
+    line(centerHorizontal -25, 700, centerHorizontal + 100, 700);
+    line(centerHorizontal +25, 650, centerHorizontal + 150, 650);
+    line(centerHorizontal + 100, 700, centerHorizontal + 100, 800);
+    line(centerHorizontal + 100, 800, centerHorizontal - 100, 800);
+    line(centerHorizontal + 150, 650, centerHorizontal + 150, 800);
+    line(centerHorizontal + 150, 800, centerHorizontal + 300, 800);
+    line(centerHorizontal + 350, 850, centerHorizontal - 150, 850);
+    line(centerHorizontal - 100, 800, centerHorizontal -100, centerVertical);
+    line(centerHorizontal - 150, 850, centerHorizontal -150, 700);
+    line(centerHorizontal -150, 700, centerHorizontal -200, 700);
+    line(centerHorizontal -200, 700, centerHorizontal-200, 850);
+    line(centerHorizontal -200, 850, centerHorizontal - 350, 850);
+    line(centerHorizontal -50, centerVertical, centerHorizontal -100, centerVertical);
+    line(centerHorizontal -50, centerVertical -25 ,centerHorizontal -100, centerVertical - 25);
+    line(centerHorizontal -100, centerVertical -25, centerHorizontal -100, 400);
+    line(centerHorizontal -350, 800, centerHorizontal -250, 800);
+    line(centerHorizontal -250, 800, centerHorizontal -250, 600);
+    line(centerHorizontal- 250, 600, centerHorizontal -350, 600);
+    line(centerHorizontal - 200, 650, centerHorizontal -150, 650);
+    line(centerHorizontal - 150, 650, centerHorizontal-150, centerVertical - 100);
+    line(centerHorizontal -200, 650, centerHorizontal-200, centerVertical -100);
+    line(centerHorizontal -350, centerVertical, centerHorizontal-250, centerVertical);
+    line(centerHorizontal-250, centerVertical, centerHorizontal -250, 400);
+    line(centerHorizontal -150, centerVertical -100, centerHorizontal -200, centerVertical -100);
+    line(centerHorizontal -250, 400, centerHorizontal - 150, 400);
+    line(centerHorizontal - 150, 400, centerHorizontal- 150, 300);
+    line(centerHorizontal -100, 400, centerHorizontal - 25, 400);
+    line(centerHorizontal -25, 400, centerHorizontal -25, centerVertical -50);
+    line(centerHorizontal +25, 400, centerHorizontal +25, centerVertical -50);
+    line(centerHorizontal +25, 400, centerHorizontal + 100, 400);
+    line(centerHorizontal + 100, 400, centerHorizontal +100, 350);
+    line(centerHorizontal + 100, 350, centerHorizontal - 100, 350);
+    line(centerHorizontal -150, 300, centerHorizontal -350, 300);
+    line(centerHorizontal -100, 300, centerHorizontal +150, 300);
+    line(centerHorizontal +150, 300, centerHorizontal +150, 400);
+    line(centerHorizontal +100, 450, centerHorizontal +300, 450);
+    line(centerHorizontal +350, 250, centerHorizontal -100, 250);
+    line(centerHorizontal -100, 250, centerHorizontal -100, 300);
+    line(centerHorizontal + 200, 300, centerHorizontal + 350, 300);
+    line(centerHorizontal +200, 300, centerHorizontal +200, 400);
+    line(centerHorizontal +200, 400, centerHorizontal +350, 400);
+    line(centerHorizontal +300, 450, centerHorizontal +300, 700);
+    line(centerHorizontal +300, 700, centerHorizontal +200, 700);
+    line(centerHorizontal +300, 800, centerHorizontal +300, 750);
+    line(centerHorizontal +300, 750, centerHorizontal +150, 750);
+    line(centerHorizontal+ 200, 700, centerHorizontal +200, centerVertical -25);
+    line(centerHorizontal +150, centerVertical, centerHorizontal +150, 650);
+    line(centerHorizontal +150, centerVertical, centerHorizontal +50, centerVertical);
+    line(centerHorizontal +50, centerVertical -25, centerHorizontal +200, centerVertical -25 );
+ 
+    //riddle lines
+    line(centerHorizontal -25, 400, centerHorizontal +50, 400);     //north
+    line(centerHorizontal +25, 600, centerHorizontal -25, 600);     //south
+    line(centerHorizontal + 150, centerVertical +50, centerHorizontal + 200, centerVertical +50);    // west
+    line(centerHorizontal -100, centerVertical -50, centerHorizontal -150, centerVertical -50);     //east 1
+    line(centerHorizontal -100 , 570, centerHorizontal -150, 570); //east 2
 
     pop();
 }
+
 
 
 function showGame() {
