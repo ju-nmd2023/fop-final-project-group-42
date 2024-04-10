@@ -72,7 +72,7 @@ function mousePressed(){
 function mazeOutline(){
     push();
     fill(0);
-    strokeWeight(8);
+    strokeWeight(10);
 
     let gridSize = 700; // Adjust this value to change the size of the grid
     let gridCenterX = (width / 2) + 50;
