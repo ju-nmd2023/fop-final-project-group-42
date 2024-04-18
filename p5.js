@@ -75,7 +75,7 @@ function mazeOutline(){
     strokeWeight(10);
 
     let gridSize = 700; // Adjust this value to change the size of the grid
-    let gridCenterX = (width / 2) + 50;
+    let gridCenterX = (width / 2);
     let gridCenterY = 540;
 
     let leftMargin = gridCenterX - gridSize / 2;

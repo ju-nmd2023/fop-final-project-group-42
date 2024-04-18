@@ -11,6 +11,8 @@
 
 #canvasContainer {
     grid-column: 2 / span 3;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #playerOne {
