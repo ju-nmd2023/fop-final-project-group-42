@@ -166,6 +166,25 @@ function mazeOutline(){
     line(centerHorizontal -100 , 570, centerHorizontal -150, 570); //east 2
 
     pop();
+    //traps (dmg 15)
+    fill(255, 0,0);
+    ellipse(centerHorizontal -225, 600, 15,15);
+    ellipse(centerHorizontal, 825, 15,15)
+    ellipse(centerHorizontal -50, 325, 15,15)
+    ellipse(centerHorizontal + 325, 600, 15, 15)
+    ellipse(centerHorizontal, 650, 15, 15)
+    ellipse(centerHorizontal +70, 450, 15,15)
+    ellipse(centerHorizontal -175, 420, 15,15)
+
+
+    //easy riddles location (dmg 10)
+    fill(0, 255, 0);
+    ellipse(centerHorizontal -175, 675, 15,15);
+    ellipse(centerHorizontal +125, 375, 15,15);
+    ellipse(centerHorizontal + 175, 650, 15,15);
+    ellipse(centerHorizontal +200, 825, 15,15);
+    ellipse(centerHorizontal- 200, 250, 15,15);
+
 }
 
 
