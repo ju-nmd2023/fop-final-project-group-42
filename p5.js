@@ -224,29 +224,46 @@ document.getElementById("button2").addEventListener("click", function() {
 document.getElementById("button3").addEventListener("click", function() {
     const randomCreature = getRandomCreature();
     console.log(randomCreature.mobName());
+    console.log(randomCreature.mobPrompt());
+    console.log(randomCreature.mobAnswer());
 });
 });
 
 // Constructors
 class Creature {
-constructor(firstName, lastName) {
-    this.firstName = firstName;
-    this.lastName = lastName;
+    constructor(firstName, lastName, prompt, answers) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.prompt = prompt;
+        this.answers = answers;
+    }
+
+    mobName() {
+        return this.firstName + " " + this.lastName;
+    }
+
+    mobPrompt() {
+        return this.prompt;
+    }
+
+    mobAnswer() {
+        return this.answers;
+    }
 }
 
-mobName() {
-    return this.firstName + " " + this.lastName;
-}
-}
+const magicianArray = ["Fireball", "Teleport", "Invisibility"];
+const goblinArray = ["Gold", "Food", "Weapons"];
+const hobbitArray = ["Second breakfast", "Elevenses", "Afternoon tea"];
+const animalArray = ["Fetch", "Roll over", "Play dead"];
 
-let magician = new Creature("Magic", "Mike");
-let goblin = new Creature("Glizzy", "Gobbler");
-let hobbit = new Creature("Bimbo", "Baggins");
-let animal = new Creature("Black", "Dog");
+let magician = new Creature("Magic", "Mike", "What spell do you cast?", magicianArray);
+let goblin = new Creature("Glizzy", "Gobbler", "What do you want to steal?", goblinArray);
+let hobbit = new Creature("Bimbo", "Baggins", "What's your favorite meal?", hobbitArray);
+let animal = new Creature("Black", "Dog", "What's your favorite trick?", animalArray);
 
-const mobsArray = [magician, goblin, hobbit, animal];
+const mobName = [magician, goblin, hobbit, animal];
 
 const getRandomCreature = () => {
-const randomCreature = Math.floor(Math.random() * mobsArray.length);
-return mobsArray[randomCreature];
+    const randomCreature = Math.floor(Math.random() * mobName.length);
+    return mobName[randomCreature];
 };
