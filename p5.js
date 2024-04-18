@@ -222,6 +222,31 @@ document.getElementById("button2").addEventListener("click", function() {
     console.log("2");
 });
 document.getElementById("button3").addEventListener("click", function() {
-    console.log("3");
+    const randomCreature = getRandomCreature();
+    console.log(randomCreature.mobName());
 });
 });
+
+// Constructors
+class Creature {
+constructor(firstName, lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+}
+
+mobName() {
+    return this.firstName + " " + this.lastName;
+}
+}
+
+let magician = new Creature("Magic", "Mike");
+let goblin = new Creature("Glizzy", "Gobbler");
+let hobbit = new Creature("Bimbo", "Baggins");
+let animal = new Creature("Black", "Dog");
+
+const mobsArray = [magician, goblin, hobbit, animal];
+
+const getRandomCreature = () => {
+const randomCreature = Math.floor(Math.random() * mobsArray.length);
+return mobsArray[randomCreature];
+};
