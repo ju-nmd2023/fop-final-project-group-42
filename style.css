@@ -28,8 +28,8 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
+    justify-content: center;
+    align-items: center;
 }
 
 #namePlayerOne {
@@ -73,15 +73,24 @@
     border: 1px solid;
 }
 
-#promptOne {
-    grid-row: 1 / span 6;
+#nameOne {
+    grid-row: 1 ;
     text-indent: 5px;
     border-bottom: 1px solid;
+    margin-top: 10px;
+}
+
+#promptOne {
+    grid-row: 2 / span 5;
+    text-indent: 5px;
+    border-bottom: 1px solid;
+    margin-top: 10px;
 }
 
 #answerOne {
     grid-row: 7 / span 9;
     text-indent: 5px;
+    margin-top: 10px;
 }
 
 #playerOneAnswerBox {
@@ -172,8 +181,8 @@
 #buttonContainer {
     display: flex;
     gap: 1rem;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
+    justify-content: center;
+    align-items: center; 
     height: 100%;
 }
 

@@ -202,33 +202,6 @@ function draw (){
     }
 }
 
-
-//Testing buttons, will remove later
-
-document.addEventListener("DOMContentLoaded", function() {
-document.getElementById("button4").addEventListener("click", function() {
-    console.log("4");
-});
-document.getElementById("button5").addEventListener("click", function() {
-    console.log("5");
-});
-document.getElementById("button6").addEventListener("click", function() {
-    console.log("6");
-});
-document.getElementById("button1").addEventListener("click", function() {
-    console.log("1");
-});
-document.getElementById("button2").addEventListener("click", function() {
-    console.log("2");
-});
-document.getElementById("button3").addEventListener("click", function() {
-    const randomCreature = getRandomCreature();
-    console.log(randomCreature.mobName());
-    console.log(randomCreature.mobPrompt());
-    console.log(randomCreature.mobAnswer());
-});
-});
-
 // Constructors
 class Creature {
     constructor(firstName, lastName, prompt, answers) {
@@ -267,3 +240,35 @@ const getRandomCreature = () => {
     const randomCreature = Math.floor(Math.random() * mobName.length);
     return mobName[randomCreature];
 };
+
+function promptBox(randomCreature) {
+    document.getElementById("nameOne").innerHTML = randomCreature.mobName();
+    document.getElementById("promptOne").innerHTML = randomCreature.mobPrompt();
+    document.getElementById("answerOne").innerHTML = randomCreature.mobAnswer();
+
+}
+//Testing buttons, will remove later
+
+function buttons() {
+document.getElementById("button4").addEventListener("click", function() {
+    console.log("4");
+});
+document.getElementById("button5").addEventListener("click", function() {
+    console.log("5");
+});
+document.getElementById("button6").addEventListener("click", function() {
+    console.log("6");
+});
+document.getElementById("button1").addEventListener("click", function() {
+    console.log("1");
+});
+document.getElementById("button2").addEventListener("click", function() {
+    console.log("2");
+});
+document.getElementById("button3").addEventListener("click", function() {
+    const randomCreature = getRandomCreature();
+    promptBox(randomCreature);
+});
+};
+
+window.onload = buttons;
