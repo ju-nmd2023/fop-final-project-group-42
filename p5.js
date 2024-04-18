@@ -224,10 +224,10 @@ class Creature {
     }
 }
 
-const magicianArray = ["Fireball", "Teleport", "Invisibility"];
-const goblinArray = ["Gold", "Food", "Weapons"];
-const hobbitArray = ["Second breakfast", "Elevenses", "Afternoon tea"];
-const animalArray = ["Fetch", "Roll over", "Play dead"];
+const magicianArray = ["1. Fireball", " 2. Teleport", " 3. Invisibility"];
+const goblinArray = ["Gold", " Food", " Weapons"];
+const hobbitArray = ["Second breakfast", " Elevenses", " Afternoon tea"];
+const animalArray = ["Fetch", " Roll over", " Play dead"];
 
 let magician = new Creature("Magic", "Mike", "What spell do you cast?", magicianArray);
 let goblin = new Creature("Glizzy", "Gobbler", "What do you want to steal?", goblinArray);
@@ -244,9 +244,18 @@ const getRandomCreature = () => {
 function promptBox(randomCreature) {
     document.getElementById("nameOne").innerHTML = randomCreature.mobName();
     document.getElementById("promptOne").innerHTML = randomCreature.mobPrompt();
-    document.getElementById("answerOne").innerHTML = randomCreature.mobAnswer();
+    document.getElementById("answerListOne").innerHTML = randomCreature.mobAnswer();
 
+    let answerList = document.getElementById("answerListOne");
+    answerList.innerHTML = "";
+    
+    randomCreature.mobAnswer().forEach(function(answer) {
+        let li = document.createElement("li");
+        li.textContent = answer;
+        answerList.appendChild(li);
+    });
 }
+
 //Testing buttons, will remove later
 
 function buttons() {

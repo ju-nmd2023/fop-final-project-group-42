@@ -75,22 +75,28 @@
 
 #nameOne {
     grid-row: 1 ;
-    text-indent: 5px;
+    text-indent: 1rem;
     border-bottom: 1px solid;
     margin-top: 10px;
+    font-size: 2rem;
 }
 
 #promptOne {
     grid-row: 2 / span 5;
-    text-indent: 5px;
+    text-indent: 1rem;
     border-bottom: 1px solid;
     margin-top: 10px;
+    font-size: 1.2rem;
 }
 
 #answerOne {
     grid-row: 7 / span 9;
-    text-indent: 5px;
+    text-indent: 1rem;
     margin-top: 10px;
+    font-size: 1.2rem;
+}
+
+#answerListOne {
 }
 
 #playerOneAnswerBox {
@@ -192,4 +198,10 @@
     border: none;
     border-radius: 25%;
     font-size: 1.5rem;
+}
+
+ul li {
+    list-style-type: none;
+    display: block;
+    margin: 20px;
 }
