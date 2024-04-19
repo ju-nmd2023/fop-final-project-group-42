@@ -223,19 +223,19 @@ function draw (){
 
 // Constructors
 class Creature {
-    constructor(firstName, lastName, prompt, answers) {
+    constructor(firstName, lastName, riddle, answers) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.prompt = prompt;
+        this.riddle = riddle;
         this.answers = answers;
     }
 
     mobName() {
-        return this.firstName + " " + this.lastName;
+        return this.firstName + " " + "the" + " " + this.lastName;
     }
 
-    mobPrompt() {
-        return this.prompt;
+    mobRiddle() {
+        return this.riddle;
     }
 
     mobAnswer() {
@@ -243,35 +243,66 @@ class Creature {
     }
 }
 
-const magicianArray = ["1. Fireball", " 2. Teleport", " 3. Invisibility"];
-const goblinArray = ["Gold", " Food", " Weapons"];
-const hobbitArray = ["Second breakfast", " Elevenses", " Afternoon tea"];
-const animalArray = ["Fetch", " Roll over", " Play dead"];
+//Riddles
 
-let magician = new Creature("Magic", "Mike", "What spell do you cast?", magicianArray);
-let goblin = new Creature("Glizzy", "Gobbler", "What do you want to steal?", goblinArray);
-let hobbit = new Creature("Bimbo", "Baggins", "What's your favorite meal?", hobbitArray);
-let animal = new Creature("Black", "Dog", "What's your favorite trick?", animalArray);
+const malvarTheMalevolentRiddle = "I suck the joy and hope from your soul, leaving only despair in my wake. What am I?";
+const vorinTheVileRiddle = "I weave a web of deceit and death, lurking in the shadows of the forest. What am I?";
+const mordredTheMaleficentRiddle = "I am a puppet of darkness, animated by the darkest magic. What am I?";
+const sylviaTheSinisterRiddle = "I slither through the depths, my gaze bringing death to those who meet it. What am I?";
+const xantharTheExileRiddle = "I am the embodiment of suppressed magic, unleashed in a torrent of destruction. What am I?";
 
-const mobName = [magician, goblin, hobbit, animal];
+//Answers
+
+const malvarTheMalevolentArray = ["Dementor", "Boggart", "Lethifold"]; // Dementor
+const vorinTheVileArray = ["Banshee", "Lycanthrope", "Acromantula"]; // Acromatula
+const mordredTheMaleficentArray = ["Obscurial", "Inferius", "Poltergeist"]; // Inferius
+const sylviaTheSinisterArray = ["Basilisk", "Mermish", "Kelpie"]; // Basilisk
+const xantharTheExileArray = ["Horcrux", "Obscurus", "Dementor"]; // Obscurus
+
+
+//Wizards
+
+let malvarTheMalevolent = new Creature("Malvar", "Malevolent", malvarTheMalevolentRiddle, malvarTheMalevolentArray);
+let vorinTheVile = new Creature("Vorin", "Vile", vorinTheVileRiddle, vorinTheVileArray);
+let mordredTheMaleficent = new Creature("Mordred", "Maleficent", mordredTheMaleficentRiddle, mordredTheMaleficentArray);
+let sylviaTheSinister = new Creature("Sylvia", "Sinister", sylviaTheSinisterRiddle, sylviaTheSinisterArray);
+let xantharTheExile = new Creature("Xanthar", "Exile", xantharTheExileRiddle, xantharTheExileArray);
+
+
+const mobName = [malvarTheMalevolent, vorinTheVile, mordredTheMaleficent, sylviaTheSinister, xantharTheExile];
 
 const getRandomCreature = () => {
     const randomCreature = Math.floor(Math.random() * mobName.length);
     return mobName[randomCreature];
 };
 
-function promptBox(randomCreature) {
+function promptBoxOne(randomCreature) {
     document.getElementById("nameOne").innerHTML = randomCreature.mobName();
-    document.getElementById("promptOne").innerHTML = randomCreature.mobPrompt();
+    document.getElementById("promptOne").innerHTML = randomCreature.mobRiddle();
     document.getElementById("answerListOne").innerHTML = randomCreature.mobAnswer();
 
-    let answerList = document.getElementById("answerListOne");
-    answerList.innerHTML = "";
+    let answerListOne = document.getElementById("answerListOne");
+    answerListOne.innerHTML = "";
     
     randomCreature.mobAnswer().forEach(function(answer) {
         let li = document.createElement("li");
         li.textContent = answer;
-        answerList.appendChild(li);
+        answerListOne.appendChild(li);
+    });
+}
+
+function promptBoxTwo(randomCreature) {
+    document.getElementById("nameTwo").innerHTML = randomCreature.mobName();
+    document.getElementById("promptTwo").innerHTML = randomCreature.mobRiddle();
+    document.getElementById("answerListTwo").innerHTML = randomCreature.mobAnswer();
+
+    let answerListTwo = document.getElementById("answerListTwo");
+    answerListTwo.innerHTML = "";
+    
+    randomCreature.mobAnswer().forEach(function(answer) {
+        let li = document.createElement("li");
+        li.textContent = answer;
+        answerListTwo.appendChild(li);
     });
 }
 
@@ -285,7 +316,8 @@ document.getElementById("button5").addEventListener("click", function() {
     console.log("5");
 });
 document.getElementById("button6").addEventListener("click", function() {
-    console.log("6");
+    const randomCreature = getRandomCreature();
+    promptBoxTwo(randomCreature);
 });
 document.getElementById("button1").addEventListener("click", function() {
     console.log("1");
@@ -295,7 +327,7 @@ document.getElementById("button2").addEventListener("click", function() {
 });
 document.getElementById("button3").addEventListener("click", function() {
     const randomCreature = getRandomCreature();
-    promptBox(randomCreature);
+    promptBoxOne(randomCreature);
 });
 };
 
