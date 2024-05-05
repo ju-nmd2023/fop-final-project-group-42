@@ -72,119 +72,78 @@ function mousePressed(){
 function mazeOutline(){
     push();
     fill(0);
-    strokeWeight(10);
+    strokeWeight(4);
 
-    let gridSize = 700; // Adjust this value to change the size of the grid
-    let gridCenterX = (width / 2);
-    let gridCenterY = 540;
-
-    let leftMargin = gridCenterX - gridSize / 2;
-    let rightMargin = gridCenterX + gridSize / 2;
-    let topMargin = gridCenterY - gridSize / 2;
-    let bottomMargin = gridCenterY + gridSize / 2;
+    let gridSize =500;
+    let gridCenterX = width/2;
+    let gridCenterY = 500;
     
-    // Maze Outline
-    line(leftMargin, topMargin, rightMargin, topMargin); //north
-    line(leftMargin, topMargin, leftMargin, bottomMargin); // west
-    line(rightMargin, bottomMargin, rightMargin, topMargin); //east
-    line(leftMargin, bottomMargin, rightMargin, bottomMargin); //south
-
-    // Maze Center Outline
-    let centerHorizontal = gridCenterX;
-    let centerVertical = gridCenterY;
-
-    line(centerHorizontal + 25, centerVertical + 25, centerHorizontal + 50, centerVertical + 25); // south right
-    line(centerHorizontal - 50, centerVertical + 25, centerHorizontal - 25, centerVertical + 25); // south left
-
-    line(centerHorizontal - 50, centerVertical + 25, centerHorizontal - 50, centerVertical ); //west south
-    line(centerHorizontal - 50, centerVertical - 30, centerHorizontal - 50, centerVertical - 50); //west north
-
-    line(centerHorizontal - 50, centerVertical - 50, centerHorizontal - 25, centerVertical - 50); //north left
-    line(centerHorizontal + 50, centerVertical - 50, centerHorizontal + 25, centerVertical - 50); //north right
-
-    line(centerHorizontal + 50, centerVertical + 25, centerHorizontal + 50, centerVertical); // east south
-    line(centerHorizontal + 50, centerVertical - 25, centerHorizontal + 50, centerVertical - 50); // east north
-
-    //Maze
-    line(centerHorizontal -25, centerVertical + 25, centerHorizontal -25, 700);
-    line(centerHorizontal + 25, centerVertical + 25, centerHorizontal + 25, 650);
-    line(centerHorizontal -25, 700, centerHorizontal + 100, 700);
-    line(centerHorizontal +25, 650, centerHorizontal + 150, 650);
-    line(centerHorizontal + 100, 700, centerHorizontal + 100, 800);
-    line(centerHorizontal + 100, 800, centerHorizontal - 100, 800);
-    line(centerHorizontal + 150, 650, centerHorizontal + 150, 800);
-    line(centerHorizontal + 150, 800, centerHorizontal + 300, 800);
-    line(centerHorizontal + 350, 850, centerHorizontal - 150, 850);
-    line(centerHorizontal - 100, 800, centerHorizontal -100, centerVertical);
-    line(centerHorizontal - 150, 850, centerHorizontal -150, 700);
-    line(centerHorizontal -150, 700, centerHorizontal -200, 700);
-    line(centerHorizontal -200, 700, centerHorizontal-200, 850);
-    line(centerHorizontal -200, 850, centerHorizontal - 350, 850);
-    line(centerHorizontal -50, centerVertical, centerHorizontal -100, centerVertical);
-    line(centerHorizontal -50, centerVertical -25 ,centerHorizontal -100, centerVertical - 25);
-    line(centerHorizontal -100, centerVertical -25, centerHorizontal -100, 400);
-    line(centerHorizontal -350, 800, centerHorizontal -250, 800);
-    line(centerHorizontal -250, 800, centerHorizontal -250, 600);
-    line(centerHorizontal- 250, 600, centerHorizontal -350, 600);
-    line(centerHorizontal - 200, 650, centerHorizontal -150, 650);
-    line(centerHorizontal - 150, 650, centerHorizontal-150, centerVertical - 100);
-    line(centerHorizontal -200, 650, centerHorizontal-200, centerVertical -100);
-    line(centerHorizontal -350, centerVertical, centerHorizontal-250, centerVertical);
-    line(centerHorizontal-250, centerVertical, centerHorizontal -250, 400);
-    line(centerHorizontal -150, centerVertical -100, centerHorizontal -200, centerVertical -100);
-    line(centerHorizontal -250, 400, centerHorizontal - 150, 400);
-    line(centerHorizontal - 150, 400, centerHorizontal- 150, 300);
-    line(centerHorizontal -100, 400, centerHorizontal - 25, 400);
-    line(centerHorizontal -25, 400, centerHorizontal -25, centerVertical -50);
-    line(centerHorizontal +25, 400, centerHorizontal +25, centerVertical -50);
-    line(centerHorizontal +25, 400, centerHorizontal + 100, 400);
-    line(centerHorizontal + 100, 400, centerHorizontal +100, 350);
-    line(centerHorizontal + 100, 350, centerHorizontal - 100, 350);
-    line(centerHorizontal -150, 300, centerHorizontal -350, 300);
-    line(centerHorizontal -100, 300, centerHorizontal +150, 300);
-    line(centerHorizontal +150, 300, centerHorizontal +150, 400);
-    line(centerHorizontal +100, 450, centerHorizontal +300, 450);
-    line(centerHorizontal +350, 250, centerHorizontal -100, 250);
-    line(centerHorizontal -100, 250, centerHorizontal -100, 300);
-    line(centerHorizontal + 200, 300, centerHorizontal + 350, 300);
-    line(centerHorizontal +200, 300, centerHorizontal +200, 400);
-    line(centerHorizontal +200, 400, centerHorizontal +350, 400);
-    line(centerHorizontal +300, 450, centerHorizontal +300, 700);
-    line(centerHorizontal +300, 700, centerHorizontal +200, 700);
-    line(centerHorizontal +300, 800, centerHorizontal +300, 750);
-    line(centerHorizontal +300, 750, centerHorizontal +150, 750);
-    line(centerHorizontal+ 200, 700, centerHorizontal +200, centerVertical -25);
-    line(centerHorizontal +150, centerVertical, centerHorizontal +150, 650);
-    line(centerHorizontal +150, centerVertical, centerHorizontal +50, centerVertical);
-    line(centerHorizontal +50, centerVertical -25, centerHorizontal +200, centerVertical -25 );
- 
-    //riddle lines
-    line(centerHorizontal -25, 400, centerHorizontal +50, 400);     //north
-    line(centerHorizontal +25, 600, centerHorizontal -25, 600);     //south
-    line(centerHorizontal + 150, centerVertical +50, centerHorizontal + 200, centerVertical +50);    // west
-    line(centerHorizontal -100, centerVertical -50, centerHorizontal -150, centerVertical -50);     //east 1
-    line(centerHorizontal -100 , 570, centerHorizontal -150, 570); //east 2
-
-    pop();
-    //traps (dmg 15)
-    fill(255, 0,0);
-    ellipse(centerHorizontal -225, 600, 15,15);
-    ellipse(centerHorizontal, 825, 15,15)
-    ellipse(centerHorizontal -50, 325, 15,15)
-    ellipse(centerHorizontal + 325, 600, 15, 15)
-    ellipse(centerHorizontal, 650, 15, 15)
-    ellipse(centerHorizontal +70, 450, 15,15)
-    ellipse(centerHorizontal -175, 420, 15,15)
-
-
-    //easy riddles location (dmg 10)
-    fill(0, 255, 0);
-    ellipse(centerHorizontal -175, 675, 15,15);
-    ellipse(centerHorizontal +125, 375, 15,15);
-    ellipse(centerHorizontal + 175, 650, 15,15);
-    ellipse(centerHorizontal +200, 825, 15,15);
-    ellipse(centerHorizontal- 200, 250, 15,15);
-
+    let grid = [];
+    for (let i = 0; i < gridSize; i += 50) {
+      grid[i] = [];
+      for (let j = 0; j < gridSize; j += 50) {
+        grid[i][j] = 0; 
+      }
+    }
+    
+    
+    grid[100][300] = 1; 
+    grid[150][300] = 1;
+    grid[200][300] = 1;
+    grid[250][300] = 1;
+    grid[300][300] = 1;
+    grid[350][300] = 1;
+    grid[400][300] = 1;
+    grid[450][300] = 1;
+    grid[500][300] = 1;
+    grid[550][300] = 1;
+    grid[600][300] = 1;
+    grid[650][300] = 1;
+    grid[700][300] = 1;
+    
+    grid[100][350] = 1;
+    grid[150][350] = 1;
+    grid[200][350] = 1;
+    grid[250][350] = 1;
+    grid[300][350] = 1;
+    grid[350][350] = 1;
+    grid[400][350] = 1;
+    grid[450][350] = 1;
+    grid[500][350] = 1;
+    grid[550][350] = 1;
+    grid[600][350] = 1;
+    grid[650][350] = 1;
+    grid[700][350] = 1;
+    
+    grid[100][400] = 1;
+    grid[150][400] = 1;
+    grid[200][400] = 1;
+    grid[250][400] = 1;
+    grid[300][400] = 1;
+    grid[350][400] = 1;
+    grid[400][400] = 1;
+    grid[450][400] = 1;
+    grid[500][400] = 1;
+    grid[550][400] = 1;
+    grid[600][400] = 1;
+    grid[650][400] = 1;
+    grid[700][400] = 1;
+    
+    for (let i = 0; i < gridSize; i += 50) {
+        for (let j = 0; j < gridSize; j += 50) {
+            if (grid[i][j] === 1) {
+                if (i < gridSize - 50 && grid[i + 50][j] === 1) {
+                    line(i + gridCenterX - gridSize / 2, j + gridCenterY - gridSize / 2, 
+                         i + 50 + gridCenterX - gridSize / 2, j + gridCenterY - gridSize / 2);
+                }
+                if (j < gridSize - 50 && grid[i][j + 50] === 1) {
+                    line(i + 50 + gridCenterX - gridSize / 2, j + gridCenterY - gridSize / 2, 
+                         i + 50 + gridCenterX - gridSize / 2, j + 50 + gridCenterY - gridSize / 2);
+                }
+            }
+        }
+    }
+    
 }
 
 
@@ -329,6 +288,6 @@ document.getElementById("button3").addEventListener("click", function() {
     const randomCreature = getRandomCreature();
     promptBoxOne(randomCreature);
 });
-};
+}
 
 window.onload = buttons;
