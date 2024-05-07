@@ -214,3 +214,8 @@ ul li {
     background-color: green;
     transition: width 0.3s ease-in-out;
   }
+
+  .currentHealth {
+    font-size: 1.2rem;
+    margin-top: 6px;
+  }

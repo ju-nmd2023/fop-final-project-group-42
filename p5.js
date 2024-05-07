@@ -183,7 +183,10 @@ function draw (){
 // Function to update the health bar for a player
 function updateHealthBar(playerId, health) {
     const healthBar = document.getElementById(playerId).querySelector('.health');
+    const currentHealth = document.getElementById(playerId).querySelector('.currentHealth');
+
     healthBar.style.width = health + "%";
+    currentHealth.textContent = "Health: " + health;
     
     // Change color based on health level
     if (health > 70) {
@@ -327,6 +330,10 @@ document.addEventListener("keydown", function(event) {
     }
 });
 
+function load(){
+    updateHealthBar('healthBarOne', 100);
+    updateHealthBar('healthBarTwo', 100);
+}
 
-window.onload = buttons;
 
+window.onload = load;
