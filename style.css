@@ -31,6 +31,7 @@
     grid-template-rows: repeat(2, 1fr);
     justify-content: center;
     align-items: center;
+    border: 1px solid black;
 }
 
 #namePlayerOne {
@@ -47,7 +48,8 @@
     width: 5rem;
     height: 5rem;
     border-radius: 50%;
-    background-color: black;
+    background-color: Blue;
+    border: 2px solid black;
     margin-top: 1rem;
     margin-left: auto;
     margin-right: auto;
@@ -67,7 +69,7 @@
     grid-row: 1 ;
     text-indent: 1rem;
     border-bottom: 1px solid;
-    margin-top: 10px;
+    margin-top: 1rem;
     font-size: 2rem;
 }
 
@@ -110,6 +112,7 @@
     grid-template-rows: repeat(2, 1fr);
     justify-content: center;
     align-items: center; 
+    border: 1px solid black;
 }
 
 #namePlayerTwo {
@@ -126,7 +129,8 @@
     width: 5rem;
     height: 5rem;
     border-radius: 50%;
-    background-color: black;
+    background-color: Red;
+    border: 2px solid black;
     margin-top: 1rem;
     margin-left: auto;
     margin-right: auto;
@@ -146,7 +150,7 @@
     grid-row: 1 ;
     text-indent: 1rem;
     border-bottom: 1px solid;
-    margin-top: 10px;
+    margin-top: 1rem;
     font-size: 2rem;
 }
 
@@ -199,6 +203,7 @@ ul li {
 
 .healthBar {
     border: 1px solid black;
+    background-color: white;
     margin-bottom: 10px;
     width: 20rem;
     height: 2.5rem;
