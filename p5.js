@@ -1,6 +1,8 @@
 let gameIsRunning = true;
 let customFont;
 let startButton;
+let playerOneAlive = true;
+let playerTwoAlive = true;
 
 function setup() {
     let canvas = createCanvas(900, 900);
@@ -169,8 +171,6 @@ function startScreen() {
     pop();
 }
 
-
-
 function draw (){
     if (gameIsRunning === true) {
         showGame();
@@ -179,12 +179,20 @@ function draw (){
     }
 }
 
+function dead(playerId) {
+    if (playerId === 'healthBarOne') {
+        playerOneAlive = false;
+    } else if (playerId === 'healthBarTwo') {
+        playerTwoAlive = false;
+    }
+}
+
 //healthbar
 // Function to update the health bar for a player
 function updateHealthBar(playerId, health) {
     const healthBar = document.getElementById(playerId).querySelector('.health');
     const currentHealth = document.getElementById(playerId).querySelector('.currentHealth');
-
+  
     healthBar.style.width = health + "%";
     currentHealth.textContent = "Health: " + health;
     
@@ -200,15 +208,22 @@ function updateHealthBar(playerId, health) {
   
   // Function to simulate damage for a player
   function takeDamage(playerId, amount) {
+    if (playerId === 'healthBarOne' && !playerOneAlive) {
+        return; // Player is dead, exit function
+    } else if (playerId === 'healthBarTwo' && !playerTwoAlive) {
+        return; // Player is dead, exit function
+    }
+
     const healthBar = document.getElementById(playerId).querySelector('.health');
     let playerHealth = parseInt(healthBar.style.width, 10) || 100;
-    
+
     playerHealth -= amount;
-    if (playerHealth < 0) {
-      playerHealth = 0;
+    if (playerHealth === 0) {
+        dead(playerId); // Call dead function if player health reaches zero
     }
+
     updateHealthBar(playerId, playerHealth);
-  }
+}
 
 
 // Constructors
@@ -301,26 +316,38 @@ function promptBoxTwo(randomCreature) {
 document.addEventListener("keydown", function(event) {
     const keyActions = {
         "1": function() {
-            console.log("1");
-            takeDamage('healthBarOne', 10);
+            if (playerOneAlive) {
+                console.log("1");
+                takeDamage('healthBarOne', 10);
+            }
         },
         "2": function() {
-            console.log("2");
+            if (playerOneAlive) {
+                console.log("2");
+            }
         },
         "3": function() {
-            const randomCreature = getRandomCreature();
-            promptBoxOne(randomCreature);
+            if (playerOneAlive) {
+                const randomCreature = getRandomCreature();
+                promptBoxOne(randomCreature);
+            }
         },
         "8": function() {
-            console.log("4");
-            takeDamage('healthBarTwo', 10);
+            if (playerTwoAlive) {
+                console.log("4");
+                takeDamage('healthBarTwo', 10);
+            }
         },
         "9": function() {
-            console.log("5");
+            if (playerTwoAlive) {
+                console.log("5");
+            }
         },
         "0": function() {
-            const randomCreature = getRandomCreature();
-            promptBoxTwo(randomCreature);
+            if (playerTwoAlive) {
+                const randomCreature = getRandomCreature();
+                promptBoxTwo(randomCreature);
+            }
         }
     };
 
@@ -329,6 +356,7 @@ document.addEventListener("keydown", function(event) {
         action();
     }
 });
+
 
 function load(){
     updateHealthBar('healthBarOne', 100);
