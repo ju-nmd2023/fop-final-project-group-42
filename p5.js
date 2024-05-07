@@ -5,7 +5,7 @@ let playerOneAlive = true;
 let playerTwoAlive = true;
 
 function setup() {
-    let canvas = createCanvas(900, 900);
+    let canvas = createCanvas(1000,1000);
     canvas.parent('canvasContainer');
     customFont = loadFont('dragonHunter.otf');
 }
@@ -42,116 +42,104 @@ const buttonHeight = 60;
 const buttonX = (innerWidth - buttonWidth) /2;
 const myButton = new Button(buttonX, 500, 200, 60, "Start");
 
-function mouseMoved() {
-    if (
-        mouseX >= myButton.x &&
-        mouseX <= myButton.x + myButton.width &&
-        mouseY >= myButton.y &&
-        mouseY <= myButton.y + myButton.height
-    ) {
-        cursor('pointer');
-    } else {
-        cursor('auto');
-    }
-}
+
 
 function keyPressed(){
-    if (keyCode === 32){
-        gameIsRunning = true;
-    }
-}
-function mousePressed(){
-    if (
-    mouseX >= myButton.x &&
-    mouseX <= myButton.x + myButton.width &&
-    mouseY >= myButton.y &&
-    mouseY <= myButton.y + myButton.height
-    ) {
+    if (keyCode === 32){ //spacebar
         gameIsRunning = true;
     }
 }
 
-function mazeOutline(){
-    push();
-    fill(0);
-    strokeWeight(4);
 
-    let gridSize =500;
-    let gridCenterX = width/2;
-    let gridCenterY = 500;
-    
-    let grid = [];
-    for (let i = 0; i < gridSize; i += 50) {
-      grid[i] = [];
-      for (let j = 0; j < gridSize; j += 50) {
-        grid[i][j] = 0; 
-      }
+function grid(){
+// Define the size of the grid
+const gridSizeX = 202; // Increase by 1 to accommodate the extra line
+const gridSizeY = 202; // Increase by 1 to accommodate the extra line
+
+// Create the grid array
+let grid = [];
+
+// Function to initialize the grid with a given value (0 or 1)
+function initializeGrid(value) {
+    for (let x = 0; x < gridSizeX; x++) {
+        // Initialize the inner array
+        grid[x] = [];
+        for (let y = 0; y < gridSizeY; y++) {
+            // Initialize each cell with the given value
+            grid[x][y] = value;
+        }
     }
-    
-    
-    grid[100][300] = 1; 
-    grid[150][300] = 1;
-    grid[200][300] = 1;
-    grid[250][300] = 1;
-    grid[300][300] = 1;
-    grid[350][300] = 1;
-    grid[400][300] = 1;
-    grid[450][300] = 1;
-    grid[500][300] = 1;
-    grid[550][300] = 1;
-    grid[600][300] = 1;
-    grid[650][300] = 1;
-    grid[700][300] = 1;
-    
-    grid[100][350] = 1;
-    grid[150][350] = 1;
-    grid[200][350] = 1;
-    grid[250][350] = 1;
-    grid[300][350] = 1;
-    grid[350][350] = 1;
-    grid[400][350] = 1;
-    grid[450][350] = 1;
-    grid[500][350] = 1;
-    grid[550][350] = 1;
-    grid[600][350] = 1;
-    grid[650][350] = 1;
-    grid[700][350] = 1;
-    
-    grid[100][400] = 1;
-    grid[150][400] = 1;
-    grid[200][400] = 1;
-    grid[250][400] = 1;
-    grid[300][400] = 1;
-    grid[350][400] = 1;
-    grid[400][400] = 1;
-    grid[450][400] = 1;
-    grid[500][400] = 1;
-    grid[550][400] = 1;
-    grid[600][400] = 1;
-    grid[650][400] = 1;
-    grid[700][400] = 1;
-    
-    for (let i = 0; i < gridSize; i += 50) {
-        for (let j = 0; j < gridSize; j += 50) {
-            if (grid[i][j] === 1) {
-                if (i < gridSize - 50 && grid[i + 50][j] === 1) {
-                    line(i + gridCenterX - gridSize / 2, j + gridCenterY - gridSize / 2, 
-                         i + 50 + gridCenterX - gridSize / 2, j + gridCenterY - gridSize / 2);
-                }
-                if (j < gridSize - 50 && grid[i][j + 50] === 1) {
-                    line(i + 50 + gridCenterX - gridSize / 2, j + gridCenterY - gridSize / 2, 
-                         i + 50 + gridCenterX - gridSize / 2, j + 50 + gridCenterY - gridSize / 2);
-                }
+    // Set line from (0, 0) to (100, 0)
+    for (let x = 0; x <= 100; x++) {
+        grid[x][100] = 1;
+    }
+    // Set line from (100, 0) to (100, 100)
+    for (let y = 0; y <= 100; y++) {
+        grid[100][y] = 1;
+    }
+  
+  for (let x = 100; x >= 0; x--) {
+        grid[x][0] = 1;
+    }  
+  
+      for (let y = 100; y >= 0; y--) {
+        grid[0][y] = 1;
+    }
+  
+    for (let y = 10; y >= 0; y--) {
+        grid[20][y] = 1;
+    }
+  
+    for (let x = 10; x >= 0; x--) {
+        grid[x][10] = 1;
+    }
+  
+    for (let y = 20; y >= 10; y--) {
+        grid[10][y] = 1;
+    }
+  
+      for (let x = 30; x >= 10; x--) {
+        grid[x][20] = 1;
+    }
+  
+        for (let x = 30; x >= 20; x--) {
+        grid[x][10] = 1;
+    }
+
+}
+
+// Initialize the grid with empty spaces (0)
+initializeGrid(0);
+
+// Function to draw the grid on the canvas
+function drawGrid() {
+    const cellWidth = canvas.width / gridSizeX;
+    const cellHeight = canvas.height / gridSizeY;
+
+    //noStroke();
+    rect(0, 0, canvas.width, canvas.height);
+
+    for (let x = 0; x < gridSizeX; x++) {
+        for (let y = 0; y < gridSizeY; y++) {
+            if (grid[x][y] === 1) {
+                // Draw wall
+                fill(0);
+            } else {
+                // Draw empty space
+                fill(255);
             }
+            rect(x * cellWidth, y * cellHeight, cellWidth, cellHeight);
         }
     }
 }
 
+// Initial drawing of the grid
+drawGrid();
+}
 
 
 function showGame() {
-    background(255);
-    mazeOutline();
+    grid();
 }
 
 function title() {
