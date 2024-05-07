@@ -86,25 +86,134 @@ function initializeGrid(value) {
         grid[0][y] = 1;
     }
   
-    for (let y = 10; y >= 0; y--) {
-        grid[20][y] = 1;
+    for (let y = 5; y >= 0; y--) {
+        grid[5][y] = 1;
     }
-  
+
+    for (let x = 10; x >= 5; x--) {
+        grid[x][5] = 1;
+    }  
+
     for (let x = 10; x >= 0; x--) {
         grid[x][10] = 1;
-    }
-  
-    for (let y = 20; y >= 10; y--) {
+    }  
+
+    for (let y = 5; y >= 0; y--) {
         grid[10][y] = 1;
     }
-  
-      for (let x = 30; x >= 10; x--) {
+
+    for (let y = 25; y >= 10; y--) {
+        grid[10][y] = 1;
+    }
+
+    for (let x = 10; x >= 0; x--) {
+        grid[x][25] = 1;
+    }  
+
+    for (let y = 35; y >= 30; y--) {
+        grid[5][y] = 1;
+    }
+
+    for (let x = 15; x >= 5; x--) {
+        grid[x][30] = 1;
+    }  
+
+    for (let y = 30; y >= 20; y--) {
+        grid[15][y] = 1;
+    }
+
+    for (let y = 15; y >= 5; y--) {
+        grid[15][y] = 1;
+    }
+
+    for (let x = 25; x >= 15; x--) {
         grid[x][20] = 1;
+    }  
+
+    for (let x = 25; x >= 15; x--) {
+        grid[x][15] = 1;
+    }  
+
+    for (let x = 35; x >= 15; x--) {
+        grid[x][5] = 1;
+    }  
+
+    for (let y = 30; y >= 20; y--) {
+        grid[25][y] = 1;
     }
-  
-        for (let x = 30; x >= 20; x--) {
-        grid[x][10] = 1;
+
+    for (let y = 30; y >= 25; y--) {
+        grid[20][y] = 1;
     }
+
+    for (let y = 40; y >= 35; y--) {
+        grid[20][y] = 1;
+    }
+
+    for (let x = 15; x >=5; x--) {
+        grid[x][35] = 1;
+    }  
+
+    for (let x = 35; x >=20; x--) {
+        grid[x][35] = 1;
+    }  
+
+    for (let y = 40; y >= 35; y--) {
+        grid[35][y] = 1;
+    }
+
+    for (let y = 45; y >= 40; y--) {
+        grid[47][y] = 1;
+    }
+
+    for (let x = 47; x >=35; x--) {
+        grid[x][40] = 1;
+    }  
+
+    for (let x = 25; x >=20; x--) {
+        grid[x][30] = 1;
+    }  
+
+    for (let y = 15; y >= 5; y--) {
+        grid[25][y] = 1;
+    }
+
+    for (let y = 30; y >= 5; y--) {
+        grid[30][y] = 1;
+    }
+
+    for (let x = 55; x >= 53; x--) {
+        grid[x][45] = 1;
+    }
+
+    for (let x = 47; x >= 45; x--) {
+        grid[x][45] = 1;
+    }
+
+    for (let x = 55; x >= 53; x--) {
+        grid[x][55] = 1;
+    }
+
+    for (let x = 47; x >= 45; x--) {
+        grid[x][55] = 1;
+    }
+
+    for (let y = 47; y >= 45; y--) {
+        grid[45][y] = 1;
+    }
+
+    for (let y = 55; y >= 53; y--) {
+        grid[45][y] = 1;
+    }
+
+    for (let y = 47; y >= 45; y--) {
+        grid[55][y] = 1;
+    }
+
+    for (let y = 55; y >= 53; y--) {
+        grid[55][y] = 1;
+    }
+
 
 }
 
