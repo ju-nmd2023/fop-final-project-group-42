@@ -143,7 +143,6 @@ function mazeOutline(){
             }
         }
     }
-    
 }
 
 
@@ -180,6 +179,35 @@ function draw (){
     }
 }
 
+//healthbar
+// Function to update the health bar for a player
+function updateHealthBar(playerId, health) {
+    const healthBar = document.getElementById(playerId).querySelector('.health');
+    healthBar.style.width = health + "%";
+    
+    // Change color based on health level
+    if (health > 70) {
+      healthBar.style.backgroundColor = "green";
+    } else if (health > 30) {
+      healthBar.style.backgroundColor = "orange";
+    } else {
+      healthBar.style.backgroundColor = "red";
+    }
+  }
+  
+  // Function to simulate damage for a player
+  function takeDamage(playerId, amount) {
+    const healthBar = document.getElementById(playerId).querySelector('.health');
+    let playerHealth = parseInt(healthBar.style.width, 10) || 100;
+    
+    playerHealth -= amount;
+    if (playerHealth < 0) {
+      playerHealth = 0;
+    }
+    updateHealthBar(playerId, playerHealth);
+  }
+
+
 // Constructors
 class Creature {
     constructor(firstName, lastName, riddle, answers) {
@@ -212,11 +240,11 @@ const xantharTheExileRiddle = "I am the embodiment of suppressed magic, unleashe
 
 //Answers
 
-const malvarTheMalevolentArray = ["Dementor", "Boggart", "Lethifold"]; // Dementor
-const vorinTheVileArray = ["Banshee", "Lycanthrope", "Acromantula"]; // Acromatula
-const mordredTheMaleficentArray = ["Obscurial", "Inferius", "Poltergeist"]; // Inferius
-const sylviaTheSinisterArray = ["Basilisk", "Mermish", "Kelpie"]; // Basilisk
-const xantharTheExileArray = ["Horcrux", "Obscurus", "Dementor"]; // Obscurus
+const malvarTheMalevolentArray = ["1. Dementor", "2. Boggart", "3. Lethifold"]; // Dementor
+const vorinTheVileArray = ["1. Banshee", "2. Lycanthrope", "3. Acromantula"]; // Acromatula
+const mordredTheMaleficentArray = ["1. Obscurial", "2. Inferius", "3. Poltergeist"]; // Inferius
+const sylviaTheSinisterArray = ["1. Basilisk", "2. Mermish", "3. Kelpie"]; // Basilisk
+const xantharTheExileArray = ["1. Horcrux", "2. Obscurus", "3. Dementor"]; // Obscurus
 
 
 //Wizards
@@ -265,29 +293,40 @@ function promptBoxTwo(randomCreature) {
     });
 }
 
-//Testing buttons, will remove later
+//Buttons
 
-function buttons() {
-document.getElementById("button4").addEventListener("click", function() {
-    console.log("4");
+document.addEventListener("keydown", function(event) {
+    const keyActions = {
+        "1": function() {
+            console.log("1");
+            takeDamage('healthBarOne', 10);
+        },
+        "2": function() {
+            console.log("2");
+        },
+        "3": function() {
+            const randomCreature = getRandomCreature();
+            promptBoxOne(randomCreature);
+        },
+        "8": function() {
+            console.log("4");
+            takeDamage('healthBarTwo', 10);
+        },
+        "9": function() {
+            console.log("5");
+        },
+        "0": function() {
+            const randomCreature = getRandomCreature();
+            promptBoxTwo(randomCreature);
+        }
+    };
+
+    const action = keyActions[event.key];
+    if (action) {
+        action();
+    }
 });
-document.getElementById("button5").addEventListener("click", function() {
-    console.log("5");
-});
-document.getElementById("button6").addEventListener("click", function() {
-    const randomCreature = getRandomCreature();
-    promptBoxTwo(randomCreature);
-});
-document.getElementById("button1").addEventListener("click", function() {
-    console.log("1");
-});
-document.getElementById("button2").addEventListener("click", function() {
-    console.log("2");
-});
-document.getElementById("button3").addEventListener("click", function() {
-    const randomCreature = getRandomCreature();
-    promptBoxOne(randomCreature);
-});
-}
+
 
 window.onload = buttons;
+
