@@ -800,14 +800,18 @@ function updateHealthBar(playerId, health) {
   
     healthBar.style.width = health + "%";
     currentHealth.textContent = "Health: " + health;
+    currentHealth.style.fontSize = "1.5rem"; 
     
     // Change color based on health level
     if (health > 70) {
       healthBar.style.backgroundColor = "green";
+      currentHealth.style.color = "green";
     } else if (health > 30) {
-      healthBar.style.backgroundColor = "orange";
+      healthBar.style.backgroundColor = "darkorange";
+      currentHealth.style.color = "darkorange";
     } else {
       healthBar.style.backgroundColor = "red";
+      currentHealth.style.color = "red";
     }
   }
   
