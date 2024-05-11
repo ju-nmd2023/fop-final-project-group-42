@@ -421,8 +421,246 @@ function initializeGrid(value) {
         grid[x][55] = 1;
     }
 
+    for (let y = 30; y >= 15; y--) {
+        grid[90][y] = 1;
+    }
+    for (let y = 30; y >= 15; y--) {
+        grid[95][y] = 1;
+    }
+
+    for (let x = 100; x >= 95; x--) {
+        grid[x][15] = 1;
+    }
+
+    for (let x = 100; x >= 95; x--) {
+        grid[x][30] = 1;
+    }
+
+    for (let x = 95; x >= 90; x--) {
+        grid[x][10] = 1;
+    }
+
+    for (let y = 10; y >= 5; y--) {
+        grid[90][y] = 1;
+    }
+
+    for (let x = 85; x >= 75; x--) {
+        grid[x][5] = 1;
+    }
+
+    for (let y = 10; y >= 5; y--) {
+        grid[85][y] = 1;
+    }
+
+    for (let y = 20; y >= 15; y--) {
+        grid[85][y] = 1;
+    }
+
+    for (let y = 30; y >= 25; y--) {
+        grid[85][y] = 1;
+    }
+
+    for (let x = 85; x >= 75; x--) {
+        grid[x][10] = 1;
+    }
+
+    for (let y = 10; y >= 5; y--) {
+        grid[75][y] = 1;
+    }
+
+    for (let x = 85; x >= 75; x--) {
+        grid[x][15] = 1;
+    }
+
+    for (let x = 85; x >= 80; x--) {
+        grid[x][25] = 1;
+    }
+
+    for (let y = 25; y >= 20; y--) {
+        grid[80][y] = 1;
+    }
+
+    for (let x = 80; x >= 75; x--) {
+        grid[x][20] = 1;
+    }
+
+    for (let x = 85; x >= 75; x--) {
+        grid[x][30] = 1;
+    }
+
+    for (let y = 30; y >= 20; y--) {
+        grid[75][y] = 1;
+    }
+
+    for (let x = 90; x >= 75; x--) {
+        grid[x][90] = 1;
+    }
+
+    for (let y = 100; y >= 90; y--) {
+        grid[75][y] = 1;
+    }
+
+    for (let x = 70; x >= 60; x--) {
+        grid[x][95] = 1;
+    }
+
+    for (let x = 90; x >= 75; x--) {
+        grid[x][85] = 1;
+    }
+
+    for (let y = 85; y >= 70; y--) {
+        grid[95][y] = 1;
+    }
+
+    for (let y = 80; y >= 70; y--) {
+        grid[90][y] = 1;
+    }
+
+    for (let x = 90; x >= 75; x--) {
+        grid[x][70] = 1;
+    }
+
+    for (let x = 85; x >= 75; x--) {
+        grid[x][80] = 1;
+    }
+
+    for (let y = 85; y >= 75; y--) {
+        grid[75][y] = 1;
+    }
+
+    for (let x = 85; x >= 75; x--) {
+        grid[x][75] = 1;
+    }
+
+    for (let y = 80; y >= 75; y--) {
+        grid[85][y] = 1;
+    }
+
+    for (let x = 70; x >= 60; x--) {
+        grid[x][90] = 1;
+    }
+
+    for (let y = 95; y >= 90; y--) {
+        grid[70][y] = 1;
+    }
+
+    for (let y = 95; y >= 90; y--) {
+        grid[60][y] = 1;
+    }
+
+    for (let x = 70; x >= 65; x--) {
+        grid[x][70] = 1;
+    }
+    for (let y = 70; y >= 65; y--) {
+        grid[70][y] = 1;
+    }
+
+    for (let y = 70; y >= 65; y--) {
+        grid[75][y] = 1;
+    }
+    for (let y = 70; y >= 65; y--) {
+        grid[90][y] = 1;
+    }
+
+    for (let x = 90; x >= 75; x--) {
+        grid[x][65] = 1;
+    }
+
+    for (let x = 100; x >= 95; x--) {
+        grid[x][47] = 1;
+    }
+
+    for (let x = 100; x >= 95; x--) {
+        grid[x][53] = 1;
+    }
+
+    for (let y = 53; y >= 47; y--) {
+        grid[95][y] = 1;
+    }
+
+    for (let y = 42; y >= 35; y--) {
+        grid[95][y] = 1;
+    }
+
+    for (let y = 65; y >= 58; y--) {
+        grid[95][y] = 1;
+    }
+
+    for (let y = 42; y >= 35; y--) {
+        grid[90][y] = 1;
+    }
+
+    for (let x = 95; x >= 90; x--) {
+        grid[x][42] = 1;
+    }
+
+    for (let x = 95; x >= 90; x--) {
+        grid[x][35] = 1;
+    }
+
+    for (let x = 70; x >= 65; x--) {
+        grid[x][60] = 1;
+    }
+
+    for (let y = 75; y >= 65; y--) {
+        grid[60][y] = 1;
+    }
+
+    for (let y = 70; y >= 65; y--) {
+        grid[65][y] = 1;
+    }
+
+    for (let x = 70; x >= 65; x--) {
+        grid[x][65] = 1;
+    }
+
+    for (let x = 60; x >= 53; x--) {
+        grid[x][65] = 1;
+    }
+
+    for (let x = 53; x >= 47; x--) {
+        grid[x][70] = 1;
+    }
+
+    for (let x = 47; x >= 40; x--) {
+        grid[x][65] = 1;
+    }
+    for (let y = 75; y >= 65; y--) {
+        grid[40][y] = 1;
+    }
+
+    for (let y = 75; y >= 70; y--) {
+        grid[47][y] = 1;
+    }
+
+    for (let y = 75; y >= 70; y--) {
+        grid[53][y] = 1;
+    }
+
+    for (let x = 53; x >= 47; x--) {
+        grid[x][75] = 1;
+    }
+
+    for (let y = 75; y >= 65; y--) {
+        grid[42][y] = 1;
+    }
+
+    for (let y = 75; y >= 65; y--) {
+        grid[58][y] = 1;
+    }
+
+    for (let x = 60; x >= 58; x--) {
+        grid[x][75] = 1;
+    }
+
+    for (let x = 42; x >= 40; x--) {
+        grid[x][75] = 1;
+    }
 
 
+    for (let y = 35; y >= 30; y--) {
+        grid[15][y] = 1;
+    }
 
     //Green
     for (let y = 4; y >= 1; y--) {
@@ -720,6 +958,242 @@ function initializeGrid(value) {
     for (let y = 64; y >= 56; y--) {
         grid[9][y] = 2;
     }
+
+
+    //
+    for (let y = 29; y >= 16; y--) {
+        grid[96][y] = 2;
+    }
+    for (let y = 29; y >= 16; y--) {
+        grid[97][y] = 2;
+    }
+    for (let y = 29; y >= 16; y--) {
+        grid[98][y] = 2;
+    }
+    for (let y = 29; y >= 16; y--) {
+        grid[99][y] = 2;
+    }
+
+
+    //
+    for (let y = 9; y >= 6; y--) {
+        grid[94][y] = 2;
+    }
+    for (let y = 9; y >= 6; y--) {
+        grid[93][y] = 2;
+    }
+    for (let y = 9; y >= 6; y--) {
+        grid[92][y] = 2;
+    }
+    for (let y = 9; y >= 6; y--) {
+        grid[91][y] = 2;
+    }
+
+
+    //
+    for (let y = 29; y >= 26; y--) {
+        grid[84][y] = 2;
+    }
+    for (let y = 29; y >= 26; y--) {
+        grid[83][y] = 2;
+    }
+    for (let y = 29; y >= 26; y--) {
+        grid[82][y] = 2;
+    }
+    for (let y = 29; y >= 26; y--) {
+        grid[81][y] = 2;
+    }
+    for (let y = 29; y >= 26; y--) {
+        grid[80][y] = 2;
+    }
+    for (let y = 29; y >= 21; y--) {
+        grid[79][y] = 2;
+    }
+    for (let y = 29; y >= 21; y--) {
+        grid[78][y] = 2;
+    }
+    for (let y = 29; y >= 21; y--) {
+        grid[77][y] = 2;
+    }
+    for (let y = 29; y >= 21; y--) {
+        grid[76][y] = 2;
+    }
+
+
+    //
+    for (let x = 84; x >= 76; x--) {
+        grid[x][6] = 2;
+    }
+    for (let x = 84; x >= 76; x--) {
+        grid[x][7] = 2;
+    }
+    for (let x = 84; x >= 76; x--) {
+        grid[x][8] = 2;
+    }
+    for (let x = 84; x >= 76; x--) {
+        grid[x][9] = 2;
+    }
+
+
+    //
+    for (let x = 84; x >= 76; x--) {
+        grid[x][76] = 2;
+    }
+    for (let x = 84; x >= 76; x--) {
+        grid[x][77] = 2;
+    }
+    for (let x = 84; x >= 76; x--) {
+        grid[x][78] = 2;
+    }
+    for (let x = 84; x >= 76; x--) {
+        grid[x][79] = 2;
+    }
+
+
+    //
+    for (let x = 89; x >= 76; x--) {
+        grid[x][91] = 2;
+    }
+    for (let x = 89; x >= 76; x--) {
+        grid[x][92] = 2;
+    }
+    for (let x = 89; x >= 76; x--) {
+        grid[x][93] = 2;
+    }
+    for (let x = 89; x >= 76; x--) {
+        grid[x][94] = 2;
+    }
+    for (let x = 89; x >= 76; x--) {
+        grid[x][95] = 2;
+    }
+    for (let x = 89; x >= 76; x--) {
+        grid[x][96] = 2;
+    }
+    for (let x = 89; x >= 76; x--) {
+        grid[x][97] = 2;
+    }
+    for (let x = 89; x >= 76; x--) {
+        grid[x][98] = 2;
+    }
+    for (let x = 89; x >= 76; x--) {
+        grid[x][99] = 2;
+    }
+
+
+    //
+    for (let x = 69; x >= 61; x--) {
+        grid[x][94] = 2;
+    }
+    for (let x = 69; x >= 61; x--) {
+        grid[x][93] = 2;
+    }
+    for (let x = 69; x >= 61; x--) {
+        grid[x][92] = 2;
+    }
+    for (let x = 69; x >= 61; x--) {
+        grid[x][91] = 2;
+    }
+
+
+    //
+    for (let x = 89; x >= 76; x--) {
+        grid[x][69] = 2;
+    }
+    for (let x = 89; x >= 76; x--) {
+        grid[x][68] = 2;
+    }
+    for (let x = 89; x >= 76; x--) {
+        grid[x][67] = 2;
+    }
+    for (let x = 89; x >= 76; x--) {
+        grid[x][66] = 2;
+    }
+
+
+    //
+    for (let y = 52; y >= 48; y--) {
+        grid[99][y] = 2;
+    }
+    for (let y = 52; y >= 48; y--) {
+        grid[98][y] = 2;
+    }
+    for (let y = 52; y >= 48; y--) {
+        grid[97][y] = 2;
+    }
+    for (let y = 52; y >= 48; y--) {
+        grid[96][y] = 2;
+    }
+
+
+    //
+    for (let y = 41; y >= 36; y--) {
+        grid[94][y] = 2;
+    }
+    for (let y = 41; y >= 36; y--) {
+        grid[93][y] = 2;
+    }
+    for (let y = 41; y >= 36; y--) {
+        grid[92][y] = 2;
+    }
+    for (let y = 41; y >= 36; y--) {
+        grid[91][y] = 2;
+    }
+
+
+    //
+    for (let y = 74; y >= 66; y--) {
+        grid[59][y] = 2;
+    }
+
+    //
+    for (let y = 74; y >= 66; y--) {
+        grid[41][y] = 2;
+    }
+
+
+    //
+    for (let y = 69; y >= 66; y--) {
+        grid[69][y] = 2;
+    }
+    for (let y = 69; y >= 66; y--) {
+        grid[68][y] = 2;
+    }
+    for (let y = 69; y >= 66; y--) {
+        grid[67][y] = 2;
+    }
+    for (let y = 69; y >= 66; y--) {
+        grid[66][y] = 2;
+    }
+
+
+    //
+    for (let x = 52; x >= 48; x--) {
+        grid[x][74] = 2;
+    }
+    for (let x = 52; x >= 48; x--) {
+        grid[x][73] = 2;
+    }
+    for (let x = 52; x >= 48; x--) {
+        grid[x][72] = 2;
+    }
+    for (let x = 52; x >= 48; x--) {
+        grid[x][71] = 2;
+    }
+
+
+    //
+    for (let x = 14; x >= 6; x--) {
+        grid[x][31] = 2;
+    }
+    for (let x = 14; x >= 6; x--) {
+        grid[x][32] = 2;
+    }
+    for (let x = 14; x >= 6; x--) {
+        grid[x][33] = 2;
+    }
+    for (let x = 14; x >= 6; x--) {
+        grid[x][34] = 2;
+    }
 }
 
 // Initialize the grid with empty spaces (0)
@@ -739,7 +1213,7 @@ function drawGrid() {
                 // Draw wall
                 fill(0);
             } else if (grid[x][y] === 2) {
-                // Draw with custom color
+                // Draw green space
                 fill(2, 100, 30);
             }else {
                 // Draw empty space
