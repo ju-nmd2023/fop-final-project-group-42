@@ -1920,6 +1920,17 @@ function initializeGrid(value) {
     for (let x = 46; x >= 41; x--) {
         grid[x][96] = 2;
     }
+
+    //Trophy
+    for (let x = 51; x >= 49; x--) {
+        grid[x][50] = 3;
+    }
+    for (let y = 51; y >= 49; y--) {
+        grid[50][y] = 3;
+    }
+    for (let x = 50; x >= 50; x--) {
+        grid[x][50] = 4;
+    }
 }
 
 // Initialize the grid with empty spaces (0)
@@ -1941,7 +1952,13 @@ function drawGrid() {
             } else if (grid[x][y] === 2) {
                 // Draw green space
                 fill(2, 100, 30);
-            }else {
+            } else if (grid[x][y] === 3) {
+                // Draw green space
+                fill(184,216,231);
+            } else if (grid[x][y] === 4) {
+                // Draw green space
+                fill(154,197,219);
+            } else {
                 // Draw pathway
                 fill(149, 116, 51);
             }
