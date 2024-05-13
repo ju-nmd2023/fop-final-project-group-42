@@ -4,6 +4,13 @@ let startButton;
 let playerOneAlive = true;
 let playerTwoAlive = true;
 
+const gridSizeX = 202;
+const gridSizeY = 202; 
+
+
+// Create the grid array
+let grid = [];
+
 function setup() {
     let canvas = createCanvas(1000,1000);
     canvas.parent('canvasContainer');
@@ -62,14 +69,6 @@ function keyPressed(){
 }
 
 
-function grid(){
-// Define the size of the grid
-const gridSizeX = 202;
-const gridSizeY = 202; 
-
-
-// Create the grid array
-let grid = [];
 
 // Function to initialize the grid with a given value (0 or 1)
 function initializeGrid(value) {
@@ -1951,7 +1950,6 @@ function initializeGrid(value) {
         grid[x][50] = 4;
     }
 }
-
 // Initialize the grid with empty spaces (0)
 initializeGrid(0);
 
@@ -1991,13 +1989,10 @@ function drawGrid() {
     }
 }
 
-// Initial drawing of the grid
-drawGrid();
-}
 
 
 function showGame() {
-    grid();
+    drawGrid();
 }
 
 function title() {
@@ -2161,54 +2156,73 @@ function promptBoxTwo(randomCreature) {
     });
 }
 
+function canMove(x, y) {
+    // Check if all four corners of the player are valid positions
+    return (
+        isValidPosition(x, y) &&
+        isValidPosition(x + 1, y) &&
+        isValidPosition(x, y + 1) &&
+        isValidPosition(x + 1, y + 1)
+    );
+}
+
+function isValidPosition(x, y) {
+    // Check if the position is within the grid bounds and not a wall with grid value 1
+    return (
+        x >= 0 && x < grid.length &&
+        y >= 0 && y < grid[0].length &&
+        (grid[x][y] === 0 || grid[x][y] === 3)
+    );
+}
+
 //Buttons
 
 document.addEventListener("keydown", function(event) {
     const keyActions = {
         "w": function() {
-            if (playerOneAlive) {
+            if (playerOneAlive && canMove(player1.x, player1.y - 1)) {
                 console.log("Player 1 moved up");
                 player1.y -= 1; // Move player 1 up (decrease y coordinate)
             }
         },
         "a": function() {
-            if (playerOneAlive) {
+            if (playerOneAlive && canMove(player1.x - 1, player1.y)) {
                 console.log("Player 1 moved left");
                 player1.x -= 1; // Move player 1 left (decrease x coordinate)
             }
         },
         "s": function() {
-            if (playerOneAlive) {
+            if (playerOneAlive && canMove(player1.x, player1.y + 1)) {
                 console.log("Player 1 moved down");
                 player1.y += 1; // Move player 1 down (increase y coordinate)
             }
         },
         "d": function() {
-            if (playerOneAlive) {
+            if (playerOneAlive && canMove(player1.x + 1, player1.y)) {
                 console.log("Player 1 moved right");
                 player1.x += 1; // Move player 1 right (increase x coordinate)
             }
         },
         "ArrowUp": function() {
-            if (playerTwoAlive) {
+            if (playerTwoAlive && canMove(player2.x, player2.y - 1)) {
                 console.log("Player 2 moved up");
                 player2.y -= 1; // Move player 2 up (decrease y coordinate)
             }
         },
         "ArrowLeft": function() {
-            if (playerTwoAlive) {
+            if (playerTwoAlive && canMove(player2.x - 1, player2.y)) {
                 console.log("Player 2 moved left");
                 player2.x -= 1; // Move player 2 left (decrease x coordinate)
             }
         },
         "ArrowDown": function() {
-            if (playerTwoAlive) {
+            if (playerTwoAlive && canMove(player2.x, player2.y + 1)) {
                 console.log("Player 2 moved down");
                 player2.y += 1; // Move player 2 down (increase y coordinate)
             }
         },
         "ArrowRight": function() {
-            if (playerTwoAlive) {
+            if (playerTwoAlive && canMove(player2.x + 1, player2.y)) {
                 console.log("Player 2 moved right");
                 player2.x += 1; // Move player 2 right (increase x coordinate)
             }
@@ -2251,10 +2265,9 @@ document.addEventListener("keydown", function(event) {
 
     const action = keyActions[event.key];
     if (action) {
-        action();
+    action();
     }
-});
-
+    });
 
 function load(){
     updateHealthBar('healthBarOne', 100);
