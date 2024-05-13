@@ -975,7 +975,7 @@ function initializeGrid(value) {
         grid[x][70] = 1;
     }
 
-    for (let y = 100; y >= 90; y--) {
+    for (let y = 95; y >= 90; y--) {
         grid[25][y] = 1;
     }
 
@@ -1070,6 +1070,14 @@ function initializeGrid(value) {
     }
 
     for (let x = 55; x >= 52; x--) {
+        grid[x][95] = 1;
+    }
+
+    for (let y = 100; y >= 95; y--) {
+        grid[30][y] = 1;
+    }
+
+    for (let x = 30; x >= 25; x--) {
         grid[x][95] = 1;
     }
 
@@ -1835,19 +1843,19 @@ function initializeGrid(value) {
 
 
     //
-    for (let y = 99; y >= 91; y--) {
+    for (let y = 94; y >= 91; y--) {
         grid[26][y] = 2;
     }
-    for (let y = 99; y >= 91; y--) {
+    for (let y = 94; y >= 91; y--) {
         grid[27][y] = 2;
     }
-    for (let y = 99; y >= 91; y--) {
+    for (let y = 94; y >= 91; y--) {
         grid[28][y] = 2;
     }
-    for (let y = 99; y >= 91; y--) {
+    for (let y = 94; y >= 91; y--) {
         grid[29][y] = 2;
     }
-    for (let y = 99; y >= 91; y--) {
+    for (let y = 94; y >= 91; y--) {
         grid[30][y] = 2;
     }
 
