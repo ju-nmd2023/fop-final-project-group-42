@@ -2156,22 +2156,27 @@ function promptBoxTwo(randomCreature) {
     });
 }
 
+//function canMove and isValidPosition were created through help from chatGPT (problem was that I forgot that our player models were 2x2, not 1x1, so some parts would glitch halfway through certain walls before detecting collissions)
+//https://chat.openai.com/share/6cdea05b-5c3b-4956-9deb-f73937126bb9
+
+// Function to check if the player can move to a certain position without glitching into walls
 function canMove(x, y) {
     // Check if all four corners of the player are valid positions
     return (
-        isValidPosition(x, y) &&
-        isValidPosition(x + 1, y) &&
-        isValidPosition(x, y + 1) &&
-        isValidPosition(x + 1, y + 1)
+        isValidPosition(x, y) &&             // Check if the current position is valid
+        isValidPosition(x + 1, y) &&         // Check if the position to the right is valid
+        isValidPosition(x, y + 1) &&         // Check if the position below is valid
+        isValidPosition(x + 1, y + 1)        // Check if the position diagonally below and to the right is valid
     );
 }
 
+// Function to check if a single position is valid within the grid
 function isValidPosition(x, y) {
     // Check if the position is within the grid bounds and not a wall with grid value 1
     return (
-        x >= 0 && x < grid.length &&
-        y >= 0 && y < grid[0].length &&
-        (grid[x][y] === 0 || grid[x][y] === 3)
+        x >= 0 && x < grid.length &&               // Check if x-coordinate is within the grid bounds
+        y >= 0 && y < grid[0].length &&            // Check if y-coordinate is within the grid bounds
+        (grid[x][y] === 0 || grid[x][y] === 3)    // Check if the grid value is either 0 or 3 (valid positions)
     );
 }
 
