@@ -10,6 +10,17 @@ function setup() {
     customFont = loadFont('dragonHunter.otf');
 }
 
+class Player {
+    constructor(x, y, hp) {
+        this.x = x;
+        this.y = y;
+        this.hp = hp;
+    }
+}
+
+// Create two individual players
+let player1 = new Player(2, 2, 100); // Player 1 with 100 HP at position (2, 2)
+let player2 = new Player(97, 97, 80); // Player 2 with 80 HP at position (97, 97)
 
 class Button {
     constructor(x, y, width, height, text) {
@@ -1972,6 +1983,11 @@ function drawGrid() {
             }
             rect(x * cellWidth, y * cellHeight, cellWidth + 1, cellHeight + 1); //added one to overlap a bit to hide the white border around the boxes
         }
+                // Draw players
+                fill(0, 0, 255); // Player color
+                rect(player1.x * cellWidth, player1.y * cellHeight, cellWidth * 2, cellHeight * 2);
+                fill(255, 0, 0); // Player color
+                rect(player2.x * cellWidth, player2.y * cellHeight, cellWidth * 2, cellHeight * 2);
     }
 }
 
@@ -2149,6 +2165,54 @@ function promptBoxTwo(randomCreature) {
 
 document.addEventListener("keydown", function(event) {
     const keyActions = {
+        "w": function() {
+            if (playerOneAlive) {
+                console.log("Player 1 moved up");
+                player1.y -= 1; // Move player 1 up (decrease y coordinate)
+            }
+        },
+        "a": function() {
+            if (playerOneAlive) {
+                console.log("Player 1 moved left");
+                player1.x -= 1; // Move player 1 left (decrease x coordinate)
+            }
+        },
+        "s": function() {
+            if (playerOneAlive) {
+                console.log("Player 1 moved down");
+                player1.y += 1; // Move player 1 down (increase y coordinate)
+            }
+        },
+        "d": function() {
+            if (playerOneAlive) {
+                console.log("Player 1 moved right");
+                player1.x += 1; // Move player 1 right (increase x coordinate)
+            }
+        },
+        "ArrowUp": function() {
+            if (playerTwoAlive) {
+                console.log("Player 2 moved up");
+                player2.y -= 1; // Move player 2 up (decrease y coordinate)
+            }
+        },
+        "ArrowLeft": function() {
+            if (playerTwoAlive) {
+                console.log("Player 2 moved left");
+                player2.x -= 1; // Move player 2 left (decrease x coordinate)
+            }
+        },
+        "ArrowDown": function() {
+            if (playerTwoAlive) {
+                console.log("Player 2 moved down");
+                player2.y += 1; // Move player 2 down (increase y coordinate)
+            }
+        },
+        "ArrowRight": function() {
+            if (playerTwoAlive) {
+                console.log("Player 2 moved right");
+                player2.x += 1; // Move player 2 right (increase x coordinate)
+            }
+        },
         "1": function() {
             if (playerOneAlive) {
                 console.log("1");
