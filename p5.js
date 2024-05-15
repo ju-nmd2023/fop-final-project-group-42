@@ -2041,47 +2041,6 @@ function dead(playerId) {
     }
 }
 
-//healthbar
-function updateHealthBar(playerId, health) {
-    const healthBar = document.getElementById(playerId).querySelector('.health');
-    const currentHealth = document.getElementById(playerId).querySelector('.currentHealth');
-  
-    healthBar.style.width = health + "%";
-    currentHealth.textContent = "Health: " + health;
-    currentHealth.style.fontSize = "1.5rem"; 
-    
-    // Change color based on health level
-    if (health > 70) {
-      healthBar.style.backgroundColor = "green";
-      currentHealth.style.color = "green";
-    } else if (health > 30) {
-      healthBar.style.backgroundColor = "darkorange";
-      currentHealth.style.color = "darkorange";
-    } else {
-      healthBar.style.backgroundColor = "red";
-      currentHealth.style.color = "red";
-    }
-  }
-  
-  // Function to simulate damage for a player
-  function takeDamage(playerId, amount) {
-    if (playerId === 'healthBarOne' && !playerOneAlive) {
-        return; // Player is dead, exit function
-    } else if (playerId === 'healthBarTwo' && !playerTwoAlive) {
-        return; // Player is dead, exit function
-    }
-
-    const healthBar = document.getElementById(playerId).querySelector('.health');
-    let playerHealth = parseInt(healthBar.style.width, 10) || 100;
-
-    playerHealth -= amount;
-    if (playerHealth === 0) {
-        dead(playerId); // Call dead function if player health reaches zero
-    }
-
-    updateHealthBar(playerId, playerHealth);
-}
-
 
 // Constructors
 class Creature {
@@ -2130,16 +2089,9 @@ creatures.push(new Creature("Xanthar", "Exile", xantharTheExileRiddle, xantharTh
 
 // Function to check player-creature collision
 function checkPlayerCreatureCollision(player, playerId) {
-    for (let creature of creatures) {
+    for (let i = 0; i < creatures.length; i++) {
+        const creature = creatures[i];
         if (isAtSamePosition(player, creature)) {
-            console.log("Player " + playerId + " encountered a creature: " + creature.firstName + " " + creature.lastName);
-            console.log("Riddle: " + creature.riddle);
-            console.log("Answer Options:");
-            creature.answerArray.forEach((answer, index) => {
-                console.log((index + 1) + ". " + answer);
-            });
-            console.log("Correct Answer: " + creature.answerArray[creature.correctAnswerIndex]);
-            
             // Update HTML elements based on player ID
             const creatureName = document.getElementById('name' + playerId);
             const creaturePrompt = document.getElementById('prompt' + playerId);
@@ -2157,6 +2109,11 @@ function checkPlayerCreatureCollision(player, playerId) {
                 listItem.innerText = (index + 1) + ". " + answer;
                 answerList.appendChild(listItem);
             });
+
+            // Update currentCreatureIndex
+            currentCreatureIndex = i;
+
+            break; // Exit the loop since we found a collision
         }
     }
 }
@@ -2187,6 +2144,47 @@ function isValidPosition(x, y) {
 
 function isAtSamePosition(player, creature) {
     return player.x === creature.x && player.y === creature.y;
+}
+
+//healthbar
+function updateHealthBar(playerId, health) {
+    const healthBar = document.getElementById(playerId).querySelector('.health');
+    const currentHealth = document.getElementById(playerId).querySelector('.currentHealth');
+  
+    healthBar.style.width = health + "%";
+    currentHealth.textContent = "Health: " + health;
+    currentHealth.style.fontSize = "1.5rem"; 
+    
+    // Change color based on health level
+    if (health > 70) {
+      healthBar.style.backgroundColor = "green";
+      currentHealth.style.color = "green";
+    } else if (health > 30) {
+      healthBar.style.backgroundColor = "darkorange";
+      currentHealth.style.color = "darkorange";
+    } else {
+      healthBar.style.backgroundColor = "red";
+      currentHealth.style.color = "red";
+    }
+  }
+  
+  // Function to simulate damage for a player
+  function takeDamage(playerId, amount) {
+    if (playerId === 'healthBarOne' && !playerOneAlive) {
+        return; // Player is dead, exit function
+    } else if (playerId === 'healthBarTwo' && !playerTwoAlive) {
+        return; // Player is dead, exit function
+    }
+
+    const healthBar = document.getElementById(playerId).querySelector('.health');
+    let playerHealth = parseInt(healthBar.style.width, 10) || 100;
+
+    playerHealth -= amount;
+    if (playerHealth === 0) {
+        dead(playerId); // Call dead function if player health reaches zero
+    }
+
+    updateHealthBar(playerId, playerHealth);
 }
 
 //Buttons
@@ -2241,27 +2239,69 @@ document.addEventListener("keydown", function(event) {
             }
         },
         "1": function() {
-            if (playerOneAlive) {
+            if (playerOneAlive && currentCreatureIndex !== -1) {
+                const correctAnswerIndex = creatures[currentCreatureIndex].correctAnswerIndex;
+                if (correctAnswerIndex === 0) {
+                    console.log("Player One chose the correct answer!");
+                    // Do something if the answer is correct
+                } else {
+                    takeDamage("healthBarOne", 10);
+                }
             }
-        },
+        },        
         "2": function() {
-            if (playerOneAlive) {
+            if (playerOneAlive && currentCreatureIndex !== -1) {
+                const correctAnswerIndex = creatures[currentCreatureIndex].correctAnswerIndex;
+                if (correctAnswerIndex === 1) {
+                    console.log("Player One chose the correct answer!");
+                    // Do something if the answer is correct
+                } else {
+                    takeDamage("healthBarOne", 10);
+                }
             }
-        },
+        },        
         "3": function() {
-            if (playerOneAlive) {
+            if (playerOneAlive && currentCreatureIndex !== -1) {
+                const correctAnswerIndex = creatures[currentCreatureIndex].correctAnswerIndex;
+                if (correctAnswerIndex === 2) {
+                    console.log("Player One chose the correct answer!");
+                    // Do something if the answer is correct
+                } else {
+                    takeDamage("healthBarOne", 10);
+                }
             }
         },
         "8": function() {
-            if (playerTwoAlive) {
+            if (playerTwoAlive && currentCreatureIndex !== -1) {
+                const correctAnswerIndex = creatures[currentCreatureIndex].correctAnswerIndex;
+                if (correctAnswerIndex === 0) {
+                    console.log("Player One chose the correct answer!");
+                    // Do something if the answer is correct
+                } else {
+                    takeDamage("healthBarTwo", 10);
+                }
             }
         },
         "9": function() {
-            if (playerTwoAlive) {
+            if (playerTwoAlive && currentCreatureIndex !== -1) {
+                const correctAnswerIndex = creatures[currentCreatureIndex].correctAnswerIndex;
+                if (correctAnswerIndex === 1) {
+                    console.log("Player One chose the correct answer!");
+                    // Do something if the answer is correct
+                } else {
+                    takeDamage("healthBarTwo", 10);
+                }
             }
         },
         "0": function() {
-            if (playerTwoAlive) {
+            if (playerTwoAlive && currentCreatureIndex !== -1) {
+                const correctAnswerIndex = creatures[currentCreatureIndex].correctAnswerIndex;
+                if (correctAnswerIndex === 2) {
+                    console.log("Player One chose the correct answer!");
+                    // Do something if the answer is correct
+                } else {
+                    takeDamage("healthBarTwo", 10);
+                }
             }
         }
     };
