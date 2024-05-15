@@ -2082,18 +2082,6 @@ class Creature {
         this.x = x;
         this.y = y;
     }
-
-    mobName() {
-        return this.firstName + " " + "the" + " " + this.lastName;
-    }
-
-    mobRiddle() {
-        return this.riddle;
-    }
-
-    mobAnswer() {
-        return this.answers;
-    }
 }
 
 //Riddles
@@ -2139,7 +2127,6 @@ function checkPlayerCreatureCollision(player) {
             creature.answerArray.forEach((answer, index) => {
                 console.log((index + 1) + ". " + answer);
             });
-            console.log("Choose the correct answer by typing the corresponding number.");
             console.log("Correct Answer: " + creature.answerArray[creature.correctAnswerIndex]);
         }
     }
