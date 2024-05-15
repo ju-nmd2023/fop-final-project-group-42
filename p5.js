@@ -9,6 +9,10 @@ const gridSizeY = 202;
 
 
 let grid = [];
+let creatures = [];
+let players = [];
+let playerOneCorrect = [];
+let playerTwoCorrect = [];
 
 function setup() {
     let canvas = createCanvas(1000,1000);
@@ -26,8 +30,11 @@ class Player {
 }
 
 // Create two individual players
-let player1 = new Player(7, 27, 100, 1);
-let player2 = new Player(97, 97, 80, 2);
+let player1 = new Player(7, 27, 50, 1);
+let player2 = new Player(10, 27, 100, 2);
+
+players.push(new Player(7, 27, 50, 1));
+players.push(new Player(10, 27, 100, 2));
 
 class Button {
     constructor(x, y, width, height, text) {
@@ -2078,7 +2085,7 @@ function updateHealthBar(playerId, health) {
 
 // Constructors
 class Creature {
-    constructor(firstName, lastName, riddle, answers, correctAnswerIndex, x, y) {
+    constructor(firstName, lastName, riddle, answers, correctAnswerIndex, x, y, id) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.riddle = riddle;
@@ -2086,6 +2093,7 @@ class Creature {
         this.correctAnswerIndex = correctAnswerIndex;
         this.x = x;
         this.y = y;
+        this.id = id;
     }
 }
 
@@ -2108,31 +2116,47 @@ const xantharTheExileArray = ["Horcrux", "Obscurus", "Dementor"]; // Obscurus
 
 //Wizards
 
-let malvarTheMalevolent = new Creature("Malvar", "Malevolent", malvarTheMalevolentRiddle, malvarTheMalevolentArray, 0, 2, 70);
-let vorinTheVile = new Creature("Vorin", "Vile", vorinTheVileRiddle, vorinTheVileArray, 2, 2, 30);
-let mordredTheMaleficent = new Creature("Mordred", "Maleficent", mordredTheMaleficentRiddle, mordredTheMaleficentArray, 1, 2, 40);
-let sylviaTheSinister = new Creature("Sylvia", "Sinister", sylviaTheSinisterRiddle, sylviaTheSinisterArray, 0, 2, 50);
-let xantharTheExile = new Creature("Xanthar", "Exile", xantharTheExileRiddle, xantharTheExileArray, 1, 2, 60);
+let malvarTheMalevolent = new Creature("Malvar", "Malevolent", malvarTheMalevolentRiddle, malvarTheMalevolentArray, 0, 2, 70, 1);
+let vorinTheVile = new Creature("Vorin", "Vile", vorinTheVileRiddle, vorinTheVileArray, 2, 2, 30, 2);
+let mordredTheMaleficent = new Creature("Mordred", "Maleficent", mordredTheMaleficentRiddle, mordredTheMaleficentArray, 1, 2, 40, 3);
+let sylviaTheSinister = new Creature("Sylvia", "Sinister", sylviaTheSinisterRiddle, sylviaTheSinisterArray, 0, 2, 50, 4);
+let xantharTheExile = new Creature("Xanthar", "Exile", xantharTheExileRiddle, xantharTheExileArray, 1, 2, 60, 5);
 
-let creatures = [];
-
-creatures.push(new Creature("Malvar", "Malevolent", malvarTheMalevolentRiddle, malvarTheMalevolentArray, 0, 2, 70));
-creatures.push(new Creature("Vorin", "Vile", vorinTheVileRiddle, vorinTheVileArray, 2, 2, 30));
-creatures.push(new Creature("Mordred", "Maleficent", mordredTheMaleficentRiddle, mordredTheMaleficentArray, 1, 2, 40));
-creatures.push(new Creature("Sylvia", "Sinister", sylviaTheSinisterRiddle, sylviaTheSinisterArray, 0, 2, 50));
-creatures.push(new Creature("Xanthar", "Exile", xantharTheExileRiddle, xantharTheExileArray, 1, 2, 60));
+creatures.push(new Creature("Malvar", "Malevolent", malvarTheMalevolentRiddle, malvarTheMalevolentArray, 0, 2, 70, 1));
+creatures.push(new Creature("Vorin", "Vile", vorinTheVileRiddle, vorinTheVileArray, 2, 2, 30, 2));
+creatures.push(new Creature("Mordred", "Maleficent", mordredTheMaleficentRiddle, mordredTheMaleficentArray, 1, 2, 40, 3));
+creatures.push(new Creature("Sylvia", "Sinister", sylviaTheSinisterRiddle, sylviaTheSinisterArray, 0, 2, 50, 4));
+creatures.push(new Creature("Xanthar", "Exile", xantharTheExileRiddle, xantharTheExileArray, 1, 2, 60, 5));
 
 // Function to check player-creature collision
-function checkPlayerCreatureCollision(player) {
+function checkPlayerCreatureCollision(player, playerId) {
     for (let creature of creatures) {
         if (isAtSamePosition(player, creature)) {
-            console.log("Encountered a creature: " + creature.firstName + " " + creature.lastName);
+            console.log("Player " + playerId + " encountered a creature: " + creature.firstName + " " + creature.lastName);
             console.log("Riddle: " + creature.riddle);
             console.log("Answer Options:");
             creature.answerArray.forEach((answer, index) => {
                 console.log((index + 1) + ". " + answer);
             });
             console.log("Correct Answer: " + creature.answerArray[creature.correctAnswerIndex]);
+            
+            // Update HTML elements based on player ID
+            const creatureName = document.getElementById('name' + playerId);
+            const creaturePrompt = document.getElementById('prompt' + playerId);
+            const answerList = document.getElementById('answerList' + playerId);
+            
+            creatureName.innerText = creature.firstName + " " + creature.lastName;
+            creaturePrompt.innerText = creature.riddle;
+            
+            // Clear previous answers
+            answerList.innerHTML = ''; 
+            
+            // Add answers
+            creature.answerArray.forEach((answer, index) => {
+                const listItem = document.createElement('li');
+                listItem.innerText = (index + 1) + ". " + answer;
+                answerList.appendChild(listItem);
+            });
         }
     }
 }
@@ -2171,49 +2195,49 @@ document.addEventListener("keydown", function(event) {
         "w": function() {
             if (playerOneAlive && canMove(player1.x, player1.y - 1)) {
                 player1.y -= 1; // Move player 1 up (decrease y coordinate)
-                checkPlayerCreatureCollision(player1);
+                checkPlayerCreatureCollision(player1, "One");
             }
         },
         "a": function() {
             if (playerOneAlive && canMove(player1.x - 1, player1.y)) {
                 player1.x -= 1; // Move player 1 left (decrease x coordinate)
-                checkPlayerCreatureCollision(player1);
+                checkPlayerCreatureCollision(player1, "One");
             }
         },
         "s": function() {
             if (playerOneAlive && canMove(player1.x, player1.y + 1)) {
                 player1.y += 1; // Move player 1 down (increase y coordinate)
-                checkPlayerCreatureCollision(player1);
+                checkPlayerCreatureCollision(player1, "One");
             }
         },
         "d": function() {
             if (playerOneAlive && canMove(player1.x + 1, player1.y)) {
                 player1.x += 1; // Move player 1 right (increase x coordinate)
-                checkPlayerCreatureCollision(player1);
+                checkPlayerCreatureCollision(player1, "One");
             }
         },
         "ArrowUp": function() {
             if (playerTwoAlive && canMove(player2.x, player2.y - 1)) {
                 player2.y -= 1; // Move player 2 up (decrease y coordinate)
-                checkPlayerCreatureCollision(player2);
+                checkPlayerCreatureCollision(player2, "Two");
             }
         },
         "ArrowLeft": function() {
             if (playerTwoAlive && canMove(player2.x - 1, player2.y)) {
                 player2.x -= 1; // Move player 2 left (decrease x coordinate)
-                checkPlayerCreatureCollision(player2);
+                checkPlayerCreatureCollision(player2, "Two");
             }
         },
         "ArrowDown": function() {
             if (playerTwoAlive && canMove(player2.x, player2.y + 1)) {
                 player2.y += 1; // Move player 2 down (increase y coordinate)
-                checkPlayerCreatureCollision(player2);
+                checkPlayerCreatureCollision(player2, "Two");
             }
         },
         "ArrowRight": function() {
             if (playerTwoAlive && canMove(player2.x + 1, player2.y)) {
                 player2.x += 1; // Move player 2 right (increase x coordinate)
-                checkPlayerCreatureCollision(player2);
+                checkPlayerCreatureCollision(player2, "Two");
             }
         },
         "1": function() {
@@ -2229,8 +2253,7 @@ document.addEventListener("keydown", function(event) {
         },
         "3": function() {
             if (playerOneAlive) {
-                const randomCreature = getRandomCreature();
-                promptBoxOne(randomCreature);
+                console.log("3")
             }
         },
         "8": function() {
@@ -2246,8 +2269,7 @@ document.addEventListener("keydown", function(event) {
         },
         "0": function() {
             if (playerTwoAlive) {
-                const randomCreature = getRandomCreature();
-                promptBoxTwo(randomCreature);
+                console.log("6")
             }
         }
     };
@@ -2260,8 +2282,8 @@ document.addEventListener("keydown", function(event) {
 
 
 function load(){
-    updateHealthBar('healthBarOne', 100);
-    updateHealthBar('healthBarTwo', 100);
+    updateHealthBar('healthBarOne', player1.hp);
+    updateHealthBar('healthBarTwo', player2.hp);
 }
 
 
