@@ -17,16 +17,17 @@ function setup() {
 }
 
 class Player {
-    constructor(x, y, hp) {
+    constructor(x, y, hp, id) {
         this.x = x;
         this.y = y;
         this.hp = hp;
+        this.id = id;
     }
 }
 
 // Create two individual players
-let player1 = new Player(2, 2, 100);
-let player2 = new Player(97, 97, 80);
+let player1 = new Player(7, 27, 100, 1);
+let player2 = new Player(97, 97, 80, 2);
 
 class Button {
     constructor(x, y, width, height, text) {
@@ -1980,6 +1981,10 @@ function drawGrid() {
                 // Draw Creatures
                 fill(0, 255, 255)
                 rect(malvarTheMalevolent.x * cellWidth, malvarTheMalevolent.y * cellHeight, cellWidth * 2, cellHeight * 2);
+                rect(vorinTheVile.x * cellWidth, vorinTheVile.y * cellHeight, cellWidth * 2, cellHeight * 2);
+                rect(mordredTheMaleficent.x * cellWidth, mordredTheMaleficent.y * cellHeight, cellWidth * 2, cellHeight * 2);
+                rect(sylviaTheSinister.x * cellWidth, sylviaTheSinister.y * cellHeight, cellWidth * 2, cellHeight * 2);
+                rect(xantharTheExile.x * cellWidth, xantharTheExile.y * cellHeight, cellWidth * 2, cellHeight * 2);
 
                 // Draw players
                 fill(0, 0, 255); // Player color
@@ -2095,27 +2100,27 @@ const xantharTheExileRiddle = "I am the embodiment of suppressed magic, unleashe
 //Answers
 
 const malvarTheMalevolentArray = ["Dementor", "Boggart", "Lethifold"]; // Dementor
-const vorinTheVileArray = ["1. Banshee", "2. Lycanthrope", "3. Acromantula"]; // Acromatula
-const mordredTheMaleficentArray = ["1. Obscurial", "2. Inferius", "3. Poltergeist"]; // Inferius
-const sylviaTheSinisterArray = ["1. Basilisk", "2. Mermish", "3. Kelpie"]; // Basilisk
-const xantharTheExileArray = ["1. Horcrux", "2. Obscurus", "3. Dementor"]; // Obscurus
+const vorinTheVileArray = ["Banshee", "Lycanthrope", "Acromantula"]; // Acromatula
+const mordredTheMaleficentArray = ["Obscurial", "Inferius", "Poltergeist"]; // Inferius
+const sylviaTheSinisterArray = ["Basilisk", "Mermish", "Kelpie"]; // Basilisk
+const xantharTheExileArray = ["Horcrux", "Obscurus", "Dementor"]; // Obscurus
 
 
 //Wizards
 
-let malvarTheMalevolent = new Creature("Malvar", "Malevolent", malvarTheMalevolentRiddle, malvarTheMalevolentArray, 0, 2, 7);
-let vorinTheVile = new Creature("Vorin", "Vile", vorinTheVileRiddle, vorinTheVileArray, 0, 0);
-let mordredTheMaleficent = new Creature("Mordred", "Maleficent", mordredTheMaleficentRiddle, mordredTheMaleficentArray, 0, 0);
-let sylviaTheSinister = new Creature("Sylvia", "Sinister", sylviaTheSinisterRiddle, sylviaTheSinisterArray, 0, 0);
-let xantharTheExile = new Creature("Xanthar", "Exile", xantharTheExileRiddle, xantharTheExileArray, 0, 0);
+let malvarTheMalevolent = new Creature("Malvar", "Malevolent", malvarTheMalevolentRiddle, malvarTheMalevolentArray, 0, 2, 70);
+let vorinTheVile = new Creature("Vorin", "Vile", vorinTheVileRiddle, vorinTheVileArray, 2, 2, 30);
+let mordredTheMaleficent = new Creature("Mordred", "Maleficent", mordredTheMaleficentRiddle, mordredTheMaleficentArray, 1, 2, 40);
+let sylviaTheSinister = new Creature("Sylvia", "Sinister", sylviaTheSinisterRiddle, sylviaTheSinisterArray, 0, 2, 50);
+let xantharTheExile = new Creature("Xanthar", "Exile", xantharTheExileRiddle, xantharTheExileArray, 1, 2, 60);
 
 let creatures = [];
 
-creatures.push(new Creature("Malvar", "Malevolent", malvarTheMalevolentRiddle, malvarTheMalevolentArray, 0, 2, 7));
-creatures.push(new Creature("Vorin", "Vile", vorinTheVileRiddle, vorinTheVileArray, 2, 0, 0));
-creatures.push(new Creature("Mordred", "Maleficent", mordredTheMaleficentRiddle, mordredTheMaleficentArray, 1, 0, 0));
-creatures.push(new Creature("Sylvia", "Sinister", sylviaTheSinisterRiddle, sylviaTheSinisterArray, 0, 0, 0));
-creatures.push(new Creature("Xanthar", "Exile", xantharTheExileRiddle, xantharTheExileArray, 1, 0, 0));
+creatures.push(new Creature("Malvar", "Malevolent", malvarTheMalevolentRiddle, malvarTheMalevolentArray, 0, 2, 70));
+creatures.push(new Creature("Vorin", "Vile", vorinTheVileRiddle, vorinTheVileArray, 2, 2, 30));
+creatures.push(new Creature("Mordred", "Maleficent", mordredTheMaleficentRiddle, mordredTheMaleficentArray, 1, 2, 40));
+creatures.push(new Creature("Sylvia", "Sinister", sylviaTheSinisterRiddle, sylviaTheSinisterArray, 0, 2, 50));
+creatures.push(new Creature("Xanthar", "Exile", xantharTheExileRiddle, xantharTheExileArray, 1, 2, 60));
 
 // Function to check player-creature collision
 function checkPlayerCreatureCollision(player) {
@@ -2167,56 +2172,48 @@ document.addEventListener("keydown", function(event) {
             if (playerOneAlive && canMove(player1.x, player1.y - 1)) {
                 player1.y -= 1; // Move player 1 up (decrease y coordinate)
                 checkPlayerCreatureCollision(player1);
-                console.log(player1.x, player1.y);
             }
         },
         "a": function() {
             if (playerOneAlive && canMove(player1.x - 1, player1.y)) {
                 player1.x -= 1; // Move player 1 left (decrease x coordinate)
                 checkPlayerCreatureCollision(player1);
-                console.log(player1.x, player1.y);
             }
         },
         "s": function() {
             if (playerOneAlive && canMove(player1.x, player1.y + 1)) {
                 player1.y += 1; // Move player 1 down (increase y coordinate)
                 checkPlayerCreatureCollision(player1);
-                console.log(player1.x, player1.y);
             }
         },
         "d": function() {
             if (playerOneAlive && canMove(player1.x + 1, player1.y)) {
                 player1.x += 1; // Move player 1 right (increase x coordinate)
                 checkPlayerCreatureCollision(player1);
-                console.log(player1.x, player1.y);
             }
         },
         "ArrowUp": function() {
             if (playerTwoAlive && canMove(player2.x, player2.y - 1)) {
                 player2.y -= 1; // Move player 2 up (decrease y coordinate)
                 checkPlayerCreatureCollision(player2);
-                console.log(player2.x, player2.y);
             }
         },
         "ArrowLeft": function() {
             if (playerTwoAlive && canMove(player2.x - 1, player2.y)) {
                 player2.x -= 1; // Move player 2 left (decrease x coordinate)
                 checkPlayerCreatureCollision(player2);
-                console.log(player2.x, player2.y);
             }
         },
         "ArrowDown": function() {
             if (playerTwoAlive && canMove(player2.x, player2.y + 1)) {
                 player2.y += 1; // Move player 2 down (increase y coordinate)
                 checkPlayerCreatureCollision(player2);
-                console.log(player2.x, player2.y);
             }
         },
         "ArrowRight": function() {
             if (playerTwoAlive && canMove(player2.x + 1, player2.y)) {
                 player2.x += 1; // Move player 2 right (increase x coordinate)
                 checkPlayerCreatureCollision(player2);
-                console.log(player2.x, player2.y);
             }
         },
         "1": function() {
