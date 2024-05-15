@@ -8,7 +8,6 @@ const gridSizeX = 202;
 const gridSizeY = 202; 
 
 
-// Create the grid array
 let grid = [];
 
 function setup() {
@@ -26,8 +25,8 @@ class Player {
 }
 
 // Create two individual players
-let player1 = new Player(2, 2, 100); // Player 1 with 100 HP at position (2, 2)
-let player2 = new Player(97, 97, 80); // Player 2 with 80 HP at position (97, 97)
+let player1 = new Player(2, 2, 100);
+let player2 = new Player(97, 97, 80);
 
 class Button {
     constructor(x, y, width, height, text) {
@@ -68,9 +67,6 @@ function keyPressed(){
     }
 }
 
-
-
-// Function to initialize the grid with a given value (0 or 1)
 function initializeGrid(value) {
     for (let x = 0; x < gridSizeX; x++) {
         // Initialize the inner array
@@ -1981,11 +1977,16 @@ function drawGrid() {
             }
             rect(x * cellWidth, y * cellHeight, cellWidth + 1, cellHeight + 1); //added one to overlap a bit to hide the white border around the boxes
         }
+                // Draw Creatures
+                fill(0, 255, 255)
+                rect(malvarTheMalevolent.x * cellWidth, malvarTheMalevolent.y * cellHeight, cellWidth * 2, cellHeight * 2);
+
                 // Draw players
                 fill(0, 0, 255); // Player color
                 rect(player1.x * cellWidth, player1.y * cellHeight, cellWidth * 2, cellHeight * 2);
                 fill(255, 0, 0); // Player color
                 rect(player2.x * cellWidth, player2.y * cellHeight, cellWidth * 2, cellHeight * 2);
+                
     }
 }
 
@@ -2029,7 +2030,6 @@ function dead(playerId) {
 }
 
 //healthbar
-// Function to update the health bar for a player
 function updateHealthBar(playerId, health) {
     const healthBar = document.getElementById(playerId).querySelector('.health');
     const currentHealth = document.getElementById(playerId).querySelector('.currentHealth');
@@ -2073,11 +2073,14 @@ function updateHealthBar(playerId, health) {
 
 // Constructors
 class Creature {
-    constructor(firstName, lastName, riddle, answers) {
+    constructor(firstName, lastName, riddle, answers, correctAnswerIndex, x, y) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.riddle = riddle;
-        this.answers = answers;
+        this.answerArray = answers;
+        this.correctAnswerIndex = correctAnswerIndex;
+        this.x = x;
+        this.y = y;
     }
 
     mobName() {
@@ -2103,7 +2106,7 @@ const xantharTheExileRiddle = "I am the embodiment of suppressed magic, unleashe
 
 //Answers
 
-const malvarTheMalevolentArray = ["1. Dementor", "2. Boggart", "3. Lethifold"]; // Dementor
+const malvarTheMalevolentArray = ["Dementor", "Boggart", "Lethifold"]; // Dementor
 const vorinTheVileArray = ["1. Banshee", "2. Lycanthrope", "3. Acromantula"]; // Acromatula
 const mordredTheMaleficentArray = ["1. Obscurial", "2. Inferius", "3. Poltergeist"]; // Inferius
 const sylviaTheSinisterArray = ["1. Basilisk", "2. Mermish", "3. Kelpie"]; // Basilisk
@@ -2112,48 +2115,34 @@ const xantharTheExileArray = ["1. Horcrux", "2. Obscurus", "3. Dementor"]; // Ob
 
 //Wizards
 
-let malvarTheMalevolent = new Creature("Malvar", "Malevolent", malvarTheMalevolentRiddle, malvarTheMalevolentArray);
-let vorinTheVile = new Creature("Vorin", "Vile", vorinTheVileRiddle, vorinTheVileArray);
-let mordredTheMaleficent = new Creature("Mordred", "Maleficent", mordredTheMaleficentRiddle, mordredTheMaleficentArray);
-let sylviaTheSinister = new Creature("Sylvia", "Sinister", sylviaTheSinisterRiddle, sylviaTheSinisterArray);
-let xantharTheExile = new Creature("Xanthar", "Exile", xantharTheExileRiddle, xantharTheExileArray);
+let malvarTheMalevolent = new Creature("Malvar", "Malevolent", malvarTheMalevolentRiddle, malvarTheMalevolentArray, 0, 2, 7);
+let vorinTheVile = new Creature("Vorin", "Vile", vorinTheVileRiddle, vorinTheVileArray, 0, 0);
+let mordredTheMaleficent = new Creature("Mordred", "Maleficent", mordredTheMaleficentRiddle, mordredTheMaleficentArray, 0, 0);
+let sylviaTheSinister = new Creature("Sylvia", "Sinister", sylviaTheSinisterRiddle, sylviaTheSinisterArray, 0, 0);
+let xantharTheExile = new Creature("Xanthar", "Exile", xantharTheExileRiddle, xantharTheExileArray, 0, 0);
 
+let creatures = [];
 
-const mobName = [malvarTheMalevolent, vorinTheVile, mordredTheMaleficent, sylviaTheSinister, xantharTheExile];
+creatures.push(new Creature("Malvar", "Malevolent", malvarTheMalevolentRiddle, malvarTheMalevolentArray, 0, 2, 7));
+creatures.push(new Creature("Vorin", "Vile", vorinTheVileRiddle, vorinTheVileArray, 2, 0, 0));
+creatures.push(new Creature("Mordred", "Maleficent", mordredTheMaleficentRiddle, mordredTheMaleficentArray, 1, 0, 0));
+creatures.push(new Creature("Sylvia", "Sinister", sylviaTheSinisterRiddle, sylviaTheSinisterArray, 0, 0, 0));
+creatures.push(new Creature("Xanthar", "Exile", xantharTheExileRiddle, xantharTheExileArray, 1, 0, 0));
 
-const getRandomCreature = () => {
-    const randomCreature = Math.floor(Math.random() * mobName.length);
-    return mobName[randomCreature];
-};
-
-function promptBoxOne(randomCreature) {
-    document.getElementById("nameOne").innerHTML = randomCreature.mobName();
-    document.getElementById("promptOne").innerHTML = randomCreature.mobRiddle();
-    document.getElementById("answerListOne").innerHTML = randomCreature.mobAnswer();
-
-    let answerListOne = document.getElementById("answerListOne");
-    answerListOne.innerHTML = "";
-    
-    randomCreature.mobAnswer().forEach(function(answer) {
-        let li = document.createElement("li");
-        li.textContent = answer;
-        answerListOne.appendChild(li);
-    });
-}
-
-function promptBoxTwo(randomCreature) {
-    document.getElementById("nameTwo").innerHTML = randomCreature.mobName();
-    document.getElementById("promptTwo").innerHTML = randomCreature.mobRiddle();
-    document.getElementById("answerListTwo").innerHTML = randomCreature.mobAnswer();
-
-    let answerListTwo = document.getElementById("answerListTwo");
-    answerListTwo.innerHTML = "";
-    
-    randomCreature.mobAnswer().forEach(function(answer) {
-        let li = document.createElement("li");
-        li.textContent = answer;
-        answerListTwo.appendChild(li);
-    });
+// Function to check player-creature collision
+function checkPlayerCreatureCollision(player) {
+    for (let creature of creatures) {
+        if (isAtSamePosition(player, creature)) {
+            console.log("Encountered a creature: " + creature.firstName + " " + creature.lastName);
+            console.log("Riddle: " + creature.riddle);
+            console.log("Answer Options:");
+            creature.answerArray.forEach((answer, index) => {
+                console.log((index + 1) + ". " + answer);
+            });
+            console.log("Choose the correct answer by typing the corresponding number.");
+            console.log("Correct Answer: " + creature.answerArray[creature.correctAnswerIndex]);
+        }
+    }
 }
 
 //function canMove and isValidPosition were created through help from chatGPT (problem was that I forgot that our player models were 2x2, not 1x1, so some parts would glitch halfway through certain walls before detecting collissions)
@@ -2174,62 +2163,73 @@ function canMove(x, y) {
 function isValidPosition(x, y) {
     // Check if the position is within the grid bounds and not a wall with grid value 1
     return (
-        x >= 0 && x < grid.length &&               // Check if x-coordinate is within the grid bounds
-        y >= 0 && y < grid[0].length &&            // Check if y-coordinate is within the grid bounds
-        (grid[x][y] === 0 || grid[x][y] === 3)    // Check if the grid value is either 0 or 3 (valid positions)
+        x >= 0 && x < grid.length && // Check if x-coordinate is within the grid bounds
+        y >= 0 && y < grid[0].length && // Check if y-coordinate is within the grid bounds
+        (grid[x][y] === 0) // Check if the grid value is 0 (valid positions)
     );
 }
 
-//Buttons
+function isAtSamePosition(player, creature) {
+    return player.x === creature.x && player.y === creature.y;
+}
 
+//Buttons
 document.addEventListener("keydown", function(event) {
     const keyActions = {
         "w": function() {
             if (playerOneAlive && canMove(player1.x, player1.y - 1)) {
-                console.log("Player 1 moved up");
                 player1.y -= 1; // Move player 1 up (decrease y coordinate)
+                checkPlayerCreatureCollision(player1);
+                console.log(player1.x, player1.y);
             }
         },
         "a": function() {
             if (playerOneAlive && canMove(player1.x - 1, player1.y)) {
-                console.log("Player 1 moved left");
                 player1.x -= 1; // Move player 1 left (decrease x coordinate)
+                checkPlayerCreatureCollision(player1);
+                console.log(player1.x, player1.y);
             }
         },
         "s": function() {
             if (playerOneAlive && canMove(player1.x, player1.y + 1)) {
-                console.log("Player 1 moved down");
                 player1.y += 1; // Move player 1 down (increase y coordinate)
+                checkPlayerCreatureCollision(player1);
+                console.log(player1.x, player1.y);
             }
         },
         "d": function() {
             if (playerOneAlive && canMove(player1.x + 1, player1.y)) {
-                console.log("Player 1 moved right");
                 player1.x += 1; // Move player 1 right (increase x coordinate)
+                checkPlayerCreatureCollision(player1);
+                console.log(player1.x, player1.y);
             }
         },
         "ArrowUp": function() {
             if (playerTwoAlive && canMove(player2.x, player2.y - 1)) {
-                console.log("Player 2 moved up");
                 player2.y -= 1; // Move player 2 up (decrease y coordinate)
+                checkPlayerCreatureCollision(player2);
+                console.log(player2.x, player2.y);
             }
         },
         "ArrowLeft": function() {
             if (playerTwoAlive && canMove(player2.x - 1, player2.y)) {
-                console.log("Player 2 moved left");
                 player2.x -= 1; // Move player 2 left (decrease x coordinate)
+                checkPlayerCreatureCollision(player2);
+                console.log(player2.x, player2.y);
             }
         },
         "ArrowDown": function() {
             if (playerTwoAlive && canMove(player2.x, player2.y + 1)) {
-                console.log("Player 2 moved down");
                 player2.y += 1; // Move player 2 down (increase y coordinate)
+                checkPlayerCreatureCollision(player2);
+                console.log(player2.x, player2.y);
             }
         },
         "ArrowRight": function() {
             if (playerTwoAlive && canMove(player2.x + 1, player2.y)) {
-                console.log("Player 2 moved right");
                 player2.x += 1; // Move player 2 right (increase x coordinate)
+                checkPlayerCreatureCollision(player2);
+                console.log(player2.x, player2.y);
             }
         },
         "1": function() {
@@ -2270,9 +2270,10 @@ document.addEventListener("keydown", function(event) {
 
     const action = keyActions[event.key];
     if (action) {
-    action();
+        action();
     }
-    });
+});
+
 
 function load(){
     updateHealthBar('healthBarOne', 100);
