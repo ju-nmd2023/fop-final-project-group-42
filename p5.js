@@ -36,6 +36,15 @@ let player2 = new Player(10, 27, 100, 2);
 players.push(new Player(7, 27, 100, 1));
 players.push(new Player(10, 27, 100, 2));
 
+class Trophy {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+}
+
+let trophy = new Trophy(50, 50);
+
 class Button {
     constructor(x, y, width, height, text) {
         this.x = x;
@@ -2140,7 +2149,7 @@ function isValidPosition(x, y) {
     return (
         x >= 0 && x < grid.length && // Check if x-coordinate is within the grid bounds
         y >= 0 && y < grid[0].length && // Check if y-coordinate is within the grid bounds
-        (grid[x][y] === 0) // Check if the grid value is 0 (valid positions)
+        (grid[x][y] === 0 || grid[x][y] === 3 || grid[x][y] === 4)  // Check if the grid value is 0 (valid positions)
     );
 }
 
@@ -2199,6 +2208,40 @@ function clearText(playerId) {
     answerList.innerHTML = '';
 }
 
+
+function checkAnswers(player) {
+    let correctAnswers;
+    if (player === player1) {
+        correctAnswers = playerOneCorrect;
+    } else if (player === player2) {
+        correctAnswers = playerTwoCorrect;
+    }
+
+    const expectedAnswers = [1, 2, 3, 4, 5];
+    
+    // Sort both arrays before comparing
+    correctAnswers.sort((a, b) => a - b);
+    expectedAnswers.sort((a, b) => a - b);
+    
+    // Check if the sorted correct answers match the sorted expected answers
+    const correct = correctAnswers.length === expectedAnswers.length &&
+                    correctAnswers.every((answer, index) => answer === expectedAnswers[index]);
+    
+    if (correct) {
+        console.log("Correct answers match the expected answers!");
+    } else {
+        console.log("Incorrect answers!");
+    }
+}
+
+function detectCollision(player1, player2, trophy) {
+    if (player1.x === trophy.x && player1.y === trophy.y) {
+        checkAnswers(player1);
+    } else if (player2.x === trophy.x && player2.y === trophy.y) {
+        checkAnswers(player2);
+    }
+}
+
 //Buttons
 document.addEventListener("keydown", function(event) {
     const keyActions = {
@@ -2207,7 +2250,7 @@ document.addEventListener("keydown", function(event) {
                 player1.y -= 1; // Move player 1 up (decrease y coordinate)
                 checkPlayerCreatureCollision(player1, "One");
                 console.log(playerOneCorrect);
-
+                detectCollision(player1, player2, trophy);
             }
         },
         "a": function() {
@@ -2215,7 +2258,7 @@ document.addEventListener("keydown", function(event) {
                 player1.x -= 1; // Move player 1 left (decrease x coordinate)
                 checkPlayerCreatureCollision(player1, "One");
                 console.log(playerOneCorrect);
-
+                detectCollision(player1, player2, trophy);
             }
         },
         "s": function() {
@@ -2223,7 +2266,7 @@ document.addEventListener("keydown", function(event) {
                 player1.y += 1; // Move player 1 down (increase y coordinate)
                 checkPlayerCreatureCollision(player1, "One");
                 console.log(playerOneCorrect);
-
+                detectCollision(player1, player2, trophy);
             }
         },
         "d": function() {
@@ -2231,6 +2274,7 @@ document.addEventListener("keydown", function(event) {
                 player1.x += 1; // Move player 1 right (increase x coordinate)
                 checkPlayerCreatureCollision(player1, "One");
                 console.log(playerOneCorrect);
+                detectCollision(player1, player2, trophy);
             }
         },
         "ArrowUp": function() {
@@ -2238,6 +2282,7 @@ document.addEventListener("keydown", function(event) {
                 player2.y -= 1; // Move player 2 up (decrease y coordinate)
                 checkPlayerCreatureCollision(player2, "Two");
                 console.log(playerTwoCorrect);
+                detectCollision(player1, player2, trophy);
             }
         },
         "ArrowLeft": function() {
@@ -2245,6 +2290,7 @@ document.addEventListener("keydown", function(event) {
                 player2.x -= 1; // Move player 2 left (decrease x coordinate)
                 checkPlayerCreatureCollision(player2, "Two");
                 console.log(playerTwoCorrect);
+                detectCollision(player1, player2, trophy);
             }
         },
         "ArrowDown": function() {
@@ -2252,6 +2298,7 @@ document.addEventListener("keydown", function(event) {
                 player2.y += 1; // Move player 2 down (increase y coordinate)
                 checkPlayerCreatureCollision(player2, "Two");
                 console.log(playerTwoCorrect);
+                detectCollision(player1, player2, trophy);
             }
         },
         "ArrowRight": function() {
@@ -2259,6 +2306,7 @@ document.addEventListener("keydown", function(event) {
                 player2.x += 1; // Move player 2 right (increase x coordinate)
                 checkPlayerCreatureCollision(player2, "Two");
                 console.log(playerTwoCorrect);
+                detectCollision(player1, player2, trophy);
             }
         },
         "1": function() {
