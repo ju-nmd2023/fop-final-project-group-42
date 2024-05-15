@@ -30,10 +30,10 @@ class Player {
 }
 
 // Create two individual players
-let player1 = new Player(7, 27, 50, 1);
+let player1 = new Player(7, 27, 100, 1);
 let player2 = new Player(10, 27, 100, 2);
 
-players.push(new Player(7, 27, 50, 1));
+players.push(new Player(7, 27, 100, 1));
 players.push(new Player(10, 27, 100, 2));
 
 class Button {
@@ -2096,13 +2096,15 @@ function checkPlayerCreatureCollision(player, playerId) {
             const creatureName = document.getElementById('name' + playerId);
             const creaturePrompt = document.getElementById('prompt' + playerId);
             const answerList = document.getElementById('answerList' + playerId);
-            
+    
             creatureName.innerText = creature.firstName + " " + creature.lastName;
             creaturePrompt.innerText = creature.riddle;
             
+
+
             // Clear previous answers
             answerList.innerHTML = ''; 
-            
+
             // Add answers
             creature.answerArray.forEach((answer, index) => {
                 const listItem = document.createElement('li');
@@ -2187,6 +2189,16 @@ function updateHealthBar(playerId, health) {
     updateHealthBar(playerId, playerHealth);
 }
 
+function clearText(playerId) {
+    const creatureName = document.getElementById('name' + playerId);
+    const creaturePrompt = document.getElementById('prompt' + playerId);
+    const answerList = document.getElementById('answerList' + playerId);
+    
+    creatureName.innerHTML = '';
+    creaturePrompt.innerHTML = '';
+    answerList.innerHTML = '';
+}
+
 //Buttons
 document.addEventListener("keydown", function(event) {
     const keyActions = {
@@ -2194,55 +2206,71 @@ document.addEventListener("keydown", function(event) {
             if (playerOneAlive && canMove(player1.x, player1.y - 1)) {
                 player1.y -= 1; // Move player 1 up (decrease y coordinate)
                 checkPlayerCreatureCollision(player1, "One");
+                console.log(playerOneCorrect);
+
             }
         },
         "a": function() {
             if (playerOneAlive && canMove(player1.x - 1, player1.y)) {
                 player1.x -= 1; // Move player 1 left (decrease x coordinate)
                 checkPlayerCreatureCollision(player1, "One");
+                console.log(playerOneCorrect);
+
             }
         },
         "s": function() {
             if (playerOneAlive && canMove(player1.x, player1.y + 1)) {
                 player1.y += 1; // Move player 1 down (increase y coordinate)
                 checkPlayerCreatureCollision(player1, "One");
+                console.log(playerOneCorrect);
+
             }
         },
         "d": function() {
             if (playerOneAlive && canMove(player1.x + 1, player1.y)) {
                 player1.x += 1; // Move player 1 right (increase x coordinate)
                 checkPlayerCreatureCollision(player1, "One");
+                console.log(playerOneCorrect);
             }
         },
         "ArrowUp": function() {
             if (playerTwoAlive && canMove(player2.x, player2.y - 1)) {
                 player2.y -= 1; // Move player 2 up (decrease y coordinate)
                 checkPlayerCreatureCollision(player2, "Two");
+                console.log(playerTwoCorrect);
             }
         },
         "ArrowLeft": function() {
             if (playerTwoAlive && canMove(player2.x - 1, player2.y)) {
                 player2.x -= 1; // Move player 2 left (decrease x coordinate)
                 checkPlayerCreatureCollision(player2, "Two");
+                console.log(playerTwoCorrect);
             }
         },
         "ArrowDown": function() {
             if (playerTwoAlive && canMove(player2.x, player2.y + 1)) {
                 player2.y += 1; // Move player 2 down (increase y coordinate)
                 checkPlayerCreatureCollision(player2, "Two");
+                console.log(playerTwoCorrect);
             }
         },
         "ArrowRight": function() {
             if (playerTwoAlive && canMove(player2.x + 1, player2.y)) {
                 player2.x += 1; // Move player 2 right (increase x coordinate)
                 checkPlayerCreatureCollision(player2, "Two");
+                console.log(playerTwoCorrect);
             }
         },
         "1": function() {
             if (playerOneAlive && currentCreatureIndex !== -1) {
                 const correctAnswerIndex = creatures[currentCreatureIndex].correctAnswerIndex;
+                const creatureId = creatures[currentCreatureIndex].id;
                 if (correctAnswerIndex === 0) {
-                    console.log("Player One chose the correct answer!");
+                    console.log("Player Two chose the correct answer!");
+                    if (!playerOneCorrect.includes(creatureId)) {
+                        playerOneCorrect.push(creatureId); // Push the ID of the correct creature into playerTwoCorrect array if it's not already present
+                    }
+                    clearText("One");
                     // Do something if the answer is correct
                 } else {
                     takeDamage("healthBarOne", 10);
@@ -2252,8 +2280,13 @@ document.addEventListener("keydown", function(event) {
         "2": function() {
             if (playerOneAlive && currentCreatureIndex !== -1) {
                 const correctAnswerIndex = creatures[currentCreatureIndex].correctAnswerIndex;
+                const creatureId = creatures[currentCreatureIndex].id;
                 if (correctAnswerIndex === 1) {
-                    console.log("Player One chose the correct answer!");
+                    console.log("Player Two chose the correct answer!");
+                    if (!playerOneCorrect.includes(creatureId)) {
+                        playerOneCorrect.push(creatureId); // Push the ID of the correct creature into playerTwoCorrect array if it's not already present
+                    }
+                    clearText("One");
                     // Do something if the answer is correct
                 } else {
                     takeDamage("healthBarOne", 10);
@@ -2263,8 +2296,14 @@ document.addEventListener("keydown", function(event) {
         "3": function() {
             if (playerOneAlive && currentCreatureIndex !== -1) {
                 const correctAnswerIndex = creatures[currentCreatureIndex].correctAnswerIndex;
+                const creatureId = creatures[currentCreatureIndex].id;
                 if (correctAnswerIndex === 2) {
-                    console.log("Player One chose the correct answer!");
+                    console.log("Player Two chose the correct answer!");
+                    if (!playerOneCorrect.includes(creatureId)) {
+                        playerOneCorrect.push(creatureId); // Push the ID of the correct creature into playerTwoCorrect array if it's not already present
+            
+                    }
+                    clearText("One");
                     // Do something if the answer is correct
                 } else {
                     takeDamage("healthBarOne", 10);
@@ -2274,8 +2313,13 @@ document.addEventListener("keydown", function(event) {
         "8": function() {
             if (playerTwoAlive && currentCreatureIndex !== -1) {
                 const correctAnswerIndex = creatures[currentCreatureIndex].correctAnswerIndex;
+                const creatureId = creatures[currentCreatureIndex].id;
                 if (correctAnswerIndex === 0) {
-                    console.log("Player One chose the correct answer!");
+                    console.log("Player Two chose the correct answer!");
+                    if (!playerTwoCorrect.includes(creatureId)) {
+                        playerTwoCorrect.push(creatureId); // Push the ID of the correct creature into playerTwoCorrect array if it's not already present
+                    }
+                    clearText("Two");
                     // Do something if the answer is correct
                 } else {
                     takeDamage("healthBarTwo", 10);
@@ -2285,8 +2329,13 @@ document.addEventListener("keydown", function(event) {
         "9": function() {
             if (playerTwoAlive && currentCreatureIndex !== -1) {
                 const correctAnswerIndex = creatures[currentCreatureIndex].correctAnswerIndex;
+                const creatureId = creatures[currentCreatureIndex].id;
                 if (correctAnswerIndex === 1) {
-                    console.log("Player One chose the correct answer!");
+                    console.log("Player Two chose the correct answer!");
+                    if (!playerTwoCorrect.includes(creatureId)) {
+                        playerTwoCorrect.push(creatureId); // Push the ID of the correct creature into playerTwoCorrect array if it's not already present
+                    }
+                    clearText("Two");
                     // Do something if the answer is correct
                 } else {
                     takeDamage("healthBarTwo", 10);
@@ -2296,8 +2345,13 @@ document.addEventListener("keydown", function(event) {
         "0": function() {
             if (playerTwoAlive && currentCreatureIndex !== -1) {
                 const correctAnswerIndex = creatures[currentCreatureIndex].correctAnswerIndex;
+                const creatureId = creatures[currentCreatureIndex].id;
                 if (correctAnswerIndex === 2) {
-                    console.log("Player One chose the correct answer!");
+                    console.log("Player Two chose the correct answer!");
+                    if (!playerTwoCorrect.includes(creatureId)) {
+                        playerTwoCorrect.push(creatureId); // Push the ID of the correct creature into playerTwoCorrect array if it's not already present
+                    }
+                    clearText("Two");
                     // Do something if the answer is correct
                 } else {
                     takeDamage("healthBarTwo", 10);
