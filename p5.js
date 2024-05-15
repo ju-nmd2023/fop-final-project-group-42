@@ -2242,34 +2242,26 @@ document.addEventListener("keydown", function(event) {
         },
         "1": function() {
             if (playerOneAlive) {
-                console.log("1");
-                takeDamage('healthBarOne', 10);
             }
         },
         "2": function() {
             if (playerOneAlive) {
-                console.log("2");
             }
         },
         "3": function() {
             if (playerOneAlive) {
-                console.log("3")
             }
         },
         "8": function() {
             if (playerTwoAlive) {
-                console.log("4");
-                takeDamage('healthBarTwo', 10);
             }
         },
         "9": function() {
             if (playerTwoAlive) {
-                console.log("5");
             }
         },
         "0": function() {
             if (playerTwoAlive) {
-                console.log("6")
             }
         }
     };
