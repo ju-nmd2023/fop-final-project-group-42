@@ -1958,6 +1958,9 @@ function drawGrid() {
     const cellWidth = canvas.width / gridSizeX;
     const cellHeight = canvas.height / gridSizeY;
 
+   console.log(canvas.width / gridSizeX);
+   //console.log(cellWidth*2);
+
     noStroke();
 
     for (let x = 0; x < gridSizeX; x++) {
@@ -1987,6 +1990,9 @@ function drawGrid() {
                 rect(mordredTheMaleficent.x * cellWidth, mordredTheMaleficent.y * cellHeight, cellWidth * 2, cellHeight * 2);
                 rect(sylviaTheSinister.x * cellWidth, sylviaTheSinister.y * cellHeight, cellWidth * 2, cellHeight * 2);
                 rect(xantharTheExile.x * cellWidth, xantharTheExile.y * cellHeight, cellWidth * 2, cellHeight * 2);
+                rect(albusDumbledore.x * cellWidth, albusDumbledore.y * cellHeight, cellWidth *2, cellHeight * 2); 
+                rect(isadoraWhitewood.x * cellWidth, isadoraWhitewood.y * cellHeight, cellWidth * 2, cellHeight * 2); 
+                rect(caspainAshford.x * cellWidth, caspainAshford.y * cellHeight, cellWidth * 2, cellHeight * 2); 
 
                 // Draw players
                 fill(0, 0, 255); // Player color
@@ -2048,6 +2054,9 @@ const vorinTheVileRiddle = "I weave a web of deceit and death, lurking in the sh
 const mordredTheMaleficentRiddle = "I am a puppet of darkness, animated by the darkest magic. What am I?";
 const sylviaTheSinisterRiddle = "I slither through the depths, my gaze bringing death to those who meet it. What am I?";
 const xantharTheExileRiddle = "I am the embodiment of suppressed magic, unleashed in a torrent of destruction. What am I?";
+const albusDumbledoreRiddle =  "I'm a shape-shifter from black to white, once in Azkaban, now in flight. Who am I, a mystery you see?";
+const isadoraWhitewoodRiddle = "Small and grand, a wizard's brand, with no wings, I soar and land. Seek me when in need, my song, a seed.";
+const caspianAshfordRiddle = "Venomous might, leaves bright, in shadows, I thrive and spread fright. Deadly brew, beware, in wizarding spree, I'm there.";
 
 //Answers
 
@@ -2056,6 +2065,11 @@ const vorinTheVileArray = ["Banshee", "Lycanthrope", "Acromantula"]; // Acromatu
 const mordredTheMaleficentArray = ["Obscurial", "Inferius", "Poltergeist"]; // Inferius
 const sylviaTheSinisterArray = ["Basilisk", "Mermish", "Kelpie"]; // Basilisk
 const xantharTheExileArray = ["Horcrux", "Obscurus", "Dementor"]; // Obscurus
+const albusDumbledoreArray = ['Sirius Black', 'Animagus', 'Dementor']; //Animagus
+const isadoraWhitewoodArray = ['Golden Snitch', 'Fawkes', 'Thestral']; //Golden Snitch
+const caspianAshfordArray= ['Mandrake', 'Devils Snare', 'Venemous Tentacula']; //Devils Snare
+
+
 
 
 //Wizards
@@ -2065,12 +2079,18 @@ let vorinTheVile = new Creature("Vorin", "Vile", vorinTheVileRiddle, vorinTheVil
 let mordredTheMaleficent = new Creature("Mordred", "Maleficent", mordredTheMaleficentRiddle, mordredTheMaleficentArray, 1, 2, 40, 3);
 let sylviaTheSinister = new Creature("Sylvia", "Sinister", sylviaTheSinisterRiddle, sylviaTheSinisterArray, 0, 2, 50, 4);
 let xantharTheExile = new Creature("Xanthar", "Exile", xantharTheExileRiddle, xantharTheExileArray, 1, 2, 60, 5);
+let albusDumbledore = new Creature('Albus', 'Dumbledore', albusDumbledoreRiddle, albusDumbledoreArray, 1, 2, 80, 6);
+let isadoraWhitewood = new Creature('Isadora', 'WhiteWood', isadoraWhitewoodRiddle, isadoraWhitewoodArray, 0, 2, 90, 7);
+let caspainAshford = new Creature('Caspian', 'Ashford', caspianAshfordRiddle, caspianAshfordArray, 1, 2, 85 , 8); 
 
 creatures.push(new Creature("Malvar", "Malevolent", malvarTheMalevolentRiddle, malvarTheMalevolentArray, 0, 2, 70, 1));
 creatures.push(new Creature("Vorin", "Vile", vorinTheVileRiddle, vorinTheVileArray, 2, 2, 30, 2));
 creatures.push(new Creature("Mordred", "Maleficent", mordredTheMaleficentRiddle, mordredTheMaleficentArray, 1, 2, 40, 3));
 creatures.push(new Creature("Sylvia", "Sinister", sylviaTheSinisterRiddle, sylviaTheSinisterArray, 0, 2, 50, 4));
 creatures.push(new Creature("Xanthar", "Exile", xantharTheExileRiddle, xantharTheExileArray, 1, 2, 60, 5));
+creatures.push(new Creature('Albus', 'Dumbledore', albusDumbledoreRiddle, albusDumbledoreArray, 1, 2, 80, 6));
+creatures.push(new Creature('Isadora', 'WhiteWood', isadoraWhitewoodRiddle, isadoraWhitewoodArray, 0, 2, 90, 7));
+creatures.push(new Creature('Caspian', 'Ashford', caspianAshfordRiddle, caspianAshfordArray, 1, 2, 85, 8));
 
 // Function to check player-creature collision
 function checkPlayerCreatureCollision(player, playerId) {
@@ -2211,8 +2231,13 @@ function checkAnswers(player) {
         correctAnswers = playerTwoCorrect;
     }
 
+<<<<<<< HEAD
+    const expectedAnswers = [1, 2, 3, 4, 5, 6, 7, 8];
+    
+=======
     const expectedAnswers = [1, 2, 3, 4, 5];
 
+>>>>>>> 8190f76b52bf8b50c8ba4cf14d693d36ce67e0f7
     // Sort both arrays before comparing
     correctAnswers.sort((a, b) => a - b);
     expectedAnswers.sort((a, b) => a - b);
