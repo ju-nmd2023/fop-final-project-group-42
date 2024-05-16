@@ -2231,13 +2231,8 @@ function checkAnswers(player) {
         correctAnswers = playerTwoCorrect;
     }
 
-<<<<<<< HEAD
     const expectedAnswers = [1, 2, 3, 4, 5, 6, 7, 8];
     
-=======
-    const expectedAnswers = [1, 2, 3, 4, 5];
-
->>>>>>> 8190f76b52bf8b50c8ba4cf14d693d36ce67e0f7
     // Sort both arrays before comparing
     correctAnswers.sort((a, b) => a - b);
     expectedAnswers.sort((a, b) => a - b);
