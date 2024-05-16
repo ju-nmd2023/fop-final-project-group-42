@@ -2139,7 +2139,7 @@ function updateHealthBar(playerId, health) {
     const currentHealth = document.getElementById(playerId).querySelector('.currentHealth');
   
     healthBar.style.width = health + "%";
-    currentHealth.textContent = "Health: " + health;
+    currentHealth.textContent = "Health: " + health + " / 100";
     currentHealth.style.fontSize = "1.5rem"; 
     
     // Change color based on health level
@@ -2223,17 +2223,35 @@ function detectCollision(player1, player2, hearts) {
         let heart = hearts[i];
         // If player and heart have the same coordinates, it's a collision
         if (player1.x === heart.x && player1.y === heart.y) {
-            heartCollision(player1);
+            heartCollision(player1, heart);
+            console.log("player 1");
+            console.log(playerOneHeart);
         } else if (player2.x === heart.x && player2.y === heart.y) {
-            heartCollision(player2);
+            heartCollision(player2, heart);
+            console.log("player 2");
+            console.log(playerTwoHeart);
+        }
     }
 }
-}
 
-function heartCollision(player) {
-    // Perform actions accordingly
-    console.log("Player " + player.id + " heart");
-    // Additional actions specific to your game logic can go here
+function heartCollision(player, heart) {
+    let correctHearts;
+
+    if (player === player1) {
+        correctHearts = playerOneHeart;
+    } else if (player === player2) {
+        correctHearts = playerTwoHeart;
+    }
+
+    if (!correctHearts.includes(heart.id)) {
+        correctHearts.push(heart.id);
+    
+    }
+
+    const expectedHearts = [1, 2, 3, 4, 5, 6, 7];
+
+    correctHearts.sort((a, b) => a - b);
+    expectedHearts.sort((a, b) => a - b);
 }
 
 
