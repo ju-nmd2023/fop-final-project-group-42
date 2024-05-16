@@ -1989,13 +1989,7 @@ function drawGrid() {
                 rect(xantharTheExile.x * cellWidth, xantharTheExile.y * cellHeight, cellWidth * 2, cellHeight * 2);
                 rect(albusDumbledore.x * cellWidth, albusDumbledore.y * cellHeight, cellWidth *2, cellHeight * 2); 
                 rect(isadoraWhitewood.x * cellWidth, isadoraWhitewood.y * cellHeight, cellWidth * 2, cellHeight * 2); 
-                rect(caspainAshford.x * cellWidth, caspainAshford.y * cellHeight, cellWidth * 2, cellHeight * 2); 
-
-                // Draw players
-                fill(0, 0, 255); // Player color
-                rect(player1.x * cellWidth, player1.y * cellHeight, cellWidth * 2, cellHeight * 2);
-                fill(255, 0, 0); // Player color
-                rect(player2.x * cellWidth, player2.y * cellHeight, cellWidth * 2, cellHeight * 2);
+                rect(caspainAshford.x * cellWidth, caspainAshford.y * cellHeight, cellWidth * 2, cellHeight * 2);
                 
                 // Draw Hearts
                 fill(255, 192, 203);
@@ -2006,6 +2000,12 @@ function drawGrid() {
                 rect(heart5.x * cellWidth, heart5.y * cellHeight, cellWidth * 2, cellHeight * 2);
                 rect(heart6.x * cellWidth, heart6.y * cellHeight, cellWidth * 2, cellHeight * 2);
                 rect(heart7.x * cellWidth, heart7.y * cellHeight, cellWidth * 2, cellHeight * 2);
+
+                // Draw players
+                fill(0, 0, 255); // Player color
+                rect(player1.x * cellWidth, player1.y * cellHeight, cellWidth * 2, cellHeight * 2);
+                fill(255, 0, 0); // Player color
+                rect(player2.x * cellWidth, player2.y * cellHeight, cellWidth * 2, cellHeight * 2);
     }
 }
 

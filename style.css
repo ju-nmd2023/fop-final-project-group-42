@@ -7,6 +7,7 @@
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     height: 100%;
+    background-color: burlywood;
 }
 
 #canvasContainer {
@@ -16,7 +17,6 @@
 
 #playerOne {
     grid-column: 1;
-    background-color: white;
     margin: 1rem;
 }
 
@@ -113,7 +113,6 @@
 
 #playerTwo {
     grid-column: 5;
-    background-color: white;
     margin: 1rem;
 }
 
