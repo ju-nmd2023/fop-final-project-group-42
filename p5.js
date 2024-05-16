@@ -1,23 +1,23 @@
 let gameIsRunning = true;
-let customFont;
-let startButton;
 let playerOneAlive = true;
 let playerTwoAlive = true;
 
 const gridSizeX = 202;
-const gridSizeY = 202; 
+const gridSizeY = 202;
 
 
 let grid = [];
 let creatures = [];
 let players = [];
+let hearts = [];
 let playerOneCorrect = [];
 let playerTwoCorrect = [];
+let playerOneHeart = [];
+let playerTwoHeart = [];
 
 function setup() {
     let canvas = createCanvas(1000,1000);
     canvas.parent('canvasContainer');
-    customFont = loadFont('dragonHunter.otf');
 }
 
 class Player {
@@ -45,44 +45,31 @@ class Trophy {
 
 let trophy = new Trophy(50, 50);
 
-class Button {
-    constructor(x, y, width, height, text) {
+class Heart {
+    constructor(x,y,hp,id) {
         this.x = x;
         this.y = y;
-        this.width = width;
-        this.height = height;
-        this.text = text;
-    }
-
-    draw (){
-        push();
-        translate(this.x, this.y);
-        stroke("4d4d4d");
-        strokeWeight(4);
-        fill("#cccccc");
-        rect(0, 0, this.width, this.height, this.height / 2);
-
-        noStroke();
-        fill("#4d4d4d");
-        textSize(this.height / 2);
-        textAlign(CENTER);
-        text(this.text, 0, this.height-20, this.width);
-        pop();
+        this.hp = hp;
+        this.id = id;
     }
 }
 
-const buttonWidth = 200;
-const buttonHeight = 60;
-const buttonX = (innerWidth - buttonWidth) /2;
-const myButton = new Button(buttonX, 500, 200, 60, "Start");
+let heart1 = new Heart(27, 52, 10, 1);
+let heart2 = new Heart(62, 22, 10, 2);
+let heart3 = new Heart(22, 27, 10, 3);
+let heart4 = new Heart(44, 82, 10, 4);
+let heart5 = new Heart(77, 82, 10, 5);
+let heart6 = new Heart(77, 55, 10, 6);
+let heart7 = new Heart(7, 37, 10, 7);
 
+hearts.push(new Heart(27, 52, 10, 1));
+hearts.push(new Heart(62, 22, 10, 2));
+hearts.push(new Heart(22, 27, 10, 3));
+hearts.push(new Heart(44, 82, 10, 4));
+hearts.push(new Heart(77, 82, 10, 5));
+hearts.push(new Heart(77, 55, 10, 6));
+hearts.push(new Heart(7, 37, 10, 7));
 
-
-function keyPressed(){
-    if (keyCode === 32){ //spacebar
-        gameIsRunning = true;
-    }
-}
 
 function initializeGrid(value) {
     for (let x = 0; x < gridSizeX; x++) {
@@ -1994,7 +1981,7 @@ function drawGrid() {
                 // Draw pathway
                 fill(149, 116, 51);
             }
-            rect(x * cellWidth, y * cellHeight, cellWidth + 1, cellHeight + 1); //added one to overlap a bit to hide the white border around the boxes
+            rect(x * cellWidth, y * cellHeight, cellWidth, cellHeight); //added one to overlap a bit to hide the white border around the boxes
         }
                 // Draw Creatures
                 fill(0, 255, 255)
@@ -2013,30 +2000,20 @@ function drawGrid() {
                 fill(255, 0, 0); // Player color
                 rect(player2.x * cellWidth, player2.y * cellHeight, cellWidth * 2, cellHeight * 2);
                 
+                // Draw Hearts
+                fill(255, 192, 203);
+                rect(heart1.x * cellWidth, heart1.y * cellHeight, cellWidth * 2, cellHeight * 2);
+                rect(heart2.x * cellWidth, heart2.y * cellHeight, cellWidth * 2, cellHeight * 2);
+                rect(heart3.x * cellWidth, heart3.y * cellHeight, cellWidth * 2, cellHeight * 2);
+                rect(heart4.x * cellWidth, heart4.y * cellHeight, cellWidth * 2, cellHeight * 2);
+                rect(heart5.x * cellWidth, heart5.y * cellHeight, cellWidth * 2, cellHeight * 2);
+                rect(heart6.x * cellWidth, heart6.y * cellHeight, cellWidth * 2, cellHeight * 2);
+                rect(heart7.x * cellWidth, heart7.y * cellHeight, cellWidth * 2, cellHeight * 2);
     }
 }
 
-
-
 function showGame() {
     drawGrid();
-}
-
-function title() {
-    fill(11, 218, 81); 
-    textSize(65); 
-    textAlign(CENTER);
-    textFont(customFont);
-    text("Maze Shadow", innerWidth/2, 300);
-    text("Legends", innerWidth/2, 400);
-}
-
-function startScreen() {
-    background(0);
-    push();
-    title();
-    myButton.draw();
-    pop();
 }
 
 function draw (){
@@ -2168,7 +2145,7 @@ function isValidPosition(x, y) {
     return (
         x >= 0 && x < grid.length && // Check if x-coordinate is within the grid bounds
         y >= 0 && y < grid[0].length && // Check if y-coordinate is within the grid bounds
-        (grid[x][y] === 0 || grid[x][y] === 3 || grid[x][y] === 4)  // Check if the grid value is 0 (valid positions)
+        (grid[x][y] === 0 || grid[x][y] === 3 || grid[x][y] === 4)  // Check if the grid value is 0, 3, 4(valid positions)
     );
 }
 
@@ -2182,7 +2159,7 @@ function updateHealthBar(playerId, health) {
     const currentHealth = document.getElementById(playerId).querySelector('.currentHealth');
   
     healthBar.style.width = health + "%";
-    currentHealth.textContent = "Health: " + health;
+    currentHealth.textContent = "Health: " + health + " / 100";
     currentHealth.style.fontSize = "1.5rem"; 
     
     // Change color based on health level
@@ -2236,8 +2213,13 @@ function checkAnswers(player) {
         correctAnswers = playerTwoCorrect;
     }
 
+<<<<<<< HEAD
     const expectedAnswers = [1, 2, 3, 4, 5, 6, 7, 8];
     
+=======
+    const expectedAnswers = [1, 2, 3, 4, 5];
+
+>>>>>>> 8190f76b52bf8b50c8ba4cf14d693d36ce67e0f7
     // Sort both arrays before comparing
     correctAnswers.sort((a, b) => a - b);
     expectedAnswers.sort((a, b) => a - b);
@@ -2253,13 +2235,50 @@ function checkAnswers(player) {
     }
 }
 
-function detectCollision(player1, player2, trophy) {
+function trophyCollision(player1, player2, trophy) {
     if (player1.x === trophy.x && player1.y === trophy.y) {
         checkAnswers(player1);
     } else if (player2.x === trophy.x && player2.y === trophy.y) {
         checkAnswers(player2);
     }
 }
+
+function detectCollision(player1, player2, hearts) {
+    for (let i = 0; i < hearts.length; i++) {
+        let heart = hearts[i];
+        // If player and heart have the same coordinates, it's a collision
+        if (player1.x === heart.x && player1.y === heart.y) {
+            heartCollision(player1, heart);
+            console.log("player 1");
+            console.log(playerOneHeart);
+        } else if (player2.x === heart.x && player2.y === heart.y) {
+            heartCollision(player2, heart);
+            console.log("player 2");
+            console.log(playerTwoHeart);
+        }
+    }
+}
+
+function heartCollision(player, heart) {
+    let correctHearts;
+
+    if (player === player1) {
+        correctHearts = playerOneHeart;
+    } else if (player === player2) {
+        correctHearts = playerTwoHeart;
+    }
+
+    if (!correctHearts.includes(heart.id)) {
+        correctHearts.push(heart.id);
+    
+    }
+
+    const expectedHearts = [1, 2, 3, 4, 5, 6, 7];
+
+    correctHearts.sort((a, b) => a - b);
+    expectedHearts.sort((a, b) => a - b);
+}
+
 
 //Buttons
 document.addEventListener("keydown", function(event) {
@@ -2268,64 +2287,64 @@ document.addEventListener("keydown", function(event) {
             if (playerOneAlive && canMove(player1.x, player1.y - 1)) {
                 player1.y -= 1; // Move player 1 up (decrease y coordinate)
                 checkPlayerCreatureCollision(player1, "One");
-                console.log(playerOneCorrect);
-                detectCollision(player1, player2, trophy);
+                trophyCollision(player1, player2, trophy);
+                detectCollision(player1, player2, hearts);
             }
         },
         "a": function() {
             if (playerOneAlive && canMove(player1.x - 1, player1.y)) {
                 player1.x -= 1; // Move player 1 left (decrease x coordinate)
                 checkPlayerCreatureCollision(player1, "One");
-                console.log(playerOneCorrect);
-                detectCollision(player1, player2, trophy);
+                trophyCollision(player1, player2, trophy);
+                detectCollision(player1, player2, hearts);
             }
         },
         "s": function() {
             if (playerOneAlive && canMove(player1.x, player1.y + 1)) {
                 player1.y += 1; // Move player 1 down (increase y coordinate)
                 checkPlayerCreatureCollision(player1, "One");
-                console.log(playerOneCorrect);
-                detectCollision(player1, player2, trophy);
+                trophyCollision(player1, player2, trophy);
+                detectCollision(player1, player2, hearts);
             }
         },
         "d": function() {
             if (playerOneAlive && canMove(player1.x + 1, player1.y)) {
                 player1.x += 1; // Move player 1 right (increase x coordinate)
                 checkPlayerCreatureCollision(player1, "One");
-                console.log(playerOneCorrect);
-                detectCollision(player1, player2, trophy);
+                trophyCollision(player1, player2, trophy);
+                detectCollision(player1, player2, hearts);
             }
         },
         "ArrowUp": function() {
             if (playerTwoAlive && canMove(player2.x, player2.y - 1)) {
                 player2.y -= 1; // Move player 2 up (decrease y coordinate)
                 checkPlayerCreatureCollision(player2, "Two");
-                console.log(playerTwoCorrect);
-                detectCollision(player1, player2, trophy);
+                trophyCollision(player1, player2, trophy);
+                detectCollision(player1, player2, hearts);
             }
         },
         "ArrowLeft": function() {
             if (playerTwoAlive && canMove(player2.x - 1, player2.y)) {
                 player2.x -= 1; // Move player 2 left (decrease x coordinate)
                 checkPlayerCreatureCollision(player2, "Two");
-                console.log(playerTwoCorrect);
-                detectCollision(player1, player2, trophy);
+                trophyCollision(player1, player2, trophy);
+                detectCollision(player1, player2, hearts);
             }
         },
         "ArrowDown": function() {
             if (playerTwoAlive && canMove(player2.x, player2.y + 1)) {
                 player2.y += 1; // Move player 2 down (increase y coordinate)
                 checkPlayerCreatureCollision(player2, "Two");
-                console.log(playerTwoCorrect);
-                detectCollision(player1, player2, trophy);
+                trophyCollision(player1, player2, trophy);
+                detectCollision(player1, player2, hearts);
             }
         },
         "ArrowRight": function() {
             if (playerTwoAlive && canMove(player2.x + 1, player2.y)) {
                 player2.x += 1; // Move player 2 right (increase x coordinate)
                 checkPlayerCreatureCollision(player2, "Two");
-                console.log(playerTwoCorrect);
-                detectCollision(player1, player2, trophy);
+                trophyCollision(player1, player2, trophy);
+                detectCollision(player1, player2, hearts);
             }
         },
         "1": function() {
@@ -2338,7 +2357,6 @@ document.addEventListener("keydown", function(event) {
                         playerOneCorrect.push(creatureId); // Push the ID of the correct creature into playerTwoCorrect array if it's not already present
                     }
                     clearText("One");
-                    // Do something if the answer is correct
                 } else {
                     takeDamage("healthBarOne", 10);
                 }
@@ -2354,7 +2372,6 @@ document.addEventListener("keydown", function(event) {
                         playerOneCorrect.push(creatureId); // Push the ID of the correct creature into playerTwoCorrect array if it's not already present
                     }
                     clearText("One");
-                    // Do something if the answer is correct
                 } else {
                     takeDamage("healthBarOne", 10);
                 }
@@ -2371,7 +2388,6 @@ document.addEventListener("keydown", function(event) {
             
                     }
                     clearText("One");
-                    // Do something if the answer is correct
                 } else {
                     takeDamage("healthBarOne", 10);
                 }
@@ -2387,7 +2403,6 @@ document.addEventListener("keydown", function(event) {
                         playerTwoCorrect.push(creatureId); // Push the ID of the correct creature into playerTwoCorrect array if it's not already present
                     }
                     clearText("Two");
-                    // Do something if the answer is correct
                 } else {
                     takeDamage("healthBarTwo", 10);
                 }
@@ -2403,7 +2418,6 @@ document.addEventListener("keydown", function(event) {
                         playerTwoCorrect.push(creatureId); // Push the ID of the correct creature into playerTwoCorrect array if it's not already present
                     }
                     clearText("Two");
-                    // Do something if the answer is correct
                 } else {
                     takeDamage("healthBarTwo", 10);
                 }
@@ -2419,7 +2433,6 @@ document.addEventListener("keydown", function(event) {
                         playerTwoCorrect.push(creatureId); // Push the ID of the correct creature into playerTwoCorrect array if it's not already present
                     }
                     clearText("Two");
-                    // Do something if the answer is correct
                 } else {
                     takeDamage("healthBarTwo", 10);
                 }
