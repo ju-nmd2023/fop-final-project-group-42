@@ -16,8 +16,8 @@ let playerOneHeart = [];
 let playerTwoHeart = [];
 
 function setup() {
-    let canvas = createCanvas(800, 800);
-    canvas.parent('canvasContainer');
+    let renderer = createCanvas(800,800);
+    renderer.parent('canvasContainer');
 }
 
 class Player {
@@ -2238,7 +2238,7 @@ function checkAnswers(player) {
                     correctAnswers.every((answer, index) => answer === expectedAnswers[index]);
     
     if (correct) {
-       window.location.href = "endScreen.html";
+        window.location.href = "endScreen.html";
     } else {
         console.log("Incorrect answers!");
     }
