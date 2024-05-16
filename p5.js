@@ -1958,9 +1958,6 @@ function drawGrid() {
     const cellWidth = canvas.width / gridSizeX;
     const cellHeight = canvas.height / gridSizeY;
 
-   console.log(canvas.width / gridSizeX);
-   //console.log(cellWidth*2);
-
     noStroke();
 
     for (let x = 0; x < gridSizeX; x++) {
@@ -2231,13 +2228,8 @@ function checkAnswers(player) {
         correctAnswers = playerTwoCorrect;
     }
 
-<<<<<<< HEAD
     const expectedAnswers = [1, 2, 3, 4, 5, 6, 7, 8];
     
-=======
-    const expectedAnswers = [1, 2, 3, 4, 5];
-
->>>>>>> 8190f76b52bf8b50c8ba4cf14d693d36ce67e0f7
     // Sort both arrays before comparing
     correctAnswers.sort((a, b) => a - b);
     expectedAnswers.sort((a, b) => a - b);
@@ -2279,16 +2271,19 @@ function detectCollision(player1, player2, hearts) {
 
 function heartCollision(player, heart) {
     let correctHearts;
+    let playerId;
 
     if (player === player1) {
         correctHearts = playerOneHeart;
+        playerId = "One";
     } else if (player === player2) {
         correctHearts = playerTwoHeart;
+        playerId = "Two";
     }
 
     if (!correctHearts.includes(heart.id)) {
         correctHearts.push(heart.id);
-    
+        healPlayer("healthBar" + playerId, 10);
     }
 
     const expectedHearts = [1, 2, 3, 4, 5, 6, 7];
@@ -2376,7 +2371,7 @@ document.addEventListener("keydown", function(event) {
                     }
                     clearText("One");
                 } else {
-                    healPlayer("healthBarOne", 10);
+                  takeDamage("healthBarOne", 10);
                 }
             }
         },        
