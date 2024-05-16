@@ -18,7 +18,18 @@ h1 {
     transform: translate(-50%, -50%);
     width: 15%;
 }
+h2 {
+    font-family: 'customFont'; 
+    position: absolute;
+    text-align: center;
+    color: white;
+    font-size: 25pt;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 15%;
 
+}
 .start {
     position: absolute;
     left: 50%;
@@ -85,8 +96,45 @@ a{
     color: black;
     background-color: #e6e6e6;
 }
+.play_again {
+    position: absolute;
+    left: 50%;
+    top: 60%;
+    transform: translate(-48%, -50%);
+    border: 2px solid;
+    border-radius: 100px;
+    padding: 25px;
+    padding-right: 50px;
+    padding-left: 50px;
+    color: white;
+    font-size: 3vh;
+    font-family: 'customFont';
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+}
 
-
+.play_again:hover {
+    color: black;
+    background-color: #e6e6e6;
+}
+.home {
+    position: absolute;
+    left: 50%;
+    top: 75%;
+    transform: translate(-48%, -50%);
+    border: 2px solid;
+    border-radius: 100px;
+    padding: 25px;
+    color: white;
+    font-size: 3vh;
+    font-family: 'customFont';
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+}
+.home:hover {
+    color: black;
+    background-color: #e6e6e6;
+}
 /* rules popup */
 .popup {
     display: none; 

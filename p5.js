@@ -2,8 +2,8 @@ let gameIsRunning = true;
 let playerOneAlive = true;
 let playerTwoAlive = true;
 
-const gridSizeX = 202;
-const gridSizeY = 202;
+const gridSizeX = 101;
+const gridSizeY = 101;
 
 
 let grid = [];
@@ -16,8 +16,8 @@ let playerOneHeart = [];
 let playerTwoHeart = [];
 
 function setup() {
-    let canvas = createCanvas(1000,1000);
-    canvas.parent('canvasContainer');
+    let renderer = createCanvas(800,800);
+    renderer.parent('canvasContainer');
 }
 
 class Player {
@@ -1955,8 +1955,8 @@ initializeGrid(0);
 
 // Function to draw the grid on the canvas
 function drawGrid() {
-    const cellWidth = canvas.width / gridSizeX;
-    const cellHeight = canvas.height / gridSizeY;
+    const cellWidth = 7.92;
+    const cellHeight = 7.92;
 
     noStroke();
 
@@ -2239,7 +2239,7 @@ function checkAnswers(player) {
                     correctAnswers.every((answer, index) => answer === expectedAnswers[index]);
     
     if (correct) {
-        console.log("Correct answers match the expected answers!");
+        window.location.href = "endScreen.html";
     } else {
         console.log("Incorrect answers!");
     }
@@ -2302,7 +2302,6 @@ document.addEventListener("keydown", function(event) {
                 checkPlayerCreatureCollision(player1, "One");
                 trophyCollision(player1, player2, trophy);
                 detectCollision(player1, player2, hearts);
-                window.location.href = "endScreen.html";
             }
         },
         "a": function() {
