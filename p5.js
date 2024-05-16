@@ -2302,6 +2302,7 @@ document.addEventListener("keydown", function(event) {
                 checkPlayerCreatureCollision(player1, "One");
                 trophyCollision(player1, player2, trophy);
                 detectCollision(player1, player2, hearts);
+                window.location.href = "endScreen.html";
             }
         },
         "a": function() {
