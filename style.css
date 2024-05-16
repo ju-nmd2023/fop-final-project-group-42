@@ -60,19 +60,34 @@
     background-color: lightblue;
     margin-top: 2rem;
     grid-template-rows: repeat(9, 1fr);
+    grid-template-columns: 1fr 4fr; /* Add this line to define two columns */
     border: 1px solid;
 }
 
 #nameOne {
     grid-row: 1 ;
+    grid-column: 1 / span 2;
     text-indent: 1rem;
     border-bottom: 1px solid;
-    margin-top: 1rem;
-    font-size: 2rem;
+    margin-top: 1.3rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+#creatureCountOne {
+    grid-row: 1 ;
+    grid-column: 3 / span 1;
+    border-bottom: 1px solid;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    padding-right: 0.4rem;
+    color: green;
 }
 
 #promptOne {
     grid-row: 2 / span 5;
+    grid-column: 1 / span 4;
     padding-left: 1rem;
     margin-top: 10px;
     font-size: 1.5rem;
@@ -81,6 +96,7 @@
 
 #answerOne {
     grid-row: 7 / span 9;
+    grid-column: 1 / span 4;
     margin-top: 10px;
     font-size: 1.2rem;
     border-top: 1px solid;
@@ -141,6 +157,7 @@
     background-color: lightblue;
     margin-top: 2rem;
     grid-template-rows: repeat(9, 1fr);
+    grid-template-columns: 1fr 4fr; /* Add this line to define two columns */
     border: 1px solid;
 }
 
@@ -148,12 +165,25 @@
     grid-row: 1 ;
     text-indent: 1rem;
     border-bottom: 1px solid;
-    margin-top: 1rem;
-    font-size: 2rem;
+    grid-column: 1 / span 2;
+    margin-top: 1.3rem;
+    font-size: 1.5rem;
+}
+
+#creatureCountTwo {
+    grid-row: 1 ;
+    grid-column: 3 / span 1;
+    border-bottom: 1px solid;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    padding-right: 0.4rem;
+    color: green;
 }
 
 #promptTwo {
     grid-row: 2 / span 5;
+    grid-column: 1 / span 4;
     margin-top: 10px;
     font-size: 1.5rem;
     padding-left: 1rem;
@@ -166,6 +196,7 @@
     font-size: 1.2rem;
     border-top: 1px solid;
     font-weight: 800;
+    grid-column: 1 / span 4;
 }
 
 #playerTwoAnswerBox {

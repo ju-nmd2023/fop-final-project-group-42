@@ -2,8 +2,8 @@ let gameIsRunning = true;
 let playerOneAlive = true;
 let playerTwoAlive = true;
 
-const gridSizeX = 202;
-const gridSizeY = 202;
+const gridSizeX = 101;
+const gridSizeY = 101;
 
 
 let grid = [];
@@ -16,7 +16,7 @@ let playerOneHeart = [];
 let playerTwoHeart = [];
 
 function setup() {
-    let canvas = createCanvas(1000,1000);
+    let canvas = createCanvas(800, 800);
     canvas.parent('canvasContainer');
 }
 
@@ -1955,8 +1955,8 @@ initializeGrid(0);
 
 // Function to draw the grid on the canvas
 function drawGrid() {
-    const cellWidth = canvas.width / gridSizeX;
-    const cellHeight = canvas.height / gridSizeY;
+    const cellWidth = 7.92;
+    const cellHeight = 7.92;
 
     noStroke();
 
@@ -1978,7 +1978,7 @@ function drawGrid() {
                 // Draw pathway
                 fill(149, 116, 51);
             }
-            rect(x * cellWidth, y * cellHeight, cellWidth, cellHeight); //added one to overlap a bit to hide the white border around the boxes
+            rect(x * cellWidth, y * cellHeight, cellWidth + 1, cellHeight + 1); //added one to overlap a bit to hide the white border around the boxes
         }
                 // Draw Creatures
                 fill(0, 255, 255)
@@ -2219,7 +2219,6 @@ function clearText(playerId) {
     answerList.innerHTML = '';
 }
 
-
 function checkAnswers(player) {
     let correctAnswers;
     if (player === player1) {
@@ -2239,7 +2238,7 @@ function checkAnswers(player) {
                     correctAnswers.every((answer, index) => answer === expectedAnswers[index]);
     
     if (correct) {
-        console.log("Correct answers match the expected answers!");
+       window.location.href = "endScreen.html";
     } else {
         console.log("Incorrect answers!");
     }
@@ -2292,6 +2291,24 @@ function heartCollision(player, heart) {
     expectedHearts.sort((a, b) => a - b);
 }
 
+function updateCreatureCount(player) {
+    let correctAnswers;
+    let correctCreature;
+
+    if (player === player1) {
+        correctAnswers = playerOneCorrect;
+        correctCreature = creatureCountOne;
+    } else if (player === player2) {
+        correctAnswers = playerTwoCorrect;
+        correctCreature = creatureCountTwo;
+    }
+
+    // Set correctCount to the length of the correct array
+    let correctCount = correctAnswers.length;
+
+    // Update the text content of the element
+    correctCreature.textContent = correctCount + "/8 Creatures";
+}
 
 //Buttons
 document.addEventListener("keydown", function(event) {
@@ -2302,7 +2319,6 @@ document.addEventListener("keydown", function(event) {
                 checkPlayerCreatureCollision(player1, "One");
                 trophyCollision(player1, player2, trophy);
                 detectCollision(player1, player2, hearts);
-                window.location.href = "endScreen.html";
             }
         },
         "a": function() {
@@ -2368,11 +2384,12 @@ document.addEventListener("keydown", function(event) {
                 if (correctAnswerIndex === 0) {
                     console.log("Player Two chose the correct answer!");
                     if (!playerOneCorrect.includes(creatureId)) {
-                        playerOneCorrect.push(creatureId); // Push the ID of the correct creature into playerTwoCorrect array if it's not already present
+                        playerOneCorrect.push(creatureId); // Push the ID of the correct creature into playerOneCorrect array if it's not already present
+                        updateCreatureCount(player1);
                     }
                     clearText("One");
                 } else {
-                  takeDamage("healthBarOne", 10);
+                    takeDamage("healthBarOne", 10);
                 }
             }
         },        
@@ -2383,7 +2400,8 @@ document.addEventListener("keydown", function(event) {
                 if (correctAnswerIndex === 1) {
                     console.log("Player Two chose the correct answer!");
                     if (!playerOneCorrect.includes(creatureId)) {
-                        playerOneCorrect.push(creatureId); // Push the ID of the correct creature into playerTwoCorrect array if it's not already present
+                        playerOneCorrect.push(creatureId); // Push the ID of the correct creature into playerOneCorrect array if it's not already present
+                        updateCreatureCount(player1);
                     }
                     clearText("One");
                 } else {
@@ -2398,8 +2416,8 @@ document.addEventListener("keydown", function(event) {
                 if (correctAnswerIndex === 2) {
                     console.log("Player Two chose the correct answer!");
                     if (!playerOneCorrect.includes(creatureId)) {
-                        playerOneCorrect.push(creatureId); // Push the ID of the correct creature into playerTwoCorrect array if it's not already present
-            
+                        playerOneCorrect.push(creatureId); // Push the ID of the correct creature into playerOneCorrect array if it's not already present
+                        updateCreatureCount(player1);
                     }
                     clearText("One");
                 } else {
@@ -2415,6 +2433,7 @@ document.addEventListener("keydown", function(event) {
                     console.log("Player Two chose the correct answer!");
                     if (!playerTwoCorrect.includes(creatureId)) {
                         playerTwoCorrect.push(creatureId); // Push the ID of the correct creature into playerTwoCorrect array if it's not already present
+                        updateCreatureCount(player2);
                     }
                     clearText("Two");
                 } else {
@@ -2430,6 +2449,7 @@ document.addEventListener("keydown", function(event) {
                     console.log("Player Two chose the correct answer!");
                     if (!playerTwoCorrect.includes(creatureId)) {
                         playerTwoCorrect.push(creatureId); // Push the ID of the correct creature into playerTwoCorrect array if it's not already present
+                        updateCreatureCount(player2);
                     }
                     clearText("Two");
                 } else {
@@ -2445,6 +2465,7 @@ document.addEventListener("keydown", function(event) {
                     console.log("Player Two chose the correct answer!");
                     if (!playerTwoCorrect.includes(creatureId)) {
                         playerTwoCorrect.push(creatureId); // Push the ID of the correct creature into playerTwoCorrect array if it's not already present
+                        updateCreatureCount(player2);
                     }
                     clearText("Two");
                 } else {
