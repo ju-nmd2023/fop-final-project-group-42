@@ -2174,6 +2174,24 @@ function updateHealthBar(playerId, health) {
     updateHealthBar(playerId, playerHealth);
 }
 
+function healPlayer(playerId, amount) {
+    if (playerId === 'healthBarOne' && !playerOneAlive) {
+        return; // Player is dead, exit function
+    } else if (playerId === 'healthBarTwo' && !playerTwoAlive) {
+        return; // Player is dead, exit function
+    }
+
+    const healthBar = document.getElementById(playerId).querySelector('.health');
+    let playerHealth = parseInt(healthBar.style.width, 10) || 100;
+
+    playerHealth += amount;
+    if (playerHealth > 100) {
+        playerHealth = 100; // Ensure health doesn't exceed 100
+    }
+
+    updateHealthBar(playerId, playerHealth);
+}
+
 function clearText(playerId) {
     const creatureName = document.getElementById('name' + playerId);
     const creaturePrompt = document.getElementById('prompt' + playerId);
@@ -2333,7 +2351,7 @@ document.addEventListener("keydown", function(event) {
                     }
                     clearText("One");
                 } else {
-                    takeDamage("healthBarOne", 10);
+                    healPlayer("healthBarOne", 10);
                 }
             }
         },        
