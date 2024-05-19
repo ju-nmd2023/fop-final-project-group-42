@@ -2,6 +2,9 @@ let gameIsRunning = true;
 let playerOneAlive = true;
 let playerTwoAlive = true;
 
+let playerOneMove = true;
+let playerTwoMove = true;
+
 const gridSizeX = 101;
 const gridSizeY = 101;
 
@@ -2122,6 +2125,16 @@ function checkPlayerCreatureCollision(player, playerId) {
             // Update currentCreatureIndex
             currentCreatureIndex = i;
 
+            if (player.id === 1) {
+                if (!playerOneCorrect.includes(creature.id)) {
+                    playerOneMove = false;
+                }
+            } else if (player.id === 2) {
+                if (!playerTwoCorrect.includes(creature.id)) {
+                    playerTwoMove = false;
+                }
+            }
+
             break; // Exit the loop since we found a collision
         }
     }
@@ -2328,7 +2341,7 @@ function updateCreatureCount(player) {
 document.addEventListener("keydown", function(event) {
     const keyActions = {
         "w": function() {
-            if (playerOneAlive && canMove(player1.x, player1.y - 1)) {
+            if (playerOneMove && playerOneAlive && canMove(player1.x, player1.y - 1)) {
                 player1.y -= 1; // Move player 1 up (decrease y coordinate)
                 checkPlayerCreatureCollision(player1, "One");
                 trophyCollision(player1, player2, trophy);
@@ -2336,7 +2349,7 @@ document.addEventListener("keydown", function(event) {
             }
         },
         "a": function() {
-            if (playerOneAlive && canMove(player1.x - 1, player1.y)) {
+            if (playerOneMove && playerOneAlive && canMove(player1.x - 1, player1.y)) {
                 player1.x -= 1; // Move player 1 left (decrease x coordinate)
                 checkPlayerCreatureCollision(player1, "One");
                 trophyCollision(player1, player2, trophy);
@@ -2344,7 +2357,7 @@ document.addEventListener("keydown", function(event) {
             }
         },
         "s": function() {
-            if (playerOneAlive && canMove(player1.x, player1.y + 1)) {
+            if (playerOneMove && playerOneAlive && canMove(player1.x, player1.y + 1)) {
                 player1.y += 1; // Move player 1 down (increase y coordinate)
                 checkPlayerCreatureCollision(player1, "One");
                 trophyCollision(player1, player2, trophy);
@@ -2352,7 +2365,7 @@ document.addEventListener("keydown", function(event) {
             }
         },
         "d": function() {
-            if (playerOneAlive && canMove(player1.x + 1, player1.y)) {
+            if (playerOneMove && playerOneAlive && canMove(player1.x + 1, player1.y)) {
                 player1.x += 1; // Move player 1 right (increase x coordinate)
                 checkPlayerCreatureCollision(player1, "One");
                 trophyCollision(player1, player2, trophy);
@@ -2360,7 +2373,7 @@ document.addEventListener("keydown", function(event) {
             }
         },
         "ArrowUp": function() {
-            if (playerTwoAlive && canMove(player2.x, player2.y - 1)) {
+            if (playerTwoMove && playerTwoAlive && canMove(player2.x, player2.y - 1)) {
                 player2.y -= 1; // Move player 2 up (decrease y coordinate)
                 checkPlayerCreatureCollision(player2, "Two");
                 trophyCollision(player1, player2, trophy);
@@ -2368,7 +2381,7 @@ document.addEventListener("keydown", function(event) {
             }
         },
         "ArrowLeft": function() {
-            if (playerTwoAlive && canMove(player2.x - 1, player2.y)) {
+            if (playerTwoMove && playerTwoAlive && canMove(player2.x - 1, player2.y)) {
                 player2.x -= 1; // Move player 2 left (decrease x coordinate)
                 checkPlayerCreatureCollision(player2, "Two");
                 trophyCollision(player1, player2, trophy);
@@ -2376,7 +2389,7 @@ document.addEventListener("keydown", function(event) {
             }
         },
         "ArrowDown": function() {
-            if (playerTwoAlive && canMove(player2.x, player2.y + 1)) {
+            if (playerTwoMove && playerTwoAlive && canMove(player2.x, player2.y + 1)) {
                 player2.y += 1; // Move player 2 down (increase y coordinate)
                 checkPlayerCreatureCollision(player2, "Two");
                 trophyCollision(player1, player2, trophy);
@@ -2384,7 +2397,7 @@ document.addEventListener("keydown", function(event) {
             }
         },
         "ArrowRight": function() {
-            if (playerTwoAlive && canMove(player2.x + 1, player2.y)) {
+            if (playerTwoMove && playerTwoAlive && canMove(player2.x + 1, player2.y)) {
                 player2.x += 1; // Move player 2 right (increase x coordinate)
                 checkPlayerCreatureCollision(player2, "Two");
                 trophyCollision(player1, player2, trophy);
@@ -2396,44 +2409,47 @@ document.addEventListener("keydown", function(event) {
                 const correctAnswerIndex = creatures[currentCreatureIndex].correctAnswerIndex;
                 const creatureId = creatures[currentCreatureIndex].id;
                 if (correctAnswerIndex === 0) {
-                    console.log("Player Two chose the correct answer!");
+                    console.log("Player One chose the correct answer!");
                     if (!playerOneCorrect.includes(creatureId)) {
-                        playerOneCorrect.push(creatureId); // Push the ID of the correct creature into playerOneCorrect array if it's not already present
+                        playerOneCorrect.push(creatureId);
                         updateCreatureCount(player1);
                     }
-                    clearText("One");
+                    clearText("Two");
+                    playerOneMove = true;
                 } else {
                     takeDamage("healthBarOne", 10);
                 }
             }
-        },        
+        },
         "2": function() {
             if (playerOneAlive && currentCreatureIndex !== -1) {
                 const correctAnswerIndex = creatures[currentCreatureIndex].correctAnswerIndex;
                 const creatureId = creatures[currentCreatureIndex].id;
                 if (correctAnswerIndex === 1) {
-                    console.log("Player Two chose the correct answer!");
+                    console.log("Player One chose the correct answer!");
                     if (!playerOneCorrect.includes(creatureId)) {
-                        playerOneCorrect.push(creatureId); // Push the ID of the correct creature into playerOneCorrect array if it's not already present
+                        playerOneCorrect.push(creatureId);
                         updateCreatureCount(player1);
                     }
-                    clearText("One");
+                    clearText("Two");
+                    playerOneMove = true;
                 } else {
                     takeDamage("healthBarOne", 10);
                 }
             }
-        },        
+        },
         "3": function() {
             if (playerOneAlive && currentCreatureIndex !== -1) {
                 const correctAnswerIndex = creatures[currentCreatureIndex].correctAnswerIndex;
                 const creatureId = creatures[currentCreatureIndex].id;
                 if (correctAnswerIndex === 2) {
-                    console.log("Player Two chose the correct answer!");
+                    console.log("Player One chose the correct answer!");
                     if (!playerOneCorrect.includes(creatureId)) {
-                        playerOneCorrect.push(creatureId); // Push the ID of the correct creature into playerOneCorrect array if it's not already present
+                        playerOneCorrect.push(creatureId);
                         updateCreatureCount(player1);
                     }
-                    clearText("One");
+                    clearText("Two");
+                    playerOneMove = true;
                 } else {
                     takeDamage("healthBarOne", 10);
                 }
@@ -2446,10 +2462,11 @@ document.addEventListener("keydown", function(event) {
                 if (correctAnswerIndex === 0) {
                     console.log("Player Two chose the correct answer!");
                     if (!playerTwoCorrect.includes(creatureId)) {
-                        playerTwoCorrect.push(creatureId); // Push the ID of the correct creature into playerTwoCorrect array if it's not already present
+                        playerTwoCorrect.push(creatureId);
                         updateCreatureCount(player2);
                     }
                     clearText("Two");
+                    playerTwoMove = true;
                 } else {
                     takeDamage("healthBarTwo", 10);
                 }
@@ -2462,10 +2479,11 @@ document.addEventListener("keydown", function(event) {
                 if (correctAnswerIndex === 1) {
                     console.log("Player Two chose the correct answer!");
                     if (!playerTwoCorrect.includes(creatureId)) {
-                        playerTwoCorrect.push(creatureId); // Push the ID of the correct creature into playerTwoCorrect array if it's not already present
+                        playerTwoCorrect.push(creatureId);
                         updateCreatureCount(player2);
                     }
                     clearText("Two");
+                    playerTwoMove = true;
                 } else {
                     takeDamage("healthBarTwo", 10);
                 }
@@ -2478,15 +2496,16 @@ document.addEventListener("keydown", function(event) {
                 if (correctAnswerIndex === 2) {
                     console.log("Player Two chose the correct answer!");
                     if (!playerTwoCorrect.includes(creatureId)) {
-                        playerTwoCorrect.push(creatureId); // Push the ID of the correct creature into playerTwoCorrect array if it's not already present
+                        playerTwoCorrect.push(creatureId);
                         updateCreatureCount(player2);
                     }
                     clearText("Two");
+                    playerTwoMove = true;
                 } else {
                     takeDamage("healthBarTwo", 10);
                 }
             }
-        }
+        }        
     };
 
     const action = keyActions[event.key];
