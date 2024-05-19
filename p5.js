@@ -2027,6 +2027,11 @@ function dead(playerId) {
     } else if (playerId === 'healthBarTwo') {
         playerTwoAlive = false;
     }
+
+    // Check if both players are dead
+    if (!playerOneAlive && !playerTwoAlive) {
+        window.location.href = 'deathScreen.html';
+    }
 }
 
 
@@ -2172,6 +2177,12 @@ function updateHealthBar(playerId, health) {
     }
   }
   
+  function getPlayerHealth(healthBarId) {
+    // Get the player's current health based on the width of the health bar
+    const healthBar = document.getElementById(healthBarId).querySelector('.health');
+    return parseInt(healthBar.style.width, 10) || 0;
+}
+
   // Function to simulate damage for a player
   function takeDamage(playerId, amount) {
     if (playerId === 'healthBarOne' && !playerOneAlive) {
@@ -2199,7 +2210,7 @@ function healPlayer(playerId, amount) {
     }
 
     const healthBar = document.getElementById(playerId).querySelector('.health');
-    let playerHealth = parseInt(healthBar.style.width, 10) || 100;
+    let playerHealth = getPlayerHealth(playerId);
 
     playerHealth += amount;
     if (playerHealth > 100) {
@@ -2280,13 +2291,16 @@ function heartCollision(player, heart) {
         playerId = "Two";
     }
 
-    if (!correctHearts.includes(heart.id)) {
+    // Get the player's current health
+    let playerHealth = getPlayerHealth("healthBar" + playerId);
+
+    // Only add the heart ID if the player's health is less than 100
+    if (playerHealth < 100 && !correctHearts.includes(heart.id)) {
         correctHearts.push(heart.id);
         healPlayer("healthBar" + playerId, 10);
     }
 
     const expectedHearts = [1, 2, 3, 4, 5, 6, 7];
-
     correctHearts.sort((a, b) => a - b);
     expectedHearts.sort((a, b) => a - b);
 }
