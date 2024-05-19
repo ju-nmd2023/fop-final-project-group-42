@@ -1953,10 +1953,8 @@ function initializeGrid(value) {
         grid[x][50] = 4;
     }
 }
-// Initialize the grid with empty spaces (0)
 initializeGrid(0);
 
-// Function to draw the grid on the canvas
 function drawGrid() {
     const cellWidth = 7.92;
     const cellHeight = 7.92;
@@ -2097,47 +2095,53 @@ creatures.push(new Creature('Albus', 'Dumbledore', albusDumbledoreRiddle, albusD
 creatures.push(new Creature('Isadora', 'WhiteWood', isadoraWhitewoodRiddle, isadoraWhitewoodArray, 0, 2, 90, 7));
 creatures.push(new Creature('Caspian', 'Ashford', caspianAshfordRiddle, caspianAshfordArray, 1, 2, 85, 8));
 
-// Function to check player-creature collision
 function checkPlayerCreatureCollision(player, playerId) {
+    let collided = false;
+
     for (let i = 0; i < creatures.length; i++) {
         const creature = creatures[i];
         if (isAtSamePosition(player, creature)) {
-            // Update HTML elements based on player ID
             const creatureName = document.getElementById('name' + playerId);
             const creaturePrompt = document.getElementById('prompt' + playerId);
             const answerList = document.getElementById('answerList' + playerId);
-    
+
             creatureName.innerText = creature.firstName + " " + creature.lastName;
             creaturePrompt.innerText = creature.riddle;
-            
 
-
-            // Clear previous answers
             answerList.innerHTML = ''; 
 
-            // Add answers
             creature.answerArray.forEach((answer, index) => {
                 const listItem = document.createElement('li');
                 listItem.innerText = (index + 1) + ". " + answer;
                 answerList.appendChild(listItem);
             });
 
-            // Update currentCreatureIndex
             currentCreatureIndex = i;
 
-            if (player.id === 1) {
-                if (!playerOneCorrect.includes(creature.id)) {
-                    playerOneMove = false;
-                }
-            } else if (player.id === 2) {
-                if (!playerTwoCorrect.includes(creature.id)) {
-                    playerTwoMove = false;
-                }
+            if ((player.id === 1 && playerOneCorrect.includes(creature.id)) ||
+                (player.id === 2 && playerTwoCorrect.includes(creature.id))) {
+                clearText(playerId);
+                return;
             }
 
-            break; // Exit the loop since we found a collision
+            if (player.id === 1) {
+                playerOneMove = false;
+            } else if (player.id === 2) {
+                playerTwoMove = false;
+            }
+            collided = true;
+            break; 
         }
     }
+
+    if (!collided && player.id === 1) {
+        playerOneMove = true;
+        clearText(playerId);
+    } else if (!collided && player.id === 2) {
+        playerTwoMove = true;
+        clearText(playerId);
+    }
+
 }
 
 //function canMove and isValidPosition were created through help from chatGPT (problem was that I forgot that our player models were 2x2, not 1x1, so some parts would glitch halfway through certain walls before detecting collissions)
@@ -2196,7 +2200,6 @@ function updateHealthBar(playerId, health) {
     return parseInt(healthBar.style.width, 10) || 0;
 }
 
-  // Function to simulate damage for a player
   function takeDamage(playerId, amount) {
     if (playerId === 'healthBarOne' && !playerOneAlive) {
         return; // Player is dead, exit function
