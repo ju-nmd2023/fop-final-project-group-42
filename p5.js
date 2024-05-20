@@ -32,7 +32,6 @@ class Player {
     }
 }
 
-// Create two individual players
 let player1 = new Player(2, 2, 100, 1);
 let player2 = new Player(97, 97, 100, 2);
 
@@ -76,18 +75,14 @@ hearts.push(new Heart(45, 37, 10, 7));
 
 function initializeGrid(value) {
     for (let x = 0; x < gridSizeX; x++) {
-        // Initialize the inner array
         grid[x] = [];
         for (let y = 0; y < gridSizeY; y++) {
-            // Initialize each cell with the given value
             grid[x][y] = value;
         }
     }
-    // Set line from (0, 0) to (100, 0)
     for (let x = 0; x <= 100; x++) {
         grid[x][100] = 1;
     }
-    // Set line from (100, 0) to (100, 100)
     for (let y = 0; y <= 100; y++) {
         grid[100][y] = 1;
     }
@@ -2036,7 +2031,6 @@ function dead(playerId) {
 }
 
 
-// Constructors
 class Creature {
     constructor(firstName, lastName, riddle, answers, correctAnswerIndex, x, y, id) {
         this.firstName = firstName;
@@ -2147,24 +2141,20 @@ function checkPlayerCreatureCollision(player, playerId) {
 //function canMove and isValidPosition were created through help from chatGPT (problem was that I forgot that our player models were 2x2, not 1x1, so some parts would glitch halfway through certain walls before detecting collissions)
 //https://chat.openai.com/share/6cdea05b-5c3b-4956-9deb-f73937126bb9
 
-// Function to check if the player can move to a certain position without glitching into walls
 function canMove(x, y) {
-    // Check if all four corners of the player are valid positions
     return (
-        isValidPosition(x, y) &&             // Check if the current position is valid
-        isValidPosition(x + 1, y) &&         // Check if the position to the right is valid
-        isValidPosition(x, y + 1) &&         // Check if the position below is valid
-        isValidPosition(x + 1, y + 1)        // Check if the position diagonally below and to the right is valid
+        isValidPosition(x, y) &&           
+        isValidPosition(x + 1, y) &&
+        isValidPosition(x, y + 1) &&         
+        isValidPosition(x + 1, y + 1)       
     );
 }
 
-// Function to check if a single position is valid within the grid
 function isValidPosition(x, y) {
-    // Check if the position is within the grid bounds and not a wall with grid value 1
     return (
-        x >= 0 && x < grid.length && // Check if x-coordinate is within the grid bounds
-        y >= 0 && y < grid[0].length && // Check if y-coordinate is within the grid bounds
-        (grid[x][y] === 0 || grid[x][y] === 3 || grid[x][y] === 4)  // Check if the grid value is 0, 3, 4(valid positions)
+        x >= 0 && x < grid.length && 
+        y >= 0 && y < grid[0].length && 
+        (grid[x][y] === 0 || grid[x][y] === 3 || grid[x][y] === 4)
     );
 }
 
@@ -2172,7 +2162,6 @@ function isAtSamePosition(player, creature) {
     return player.x === creature.x && player.y === creature.y;
 }
 
-//healthbar
 function updateHealthBar(playerId, health) {
     const healthBar = document.getElementById(playerId).querySelector('.health');
     const currentHealth = document.getElementById(playerId).querySelector('.currentHealth');
@@ -2181,7 +2170,6 @@ function updateHealthBar(playerId, health) {
     currentHealth.textContent = "Health: " + health + " / 100";
     currentHealth.style.fontSize = "1.5rem"; 
     
-    // Change color based on health level
     if (health > 70) {
       healthBar.style.backgroundColor = "green";
       currentHealth.style.color = "green";
@@ -2195,16 +2183,15 @@ function updateHealthBar(playerId, health) {
   }
   
   function getPlayerHealth(healthBarId) {
-    // Get the player's current health based on the width of the health bar
     const healthBar = document.getElementById(healthBarId).querySelector('.health');
     return parseInt(healthBar.style.width, 10) || 0;
 }
 
   function takeDamage(playerId, amount) {
     if (playerId === 'healthBarOne' && !playerOneAlive) {
-        return; // Player is dead, exit function
+        return; 
     } else if (playerId === 'healthBarTwo' && !playerTwoAlive) {
-        return; // Player is dead, exit function
+        return;
     }
 
     const healthBar = document.getElementById(playerId).querySelector('.health');
@@ -2212,7 +2199,7 @@ function updateHealthBar(playerId, health) {
 
     playerHealth -= amount;
     if (playerHealth === 0) {
-        dead(playerId); // Call dead function if player health reaches zero
+        dead(playerId); 
     }
 
     updateHealthBar(playerId, playerHealth);
@@ -2220,9 +2207,9 @@ function updateHealthBar(playerId, health) {
 
 function healPlayer(playerId, amount) {
     if (playerId === 'healthBarOne' && !playerOneAlive) {
-        return; // Player is dead, exit function
+        return; 
     } else if (playerId === 'healthBarTwo' && !playerTwoAlive) {
-        return; // Player is dead, exit function
+        return; 
     }
 
     const healthBar = document.getElementById(playerId).querySelector('.health');
@@ -2230,7 +2217,7 @@ function healPlayer(playerId, amount) {
 
     playerHealth += amount;
     if (playerHealth > 100) {
-        playerHealth = 100; // Ensure health doesn't exceed 100
+        playerHealth = 100; 
     }
 
     updateHealthBar(playerId, playerHealth);
@@ -2256,18 +2243,14 @@ function checkAnswers(player) {
 
     const expectedAnswers = [1, 2, 3, 4, 5, 6, 7, 8];
     
-    // Sort both arrays before comparing
     correctAnswers.sort((a, b) => a - b);
     expectedAnswers.sort((a, b) => a - b);
     
-    // Check if the sorted correct answers match the sorted expected answers
     const correct = correctAnswers.length === expectedAnswers.length &&
                     correctAnswers.every((answer, index) => answer === expectedAnswers[index]);
     
     if (correct) {
         window.location.href = "endScreen.html";
-    } else {
-        console.log("Incorrect answers!");
     }
 }
 
@@ -2282,7 +2265,6 @@ function trophyCollision(player1, player2, trophy) {
 function detectCollision(player1, player2, hearts) {
     for (let i = 0; i < hearts.length; i++) {
         let heart = hearts[i];
-        // If player and heart have the same coordinates, it's a collision
         if (player1.x === heart.x && player1.y === heart.y) {
             heartCollision(player1, heart);
             console.log("player 1");
@@ -2307,13 +2289,11 @@ function heartCollision(player, heart) {
         playerId = "Two";
     }
 
-    // Get the player's current health
     let playerHealth = getPlayerHealth("healthBar" + playerId);
 
-    // Only add the heart ID if the player's health is less than 100
     if (playerHealth < 100 && !correctHearts.includes(heart.id)) {
         correctHearts.push(heart.id);
-        healPlayer("healthBar" + playerId, 10);
+        healPlayer("healthBar" + playerId, 5);
     }
 
     const expectedHearts = [1, 2, 3, 4, 5, 6, 7];
@@ -2333,19 +2313,16 @@ function updateCreatureCount(player) {
         correctCreature = creatureCountTwo;
     }
 
-    // Set correctCount to the length of the correct array
     let correctCount = correctAnswers.length;
 
-    // Update the text content of the element
     correctCreature.textContent = correctCount + "/8 Creatures";
 }
 
-//Buttons
 document.addEventListener("keydown", function(event) {
     const keyActions = {
         "w": function() {
             if (playerOneMove && playerOneAlive && canMove(player1.x, player1.y - 1)) {
-                player1.y -= 1; // Move player 1 up (decrease y coordinate)
+                player1.y -= 1;
                 checkPlayerCreatureCollision(player1, "One");
                 trophyCollision(player1, player2, trophy);
                 detectCollision(player1, player2, hearts);
@@ -2353,7 +2330,7 @@ document.addEventListener("keydown", function(event) {
         },
         "a": function() {
             if (playerOneMove && playerOneAlive && canMove(player1.x - 1, player1.y)) {
-                player1.x -= 1; // Move player 1 left (decrease x coordinate)
+                player1.x -= 1;
                 checkPlayerCreatureCollision(player1, "One");
                 trophyCollision(player1, player2, trophy);
                 detectCollision(player1, player2, hearts);
@@ -2361,7 +2338,7 @@ document.addEventListener("keydown", function(event) {
         },
         "s": function() {
             if (playerOneMove && playerOneAlive && canMove(player1.x, player1.y + 1)) {
-                player1.y += 1; // Move player 1 down (increase y coordinate)
+                player1.y += 1;
                 checkPlayerCreatureCollision(player1, "One");
                 trophyCollision(player1, player2, trophy);
                 detectCollision(player1, player2, hearts);
@@ -2369,7 +2346,7 @@ document.addEventListener("keydown", function(event) {
         },
         "d": function() {
             if (playerOneMove && playerOneAlive && canMove(player1.x + 1, player1.y)) {
-                player1.x += 1; // Move player 1 right (increase x coordinate)
+                player1.x += 1;
                 checkPlayerCreatureCollision(player1, "One");
                 trophyCollision(player1, player2, trophy);
                 detectCollision(player1, player2, hearts);
@@ -2377,7 +2354,7 @@ document.addEventListener("keydown", function(event) {
         },
         "ArrowUp": function() {
             if (playerTwoMove && playerTwoAlive && canMove(player2.x, player2.y - 1)) {
-                player2.y -= 1; // Move player 2 up (decrease y coordinate)
+                player2.y -= 1; 
                 checkPlayerCreatureCollision(player2, "Two");
                 trophyCollision(player1, player2, trophy);
                 detectCollision(player1, player2, hearts);
@@ -2385,7 +2362,7 @@ document.addEventListener("keydown", function(event) {
         },
         "ArrowLeft": function() {
             if (playerTwoMove && playerTwoAlive && canMove(player2.x - 1, player2.y)) {
-                player2.x -= 1; // Move player 2 left (decrease x coordinate)
+                player2.x -= 1; 
                 checkPlayerCreatureCollision(player2, "Two");
                 trophyCollision(player1, player2, trophy);
                 detectCollision(player1, player2, hearts);
@@ -2393,7 +2370,7 @@ document.addEventListener("keydown", function(event) {
         },
         "ArrowDown": function() {
             if (playerTwoMove && playerTwoAlive && canMove(player2.x, player2.y + 1)) {
-                player2.y += 1; // Move player 2 down (increase y coordinate)
+                player2.y += 1; 
                 checkPlayerCreatureCollision(player2, "Two");
                 trophyCollision(player1, player2, trophy);
                 detectCollision(player1, player2, hearts);
@@ -2401,7 +2378,7 @@ document.addEventListener("keydown", function(event) {
         },
         "ArrowRight": function() {
             if (playerTwoMove && playerTwoAlive && canMove(player2.x + 1, player2.y)) {
-                player2.x += 1; // Move player 2 right (increase x coordinate)
+                player2.x += 1;
                 checkPlayerCreatureCollision(player2, "Two");
                 trophyCollision(player1, player2, trophy);
                 detectCollision(player1, player2, hearts);
@@ -2517,13 +2494,10 @@ document.addEventListener("keydown", function(event) {
     }
 });
 
-//How to add audio to win screen
 //https://chatgpt.com/share/2e05ea85-903e-4ede-8b76-4934ca2825de
 document.addEventListener('DOMContentLoaded', function() {
-    // Get the audio element
     let audio = document.getElementById('background-audio');
-    // Set the volume (0.0 is muted and 1.0 is the maximum volume)
-    audio.volume = 0.5; // Set the volume to 20%
+    audio.volume = 0.5; 
 });
 
 
