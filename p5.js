@@ -33,11 +33,11 @@ class Player {
 }
 
 // Create two individual players
-let player1 = new Player(7, 27, 100, 1);
-let player2 = new Player(10, 27, 100, 2);
+let player1 = new Player(2, 2, 100, 1);
+let player2 = new Player(97, 97, 100, 2);
 
-players.push(new Player(7, 27, 100, 1));
-players.push(new Player(10, 27, 100, 2));
+players.push(new Player(2, 2, 100, 1));
+players.push(new Player(97, 97, 100, 2));
 
 class Trophy {
     constructor(x, y) {
@@ -59,19 +59,19 @@ class Heart {
 
 let heart1 = new Heart(27, 52, 10, 1);
 let heart2 = new Heart(62, 22, 10, 2);
-let heart3 = new Heart(22, 27, 10, 3);
+let heart3 = new Heart(62, 67, 10, 3);
 let heart4 = new Heart(44, 82, 10, 4);
 let heart5 = new Heart(77, 82, 10, 5);
 let heart6 = new Heart(77, 55, 10, 6);
-let heart7 = new Heart(7, 37, 10, 7);
+let heart7 = new Heart(45, 37, 10, 7);
 
 hearts.push(new Heart(27, 52, 10, 1));
 hearts.push(new Heart(62, 22, 10, 2));
-hearts.push(new Heart(22, 27, 10, 3));
+hearts.push(new Heart(62, 67, 10, 3));
 hearts.push(new Heart(44, 82, 10, 4));
 hearts.push(new Heart(77, 82, 10, 5));
 hearts.push(new Heart(77, 55, 10, 6));
-hearts.push(new Heart(7, 37, 10, 7));
+hearts.push(new Heart(45, 37, 10, 7));
 
 
 function initializeGrid(value) {
@@ -1982,7 +1982,7 @@ function drawGrid() {
             rect(x * cellWidth, y * cellHeight, cellWidth + 1, cellHeight + 1); //added one to overlap a bit to hide the white border around the boxes
         }
                 // Draw Creatures
-                fill(0, 255, 255)
+                fill(255, 0, 0);
                 rect(malvarTheMalevolent.x * cellWidth, malvarTheMalevolent.y * cellHeight, cellWidth * 2, cellHeight * 2);
                 rect(vorinTheVile.x * cellWidth, vorinTheVile.y * cellHeight, cellWidth * 2, cellHeight * 2);
                 rect(mordredTheMaleficent.x * cellWidth, mordredTheMaleficent.y * cellHeight, cellWidth * 2, cellHeight * 2);
@@ -2005,7 +2005,7 @@ function drawGrid() {
                 // Draw players
                 fill(0, 0, 255); // Player color
                 rect(player1.x * cellWidth, player1.y * cellHeight, cellWidth * 2, cellHeight * 2);
-                fill(255, 0, 0); // Player color
+                fill(255, 213, 0); // Player color
                 rect(player2.x * cellWidth, player2.y * cellHeight, cellWidth * 2, cellHeight * 2);
     }
 }
@@ -2068,7 +2068,7 @@ const vorinTheVileArray = ["Banshee", "Lycanthrope", "Acromantula"]; // Acromatu
 const mordredTheMaleficentArray = ["Obscurial", "Inferius", "Poltergeist"]; // Inferius
 const sylviaTheSinisterArray = ["Basilisk", "Mermish", "Kelpie"]; // Basilisk
 const xantharTheExileArray = ["Horcrux", "Obscurus", "Dementor"]; // Obscurus
-const albusDumbledoreArray = ['Sirius Black', 'Animagus', 'Dementor']; //Animagus
+const albusDumbledoreArray = ['Sirius Black', 'Animagus', 'Dementor']; //Sirius Black
 const isadoraWhitewoodArray = ['Golden Snitch', 'Fawkes', 'Thestral']; //Golden Snitch
 const caspianAshfordArray= ['Mandrake', 'Devils Snare', 'Venemous Tentacula']; //Devils Snare
 
@@ -2077,23 +2077,23 @@ const caspianAshfordArray= ['Mandrake', 'Devils Snare', 'Venemous Tentacula']; /
 
 //Wizards
 
-let malvarTheMalevolent = new Creature("Malvar", "Malevolent", malvarTheMalevolentRiddle, malvarTheMalevolentArray, 0, 2, 70, 1);
-let vorinTheVile = new Creature("Vorin", "Vile", vorinTheVileRiddle, vorinTheVileArray, 2, 2, 30, 2);
-let mordredTheMaleficent = new Creature("Mordred", "Maleficent", mordredTheMaleficentRiddle, mordredTheMaleficentArray, 1, 2, 40, 3);
-let sylviaTheSinister = new Creature("Sylvia", "Sinister", sylviaTheSinisterRiddle, sylviaTheSinisterArray, 0, 2, 50, 4);
-let xantharTheExile = new Creature("Xanthar", "Exile", xantharTheExileRiddle, xantharTheExileArray, 1, 2, 60, 5);
-let albusDumbledore = new Creature('Albus', 'Dumbledore', albusDumbledoreRiddle, albusDumbledoreArray, 1, 2, 80, 6);
-let isadoraWhitewood = new Creature('Isadora', 'WhiteWood', isadoraWhitewoodRiddle, isadoraWhitewoodArray, 0, 2, 90, 7);
-let caspainAshford = new Creature('Caspian', 'Ashford', caspianAshfordRiddle, caspianAshfordArray, 1, 2, 85 , 8); 
+let malvarTheMalevolent = new Creature("Malvar", "Malevolent", malvarTheMalevolentRiddle, malvarTheMalevolentArray, 0, 62, 37, 1);
+let vorinTheVile = new Creature("Vorin", "Vile", vorinTheVileRiddle, vorinTheVileArray, 2, 84, 62, 2);
+let mordredTheMaleficent = new Creature("Mordred", "Maleficent", mordredTheMaleficentRiddle, mordredTheMaleficentArray, 1, 27, 42, 3);
+let sylviaTheSinister = new Creature("Sylvia", "Sinister", sylviaTheSinisterRiddle, sylviaTheSinisterArray, 0, 27, 72, 4);
+let xantharTheExile = new Creature("Xanthar", "Exile", xantharTheExileRiddle, xantharTheExileArray, 1, 67, 72, 5);
+let albusDumbledore = new Creature('Albus', 'Dumbledore', albusDumbledoreRiddle, albusDumbledoreArray, 0, 42, 32, 6);
+let isadoraWhitewood = new Creature('Isadora', 'WhiteWood', isadoraWhitewoodRiddle, isadoraWhitewoodArray, 0, 72, 44, 7);
+let caspainAshford = new Creature('Caspian', 'Ashford', caspianAshfordRiddle, caspianAshfordArray, 1, 57, 87 , 8); 
 
-creatures.push(new Creature("Malvar", "Malevolent", malvarTheMalevolentRiddle, malvarTheMalevolentArray, 0, 2, 70, 1));
-creatures.push(new Creature("Vorin", "Vile", vorinTheVileRiddle, vorinTheVileArray, 2, 2, 30, 2));
-creatures.push(new Creature("Mordred", "Maleficent", mordredTheMaleficentRiddle, mordredTheMaleficentArray, 1, 2, 40, 3));
-creatures.push(new Creature("Sylvia", "Sinister", sylviaTheSinisterRiddle, sylviaTheSinisterArray, 0, 2, 50, 4));
-creatures.push(new Creature("Xanthar", "Exile", xantharTheExileRiddle, xantharTheExileArray, 1, 2, 60, 5));
-creatures.push(new Creature('Albus', 'Dumbledore', albusDumbledoreRiddle, albusDumbledoreArray, 1, 2, 80, 6));
-creatures.push(new Creature('Isadora', 'WhiteWood', isadoraWhitewoodRiddle, isadoraWhitewoodArray, 0, 2, 90, 7));
-creatures.push(new Creature('Caspian', 'Ashford', caspianAshfordRiddle, caspianAshfordArray, 1, 2, 85, 8));
+creatures.push(new Creature("Malvar", "Malevolent", malvarTheMalevolentRiddle, malvarTheMalevolentArray, 0, 62, 37, 1));
+creatures.push(new Creature("Vorin", "Vile", vorinTheVileRiddle, vorinTheVileArray, 2, 84, 62, 2));
+creatures.push(new Creature("Mordred", "Maleficent", mordredTheMaleficentRiddle, mordredTheMaleficentArray, 1, 27, 42, 3));
+creatures.push(new Creature("Sylvia", "Sinister", sylviaTheSinisterRiddle, sylviaTheSinisterArray, 0, 27, 72, 4));
+creatures.push(new Creature("Xanthar", "Exile", xantharTheExileRiddle, xantharTheExileArray, 1, 67, 72, 5));
+creatures.push(new Creature('Albus', 'Dumbledore', albusDumbledoreRiddle, albusDumbledoreArray, 0, 42, 32, 6));
+creatures.push(new Creature('Isadora', 'WhiteWood', isadoraWhitewoodRiddle, isadoraWhitewoodArray, 0, 72, 44, 7));
+creatures.push(new Creature('Caspian', 'Ashford', caspianAshfordRiddle, caspianAshfordArray, 1, 57, 87 , 8));
 
 function checkPlayerCreatureCollision(player, playerId) {
     let collided = false;
@@ -2417,7 +2417,7 @@ document.addEventListener("keydown", function(event) {
                         playerOneCorrect.push(creatureId);
                         updateCreatureCount(player1);
                     }
-                    clearText("Two");
+                    clearText("One");
                     playerOneMove = true;
                 } else {
                     takeDamage("healthBarOne", 10);
@@ -2434,7 +2434,7 @@ document.addEventListener("keydown", function(event) {
                         playerOneCorrect.push(creatureId);
                         updateCreatureCount(player1);
                     }
-                    clearText("Two");
+                    clearText("One");
                     playerOneMove = true;
                 } else {
                     takeDamage("healthBarOne", 10);
@@ -2451,7 +2451,7 @@ document.addEventListener("keydown", function(event) {
                         playerOneCorrect.push(creatureId);
                         updateCreatureCount(player1);
                     }
-                    clearText("Two");
+                    clearText("One");
                     playerOneMove = true;
                 } else {
                     takeDamage("healthBarOne", 10);
@@ -2515,6 +2515,15 @@ document.addEventListener("keydown", function(event) {
     if (action) {
         action();
     }
+});
+
+//How to add audio to win screen
+//https://chatgpt.com/share/2e05ea85-903e-4ede-8b76-4934ca2825de
+document.addEventListener('DOMContentLoaded', function() {
+    // Get the audio element
+    let audio = document.getElementById('background-audio');
+    // Set the volume (0.0 is muted and 1.0 is the maximum volume)
+    audio.volume = 0.5; // Set the volume to 20%
 });
 
 
