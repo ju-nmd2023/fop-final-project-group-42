@@ -1,28 +1,32 @@
-let gameIsRunning = true;
-let playerOneAlive = true;
-let playerTwoAlive = true;
+//Arrays
+let gameIsRunning = true; // if true then the maze is shown
 
-let playerOneMove = true;
-let playerTwoMove = true;
+let playerOneAlive = true; // player 1 is alive from the beginning
+let playerTwoAlive = true; // player 2 is alive from the beginning
 
-const gridSizeX = 101;
-const gridSizeY = 101;
+let playerOneMove = true; // player 1 can move from the beginning, if false then the player is locked in place
+let playerTwoMove = true; // player 2 can move from the beginning, if false then the player is locked in place
+
+const gridSizeX = 101; // X-value of how big the maze is in coordinates
+const gridSizeY = 101; // Y-value of how big the maze is in coordinates
 
 
-let grid = [];
-let creatures = [];
-let players = [];
-let hearts = [];
-let playerOneCorrect = [];
-let playerTwoCorrect = [];
-let playerOneHeart = [];
-let playerTwoHeart = [];
+let grid = []; // Stores the all of the coordinates of the lines with their values
+let creatures = []; // Stores all of the creatures information such as name, riddle, answer, correct answer and x,y position on the maze
+let players = []; // Stores all the players information such as hp, player-id and x,y coordinate
+let hearts = []; // Stores all of the hearts information such as hp, individual id and x,y coordinate
+let playerOneCorrect = []; // Stores the id's of the creatures that player 1 has answered correctly from
+let playerTwoCorrect = []; // Stores the id's of the creatures that player 2 has answered correctly from
+let playerOneHeart = []; // Stores the id's of the hearts that player 1 has used
+let playerTwoHeart = []; // Stores the id's of the hearts that player 2 has used
 
+// Setup for the size of the grid
 function setup() {
-    let renderer = createCanvas(800,800);
+    let renderer = createCanvas(800,800); // X size 800 and Y size 800
     renderer.parent('canvasContainer');
 }
 
+// Player constructor, x-pos, y-pos, hp, id
 class Player {
     constructor(x, y, hp, id) {
         this.x = x;
@@ -32,12 +36,15 @@ class Player {
     }
 }
 
-let player1 = new Player(2, 2, 100, 1);
-let player2 = new Player(97, 97, 100, 2);
+// Declares the two player2 and their position, hp and id
+let player1 = new Player(2, 2, 100, 1); // Coordinate (2, 2), 100 hp and player-id 1
+let player2 = new Player(97, 97, 100, 2); // Coordinate (97, 97), 100 hp and player-id 2 
 
+// Pushes the two player variables into the players array
 players.push(new Player(2, 2, 100, 1));
 players.push(new Player(97, 97, 100, 2));
 
+// Trophy constructor, x-pos and y-pos
 class Trophy {
     constructor(x, y) {
         this.x = x;
@@ -45,8 +52,10 @@ class Trophy {
     }
 }
 
+// Declares the trophy variable with x-pos and y-pos (50, 50)
 let trophy = new Trophy(50, 50);
 
+// Heart constructor, x-pos, y-pos, hp and id
 class Heart {
     constructor(x,y,hp,id) {
         this.x = x;
@@ -56,6 +65,7 @@ class Heart {
     }
 }
 
+// Declares the seven hearts with positions, hp and individual id's
 let heart1 = new Heart(27, 52, 10, 1);
 let heart2 = new Heart(62, 22, 10, 2);
 let heart3 = new Heart(62, 67, 10, 3);
@@ -64,6 +74,7 @@ let heart5 = new Heart(77, 82, 10, 5);
 let heart6 = new Heart(77, 55, 10, 6);
 let heart7 = new Heart(45, 37, 10, 7);
 
+// Pushes the seven hearts into the hearts array
 hearts.push(new Heart(27, 52, 10, 1));
 hearts.push(new Heart(62, 22, 10, 2));
 hearts.push(new Heart(62, 67, 10, 3));
@@ -72,12 +83,14 @@ hearts.push(new Heart(77, 82, 10, 5));
 hearts.push(new Heart(77, 55, 10, 6));
 hearts.push(new Heart(45, 37, 10, 7));
 
-
+// Initializes the grid with the given values set in all of the for loops
 function initializeGrid(value) {
+    // Loops through each column of the grid
     for (let x = 0; x < gridSizeX; x++) {
-        grid[x] = [];
+        grid[x] = []; // Initializes the row as an empty array
+        // Loops through each row of the grid
         for (let y = 0; y < gridSizeY; y++) {
-            grid[x][y] = value;
+            grid[x][y] = value; // Sets each cell to the given value
         }
     }
     for (let x = 0; x <= 100; x++) {
@@ -1950,34 +1963,34 @@ function initializeGrid(value) {
 }
 initializeGrid(0);
 
+// Draws the grid with different colors depending on their corresponding value
 function drawGrid() {
-    const cellWidth = 7.92;
-    const cellHeight = 7.92;
+    const cellWidth = 7.92; // Width of each cell in the grid
+    const cellHeight = 7.92; // Height of each cell in the grid
 
-    noStroke();
+    noStroke(); // Disables the stroke for each cell 
 
+    // Loops through each column of the grid
     for (let x = 0; x < gridSizeX; x++) {
+        // Loops through each row of the grid
         for (let y = 0; y < gridSizeY; y++) {
+            // Determines the fill color based on the avlue in the grid cell
             if (grid[x][y] === 1) {
-                // Draw wall
-                fill(0);
+                fill(0); // Draw wall (black)
             } else if (grid[x][y] === 2) {
-                // Draw green space
-                fill(2, 100, 30);
+                fill(2, 100, 30); // Draw green space (Dark green)
             } else if (grid[x][y] === 3) {
-                // Draw green space
-                fill(184,216,231);
+                fill(184,216,231); // Draw outline of trophy (light blue)
             } else if (grid[x][y] === 4) {
-                // Draw green space
-                fill(154,197,219);
+                fill(154,197,219); // Draw trophy cell (Medium blue)
             } else {
-                // Draw pathway
-                fill(149, 116, 51);
+                fill(149, 116, 51); // Draw pathway (brown)
             }
-            rect(x * cellWidth, y * cellHeight, cellWidth + 1, cellHeight + 1); //added one to overlap a bit to hide the white border around the boxes
+            //Draws the cells as rectangles
+            rect(x * cellWidth, y * cellHeight, cellWidth, cellHeight); 
         }
                 // Draw Creatures
-                fill(255, 0, 0);
+                fill(255, 0, 0); // Color Red
                 rect(malvarTheMalevolent.x * cellWidth, malvarTheMalevolent.y * cellHeight, cellWidth * 2, cellHeight * 2);
                 rect(vorinTheVile.x * cellWidth, vorinTheVile.y * cellHeight, cellWidth * 2, cellHeight * 2);
                 rect(mordredTheMaleficent.x * cellWidth, mordredTheMaleficent.y * cellHeight, cellWidth * 2, cellHeight * 2);
@@ -1988,7 +2001,7 @@ function drawGrid() {
                 rect(caspainAshford.x * cellWidth, caspainAshford.y * cellHeight, cellWidth * 2, cellHeight * 2);
                 
                 // Draw Hearts
-                fill(255, 192, 203);
+                fill(255, 192, 203); // Color Pink
                 rect(heart1.x * cellWidth, heart1.y * cellHeight, cellWidth * 2, cellHeight * 2);
                 rect(heart2.x * cellWidth, heart2.y * cellHeight, cellWidth * 2, cellHeight * 2);
                 rect(heart3.x * cellWidth, heart3.y * cellHeight, cellWidth * 2, cellHeight * 2);
@@ -1998,39 +2011,62 @@ function drawGrid() {
                 rect(heart7.x * cellWidth, heart7.y * cellHeight, cellWidth * 2, cellHeight * 2);
 
                 // Draw players
-                fill(0, 0, 255); // Player color
+                fill(0, 0, 255); // Player 1 Blue
                 rect(player1.x * cellWidth, player1.y * cellHeight, cellWidth * 2, cellHeight * 2);
-                fill(255, 213, 0); // Player color
+                fill(255, 213, 0); // Player 2 Yellow
                 rect(player2.x * cellWidth, player2.y * cellHeight, cellWidth * 2, cellHeight * 2);
     }
 }
 
+// showGame function, calls the grid function to show it on the screen
 function showGame() {
     drawGrid();
 }
 
+// Function that draws the grid if gameIsRunning === true, else load the start screen
 function draw (){
     if (gameIsRunning === true) {
         showGame();
     } else if (gameIsRunning === false) {
-            startScreen();
+        window.location.href = 'index.html'
     }
 }
 
+// Function to clear the text of the player
+function clearText(playerId) {
+    const creatureName = document.getElementById('name' + playerId); // gets the creature name element
+    const creaturePrompt = document.getElementById('prompt' + playerId); // gets the prompt element
+    const answerList = document.getElementById('answerList' + playerId); // gets the answers element
+    
+    // Sets all of the to empty strings
+    creatureName.innerHTML = '';
+    creaturePrompt.innerHTML = '';
+    answerList.innerHTML = '';
+}
+
+// Handles the death of a player
 function dead(playerId) {
+    // Check which player's health bar is referenced and set their alive status to false
     if (playerId === 'healthBarOne') {
+        clearText("One");
         playerOneAlive = false;
     } else if (playerId === 'healthBarTwo') {
+        clearText("Two");
         playerTwoAlive = false;
     }
 
+        // Set the player's health bar to 0 and update their health bar
+        updateHealthBar(playerId, 0);
+        // Set current health display to 0 when player is dead
+        health === 0;
+
     // Check if both players are dead
     if (!playerOneAlive && !playerTwoAlive) {
-        window.location.href = 'deathScreen.html';
+        window.location.href = 'deathScreen.html'; // Redirect to the death screen
     }
 }
 
-
+// Creature constructor, firstName, lastName, riddle, answers, correctAnswerIndex, x-pos, y-pos, creature-id
 class Creature {
     constructor(firstName, lastName, riddle, answers, correctAnswerIndex, x, y, id) {
         this.firstName = firstName;
@@ -2080,6 +2116,7 @@ let albusDumbledore = new Creature('Albus', 'Dumbledore', albusDumbledoreRiddle,
 let isadoraWhitewood = new Creature('Isadora', 'WhiteWood', isadoraWhitewoodRiddle, isadoraWhitewoodArray, 0, 72, 44, 7);
 let caspainAshford = new Creature('Caspian', 'Ashford', caspianAshfordRiddle, caspianAshfordArray, 1, 57, 87 , 8); 
 
+// Pushes the creature information into the creatures array
 creatures.push(new Creature("Malvar", "Malevolent", malvarTheMalevolentRiddle, malvarTheMalevolentArray, 0, 62, 37, 1));
 creatures.push(new Creature("Vorin", "Vile", vorinTheVileRiddle, vorinTheVileArray, 2, 84, 62, 2));
 creatures.push(new Creature("Mordred", "Maleficent", mordredTheMaleficentRiddle, mordredTheMaleficentArray, 1, 27, 42, 3));
@@ -2089,51 +2126,60 @@ creatures.push(new Creature('Albus', 'Dumbledore', albusDumbledoreRiddle, albusD
 creatures.push(new Creature('Isadora', 'WhiteWood', isadoraWhitewoodRiddle, isadoraWhitewoodArray, 0, 72, 44, 7));
 creatures.push(new Creature('Caspian', 'Ashford', caspianAshfordRiddle, caspianAshfordArray, 1, 57, 87 , 8));
 
-function checkPlayerCreatureCollision(player, playerId) {
+// Function to check if the player and the creature are colliding
+function playerCreatureCollision(player, playerId) {
+    // Sets the collided flag to false
     let collided = false;
 
+    // Loops through the creature array
     for (let i = 0; i < creatures.length; i++) {
+        // Sets the const creature to the creatures individual index
         const creature = creatures[i];
+        // If function that is called if the player and a creature is at the same coordinate
         if (isAtSamePosition(player, creature)) {
-            const creatureName = document.getElementById('name' + playerId);
-            const creaturePrompt = document.getElementById('prompt' + playerId);
-            const answerList = document.getElementById('answerList' + playerId);
+            const creatureName = document.getElementById('name' + playerId); // Sets the name of the creature in the players text element
+            const creaturePrompt = document.getElementById('prompt' + playerId); // Sets the riddle of the creature in the players text element
+            const answerList = document.getElementById('answerList' + playerId); // Sets the list of answers of the creature in the players text element
 
-            creatureName.innerText = creature.firstName + " " + creature.lastName;
-            creaturePrompt.innerText = creature.riddle;
+            creatureName.innerText = creature.firstName + " " + creature.lastName; // sets the creatures name to the creatures first name + last name in the text element
+            creaturePrompt.innerText = creature.riddle; // Sets the riddle text element to the creatures riddle
 
-            answerList.innerHTML = ''; 
+            answerList.innerHTML = ''; // clears the answer list text element
 
+            // Creates a numbered list of all of the answers
             creature.answerArray.forEach((answer, index) => {
                 const listItem = document.createElement('li');
                 listItem.innerText = (index + 1) + ". " + answer;
                 answerList.appendChild(listItem);
             });
 
-            currentCreatureIndex = i;
+            currentCreatureIndex = i; // Sets the currentCreatureIndex to i
 
+            // if function that checks the player id and if that player already has the creatures id in their correct array, if they do then the text field is cleared
             if ((player.id === 1 && playerOneCorrect.includes(creature.id)) ||
                 (player.id === 2 && playerTwoCorrect.includes(creature.id))) {
                 clearText(playerId);
                 return;
             }
 
+            // if they don't have the creature id they they get locked into place 
             if (player.id === 1) {
                 playerOneMove = false;
             } else if (player.id === 2) {
                 playerTwoMove = false;
             }
-            collided = true;
+            collided = true; // collided flag is set to true to detect a collision
             break; 
         }
     }
 
+    // if function for if the collided flag is not set to false and for which player it is
     if (!collided && player.id === 1) {
-        playerOneMove = true;
-        clearText(playerId);
+        playerOneMove = true; // enables player 1 to move again
+        clearText(playerId); // clears player 1 text elements
     } else if (!collided && player.id === 2) {
-        playerTwoMove = true;
-        clearText(playerId);
+        playerTwoMove = true; // enables player 2 to move again
+        clearText(playerId); // clears player 1 text element
     }
 
 }
@@ -2141,6 +2187,7 @@ function checkPlayerCreatureCollision(player, playerId) {
 //function canMove and isValidPosition were created through help from chatGPT (problem was that I forgot that our player models were 2x2, not 1x1, so some parts would glitch halfway through certain walls before detecting collissions)
 //https://chat.openai.com/share/6cdea05b-5c3b-4956-9deb-f73937126bb9
 
+// Function to check if the player can move to the next coordinate
 function canMove(x, y) {
     return (
         isValidPosition(x, y) &&           
@@ -2150,6 +2197,7 @@ function canMove(x, y) {
     );
 }
 
+// Function that checks if the position is valid (isn't a coordinate with the value 1, 2) (Wall, Greenery)
 function isValidPosition(x, y) {
     return (
         x >= 0 && x < grid.length && 
@@ -2158,238 +2206,300 @@ function isValidPosition(x, y) {
     );
 }
 
+// Function that checks if the player and the creature are at the same coordinate
 function isAtSamePosition(player, creature) {
     return player.x === creature.x && player.y === creature.y;
 }
 
+// Updates the health bar display for a players
 function updateHealthBar(playerId, health) {
-    const healthBar = document.getElementById(playerId).querySelector('.health');
-    const currentHealth = document.getElementById(playerId).querySelector('.currentHealth');
+    const healthBar = document.getElementById(playerId).querySelector('.health'); // gets the health bar element for the player depending on their player id
+    const currentHealth = document.getElementById(playerId).querySelector('.currentHealth'); // gets the current health display element for the player depending on their player id
   
+    // Updates the width of the healt bar by setting the width to their current hp in %
     healthBar.style.width = health + "%";
+    // Updates the text under the healthbar to display the current health 
     currentHealth.textContent = "Health: " + health + " / 100";
+    // Sets the text font size to 1.5rem
     currentHealth.style.fontSize = "1.5rem"; 
     
+    // if function that changes the color of the health bar depending on the value of the current health
     if (health > 70) {
-      healthBar.style.backgroundColor = "green";
+      healthBar.style.backgroundColor = "green"; // Green for health over 70 hp
       currentHealth.style.color = "green";
     } else if (health > 30) {
-      healthBar.style.backgroundColor = "darkorange";
+      healthBar.style.backgroundColor = "darkorange"; // Orange for health between 70 and 30 hp
       currentHealth.style.color = "darkorange";
     } else {
-      healthBar.style.backgroundColor = "red";
+      healthBar.style.backgroundColor = "red"; // Red for health under 30 hp
       currentHealth.style.color = "red";
     }
   }
   
-  function getPlayerHealth(healthBarId) {
-    const healthBar = document.getElementById(healthBarId).querySelector('.health');
-    return parseInt(healthBar.style.width, 10) || 0;
+  // Function to get the current health of a player
+  function getPlayerHealth(playerId) {
+    const healthBar = document.getElementById(playerId).querySelector('.health'); // Gets the health bar element for the correct player depending on player-id 
+    // Return the current health as a integer, if not found then the value is set to 100
+    return parseInt(healthBar.style.width, 10) || 100; // 10 means base-10
 }
 
+// Function to apply damage to a player
   function takeDamage(playerId, amount) {
+    // If the player is already dead then do nothing
     if (playerId === 'healthBarOne' && !playerOneAlive) {
         return; 
     } else if (playerId === 'healthBarTwo' && !playerTwoAlive) {
         return;
     }
 
-    const healthBar = document.getElementById(playerId).querySelector('.health');
-    let playerHealth = parseInt(healthBar.style.width, 10) || 100;
+    const healthBar = document.getElementById(playerId).querySelector('.health'); // Gets the health bar element of the player depending on player-id
+    // Gets the current health of the player, if not found then the value is set to 100
+    let playerHealth = parseInt(healthBar.style.width, 10) || 100; 
 
+    // Subtract the damage amount from the player's health
     playerHealth -= amount;
-    if (playerHealth === 0) {
+    // If the player's health reaches 0, then the dead function is called with the players-id
+    if (playerHealth <= 0) {
         dead(playerId); 
     }
 
+    // Updates the health bar to reflect the new health value of the player depending on player-id
     updateHealthBar(playerId, playerHealth);
 }
 
+// Function to heal a player
 function healPlayer(playerId, amount) {
+    // If the player is already dead, then do nothing
     if (playerId === 'healthBarOne' && !playerOneAlive) {
         return; 
     } else if (playerId === 'healthBarTwo' && !playerTwoAlive) {
         return; 
     }
 
-    const healthBar = document.getElementById(playerId).querySelector('.health');
+    // Gets the current health of the player
     let playerHealth = getPlayerHealth(playerId);
 
+    // Increases the player's health by the specific amount (in this case 5, amout is set when the function is called)
     playerHealth += amount;
+
+    // Ensures that the players health doesn't exceed 100
     if (playerHealth > 100) {
         playerHealth = 100; 
     }
 
+    // Updates the health bar to reflect the new health value of the player
     updateHealthBar(playerId, playerHealth);
 }
 
-function clearText(playerId) {
-    const creatureName = document.getElementById('name' + playerId);
-    const creaturePrompt = document.getElementById('prompt' + playerId);
-    const answerList = document.getElementById('answerList' + playerId);
-    
-    creatureName.innerHTML = '';
-    creaturePrompt.innerHTML = '';
-    answerList.innerHTML = '';
-}
-
+// Function that checks if the player has all of the creatures id's in their correct array
 function checkAnswers(player) {
     let correctAnswers;
+    
+    // Sets which player correct array it is matching with
     if (player === player1) {
         correctAnswers = playerOneCorrect;
     } else if (player === player2) {
         correctAnswers = playerTwoCorrect;
     }
 
+    // Array of all of the creatures id's in order
     const expectedAnswers = [1, 2, 3, 4, 5, 6, 7, 8];
     
+    // Sorts both the expectedAnswers and the players Correct array to be able to check if they are the same
     correctAnswers.sort((a, b) => a - b);
     expectedAnswers.sort((a, b) => a - b);
     
+    // Checks if both arrays are identical by checking if they arrays are the same lenght and if all of the id's are in the same place as the correctArray
     const correct = correctAnswers.length === expectedAnswers.length &&
                     correctAnswers.every((answer, index) => answer === expectedAnswers[index]);
     
+    // If everything is correct they the screen changes to endScreen
     if (correct) {
         window.location.href = "endScreen.html";
     }
 }
 
+// Function to check if a player and the trophy are at the same coordinate
 function trophyCollision(player1, player2, trophy) {
+    // If player 1 is at the same coordinates then it checks if player 1 correct array matches the correctArray
     if (player1.x === trophy.x && player1.y === trophy.y) {
         checkAnswers(player1);
+            // If player 2 is at the same coordinates then it checks if player 2 correct array matches the correctArray
     } else if (player2.x === trophy.x && player2.y === trophy.y) {
         checkAnswers(player2);
     }
 }
 
+// Function to detect if a player collides with a heart
 function detectCollision(player1, player2, hearts) {
+    // Loops through each heart in the hearts array
     for (let i = 0; i < hearts.length; i++) {
-        let heart = hearts[i];
+        let heart = hearts[i]; // Gets the current heart
+
+        // Checks if player 1 collides with the heart
         if (player1.x === heart.x && player1.y === heart.y) {
-            heartCollision(player1, heart);
-            console.log("player 1");
-            console.log(playerOneHeart);
-        } else if (player2.x === heart.x && player2.y === heart.y) {
-            heartCollision(player2, heart);
-            console.log("player 2");
-            console.log(playerTwoHeart);
+            heartCollision(player1, heart); // Calls the collision function
+        }
+        // Checks if player 2 collides with the heart 
+        else if (player2.x === heart.x && player2.y === heart.y) {
+            heartCollision(player2, heart); // Calls the collision function
         }
     }
 }
 
+// Function if players collide with a heart
 function heartCollision(player, heart) {
-    let correctHearts;
-    let playerId;
+    let correctHearts; // variable to store the correct hearts for the player
+    let playerId; // Variable to store the player's ID
 
+    // Determines which player's correct hearts array to use based on the player id
     if (player === player1) {
-        correctHearts = playerOneHeart;
-        playerId = "One";
+        correctHearts = playerOneHeart; // Sets correct hearts for player 1
+        playerId = "One"; // Sets player ID for player 1
     } else if (player === player2) {
-        correctHearts = playerTwoHeart;
-        playerId = "Two";
+        correctHearts = playerTwoHeart; // Sets correct hearts for player 2 
+        playerId = "Two"; // Sets player ID for player 2 
     }
 
+    // Gets the current health of the player from their health bar
     let playerHealth = getPlayerHealth("healthBar" + playerId);
 
+    // checks so that the player's health is less than 100 and the heart hasn't been collected before
     if (playerHealth < 100 && !correctHearts.includes(heart.id)) {
-        correctHearts.push(heart.id);
-        healPlayer("healthBar" + playerId, 5);
+        correctHearts.push(heart.id); // Adds the heart id to the players correct hearts array
+        healPlayer("healthBar" + playerId, 5); // Adds 5 hp to the players health
     }
 
+    // Array of all of the heart id's in order
     const expectedHearts = [1, 2, 3, 4, 5, 6, 7];
+
+    //Sorts the players correct hearts array 
     correctHearts.sort((a, b) => a - b);
+
+    //Sorts the correct hearts array
     expectedHearts.sort((a, b) => a - b);
 }
 
+// Function to update the display creature count for a player
 function updateCreatureCount(player) {
-    let correctAnswers;
-    let correctCreature;
+    let correctAnswers; // Variable to store the collected creature id's for the player
+    let correctCreature; // Variable to store the element displaying the correct creatures count
 
+    // Determines which player's correct answers and creature count element to use based on the player ID
     if (player === player1) {
-        correctAnswers = playerOneCorrect;
+        // Sets the correct answers for player 1
+        correctAnswers = playerOneCorrect; 
+        // Sets the creature count display for player 1
         correctCreature = creatureCountOne;
     } else if (player === player2) {
+        // Sets the correct answers for player 2
         correctAnswers = playerTwoCorrect;
+        // Sets the creature count display for player 2
         correctCreature = creatureCountTwo;
     }
 
+    // Gets the number of correct answers for the player
     let correctCount = correctAnswers.length;
 
+    // Changes the text element of creature count to show the number of correct answers out of the 8 creatures
     correctCreature.textContent = correctCount + "/8 Creatures";
 }
 
+// Event listener for the movement and answer buttons
 document.addEventListener("keydown", function(event) {
+    // Const obtaining key actions mapped to key codes
     const keyActions = {
+        // Movement controls for player 1
         "w": function() {
+            // Moves up if conditions are met
             if (playerOneMove && playerOneAlive && canMove(player1.x, player1.y - 1)) {
                 player1.y -= 1;
-                checkPlayerCreatureCollision(player1, "One");
+                // Checks for collisions and interaction 
+                playerCreatureCollision(player1, "One");
                 trophyCollision(player1, player2, trophy);
                 detectCollision(player1, player2, hearts);
             }
         },
         "a": function() {
+            // Moves left if conditions are met
             if (playerOneMove && playerOneAlive && canMove(player1.x - 1, player1.y)) {
                 player1.x -= 1;
-                checkPlayerCreatureCollision(player1, "One");
+                // Checks for collisions and interaction 
+                playerCreatureCollision(player1, "One");
                 trophyCollision(player1, player2, trophy);
                 detectCollision(player1, player2, hearts);
             }
         },
         "s": function() {
+            // Moves down if conditions are met
             if (playerOneMove && playerOneAlive && canMove(player1.x, player1.y + 1)) {
                 player1.y += 1;
-                checkPlayerCreatureCollision(player1, "One");
+                // Checks for collisions and interaction 
+                playerCreatureCollision(player1, "One");
                 trophyCollision(player1, player2, trophy);
                 detectCollision(player1, player2, hearts);
             }
         },
         "d": function() {
+            // Moves right if conditions are met
             if (playerOneMove && playerOneAlive && canMove(player1.x + 1, player1.y)) {
                 player1.x += 1;
-                checkPlayerCreatureCollision(player1, "One");
+                // Checks for collisions and interaction 
+                playerCreatureCollision(player1, "One");
                 trophyCollision(player1, player2, trophy);
                 detectCollision(player1, player2, hearts);
             }
         },
+        // Movement controls for player 2
         "ArrowUp": function() {
+            // Moves up if conditions are met
             if (playerTwoMove && playerTwoAlive && canMove(player2.x, player2.y - 1)) {
                 player2.y -= 1; 
-                checkPlayerCreatureCollision(player2, "Two");
+                // Checks for collisions and interaction 
+                playerCreatureCollision(player2, "Two");
                 trophyCollision(player1, player2, trophy);
                 detectCollision(player1, player2, hearts);
             }
         },
         "ArrowLeft": function() {
+            // Moves left if conditions are met
             if (playerTwoMove && playerTwoAlive && canMove(player2.x - 1, player2.y)) {
                 player2.x -= 1; 
-                checkPlayerCreatureCollision(player2, "Two");
+                // Checks for collisions and interaction 
+                playerCreatureCollision(player2, "Two");
                 trophyCollision(player1, player2, trophy);
                 detectCollision(player1, player2, hearts);
             }
         },
         "ArrowDown": function() {
+            // Moves down if conditions are met
             if (playerTwoMove && playerTwoAlive && canMove(player2.x, player2.y + 1)) {
                 player2.y += 1; 
-                checkPlayerCreatureCollision(player2, "Two");
+                // Checks for collisions and interaction 
+                playerCreatureCollision(player2, "Two");
                 trophyCollision(player1, player2, trophy);
                 detectCollision(player1, player2, hearts);
             }
         },
         "ArrowRight": function() {
+            // Moves right if conditions are met
             if (playerTwoMove && playerTwoAlive && canMove(player2.x + 1, player2.y)) {
                 player2.x += 1;
-                checkPlayerCreatureCollision(player2, "Two");
+                // Checks for collisions and interaction 
+                playerCreatureCollision(player2, "Two");
                 trophyCollision(player1, player2, trophy);
                 detectCollision(player1, player2, hearts);
             }
         },
+        // Controls for answering questions for player 1
         "1": function() {
+            // Checks if player 1 is alive and there's a current creature
             if (playerOneAlive && currentCreatureIndex !== -1) {
                 const correctAnswerIndex = creatures[currentCreatureIndex].correctAnswerIndex;
                 const creatureId = creatures[currentCreatureIndex].id;
+                // Checks if the selected answer is correct
                 if (correctAnswerIndex === 0) {
-                    console.log("Player One chose the correct answer!");
+                    // Handle correct answer
                     if (!playerOneCorrect.includes(creatureId)) {
                         playerOneCorrect.push(creatureId);
                         updateCreatureCount(player1);
@@ -2397,16 +2507,19 @@ document.addEventListener("keydown", function(event) {
                     clearText("One");
                     playerOneMove = true;
                 } else {
+                    // Handle incorrect answer
                     takeDamage("healthBarOne", 10);
                 }
             }
         },
         "2": function() {
+            // Checks if player 1 is alive and there's a current creature
             if (playerOneAlive && currentCreatureIndex !== -1) {
                 const correctAnswerIndex = creatures[currentCreatureIndex].correctAnswerIndex;
                 const creatureId = creatures[currentCreatureIndex].id;
+                // Checks if the selected answer is correct
                 if (correctAnswerIndex === 1) {
-                    console.log("Player One chose the correct answer!");
+                    // Handle correct answer
                     if (!playerOneCorrect.includes(creatureId)) {
                         playerOneCorrect.push(creatureId);
                         updateCreatureCount(player1);
@@ -2414,16 +2527,19 @@ document.addEventListener("keydown", function(event) {
                     clearText("One");
                     playerOneMove = true;
                 } else {
+                    // Handle incorrect answer
                     takeDamage("healthBarOne", 10);
                 }
             }
         },
         "3": function() {
+            // Checks if player 1 is alive and there's a current creature
             if (playerOneAlive && currentCreatureIndex !== -1) {
                 const correctAnswerIndex = creatures[currentCreatureIndex].correctAnswerIndex;
                 const creatureId = creatures[currentCreatureIndex].id;
+                // Checks if the selected answer is correct
                 if (correctAnswerIndex === 2) {
-                    console.log("Player One chose the correct answer!");
+                    // Handle correct answer
                     if (!playerOneCorrect.includes(creatureId)) {
                         playerOneCorrect.push(creatureId);
                         updateCreatureCount(player1);
@@ -2431,16 +2547,19 @@ document.addEventListener("keydown", function(event) {
                     clearText("One");
                     playerOneMove = true;
                 } else {
+                    // Handle incorrect answer
                     takeDamage("healthBarOne", 10);
                 }
             }
         },
         "8": function() {
+            // Checks if player 2 is alive and there's a current creature
             if (playerTwoAlive && currentCreatureIndex !== -1) {
                 const correctAnswerIndex = creatures[currentCreatureIndex].correctAnswerIndex;
                 const creatureId = creatures[currentCreatureIndex].id;
+                // Checks if the selected answer is correct
                 if (correctAnswerIndex === 0) {
-                    console.log("Player Two chose the correct answer!");
+                    // Handle correct answer
                     if (!playerTwoCorrect.includes(creatureId)) {
                         playerTwoCorrect.push(creatureId);
                         updateCreatureCount(player2);
@@ -2448,16 +2567,19 @@ document.addEventListener("keydown", function(event) {
                     clearText("Two");
                     playerTwoMove = true;
                 } else {
+                    // Handle incorrect answer
                     takeDamage("healthBarTwo", 10);
                 }
             }
         },
         "9": function() {
+            // Checks if player 2 is alive and there's a current creature
             if (playerTwoAlive && currentCreatureIndex !== -1) {
                 const correctAnswerIndex = creatures[currentCreatureIndex].correctAnswerIndex;
                 const creatureId = creatures[currentCreatureIndex].id;
+                // Checks if the selected answer is correct
                 if (correctAnswerIndex === 1) {
-                    console.log("Player Two chose the correct answer!");
+                    // Handle correct answer
                     if (!playerTwoCorrect.includes(creatureId)) {
                         playerTwoCorrect.push(creatureId);
                         updateCreatureCount(player2);
@@ -2465,15 +2587,18 @@ document.addEventListener("keydown", function(event) {
                     clearText("Two");
                     playerTwoMove = true;
                 } else {
+                    // Handle incorrect answer
                     takeDamage("healthBarTwo", 10);
                 }
             }
         },
         "0": function() {
+            // Checks if player 2 is alive and there's a current creature
             if (playerTwoAlive && currentCreatureIndex !== -1) {
                 const correctAnswerIndex = creatures[currentCreatureIndex].correctAnswerIndex;
                 const creatureId = creatures[currentCreatureIndex].id;
                 if (correctAnswerIndex === 2) {
+                    // Handle correct answer
                     console.log("Player Two chose the correct answer!");
                     if (!playerTwoCorrect.includes(creatureId)) {
                         playerTwoCorrect.push(creatureId);
@@ -2482,12 +2607,14 @@ document.addEventListener("keydown", function(event) {
                     clearText("Two");
                     playerTwoMove = true;
                 } else {
+                    // Handle incorrect answer
                     takeDamage("healthBarTwo", 10);
                 }
             }
         }        
     };
 
+    // Executes the corresponding action if a key with an associated action is pressed
     const action = keyActions[event.key];
     if (action) {
         action();
@@ -2500,7 +2627,7 @@ document.addEventListener('DOMContentLoaded', function() {
     audio.volume = 0.5; 
 });
 
-
+// Function that loads both healthbars and sets their value to the players hp
 function load(){
     updateHealthBar('healthBarOne', player1.hp);
     updateHealthBar('healthBarTwo', player2.hp);
