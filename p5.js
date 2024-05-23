@@ -23,7 +23,7 @@ let playerTwoHeart = []; // Stores the id's of the hearts that player 2 has used
 // Setup for the size of the grid
 function setup() {
     let renderer = createCanvas(800,800); // X size 800 and Y size 800
-    renderer.parent('canvasContainer');
+    renderer.parent("canvasContainer");
 }
 
 // Player constructor, x-pos, y-pos, hp, id
@@ -2028,7 +2028,7 @@ function draw (){
     if (gameIsRunning === true) {
         showGame();
     } else if (gameIsRunning === false) {
-        window.location.href = 'index.html'
+        window.location.href = "index.html";
     }
 }
 
@@ -2047,22 +2047,20 @@ function clearText(playerId) {
 // Handles the death of a player
 function dead(playerId) {
     // Check which player's health bar is referenced and set their alive status to false
-    if (playerId === 'healthBarOne') {
+    if (playerId === "healthBarOne") {
         clearText("One");
         playerOneAlive = false;
-    } else if (playerId === 'healthBarTwo') {
+    } else if (playerId === "healthBarTwo") {
         clearText("Two");
         playerTwoAlive = false;
     }
 
-        // Set the player's health bar to 0 and update their health bar
-        updateHealthBar(playerId, 0);
-        // Set current health display to 0 when player is dead
-        health === 0;
+    // Set the player's health bar to 0 and update their health bar
+    updateHealthBar(playerId, 0);
 
     // Check if both players are dead
     if (!playerOneAlive && !playerTwoAlive) {
-        window.location.href = 'deathScreen.html'; // Redirect to the death screen
+        window.location.href = "deathScreen.html"; // Redirect to the death screen
     }
 }
 
@@ -2146,12 +2144,21 @@ function playerCreatureCollision(player, playerId) {
 
             answerList.innerHTML = ''; // clears the answer list text element
 
+            // Determines the starting index for numbering based on the player ID
+            let startIndex;
+            if (playerId === "One") {
+                startIndex = 1; // Player 1 starts numbering at 1
+            } else if (playerId === "Two") {
+                startIndex = 7; // Player 2 starts numbering at 7
+            }
+
             // Creates a numbered list of all of the answers
             creature.answerArray.forEach((answer, index) => {
-                const listItem = document.createElement('li');
-                listItem.innerText = (index + 1) + ". " + answer;
+                const listItem = document.createElement("li");
+                listItem.innerText = (startIndex + index) + ". " + answer;
                 answerList.appendChild(listItem);
             });
+
 
             currentCreatureIndex = i; // Sets the currentCreatureIndex to i
 
@@ -2245,10 +2252,33 @@ function updateHealthBar(playerId, health) {
 
 // Function to apply damage to a player
   function takeDamage(playerId, amount) {
+
     // If the player is already dead then do nothing
-    if (playerId === 'healthBarOne' && !playerOneAlive) {
+    if (playerId === "healthBarOne" && !playerOneAlive) {
         return; 
-    } else if (playerId === 'healthBarTwo' && !playerTwoAlive) {
+    } else if (playerId === "healthBarTwo" && !playerTwoAlive) {
+        return;
+    }
+
+    // Determine the player's coordinates based on playerId
+    let player;
+    if (playerId === "healthBarOne") {
+        player = player1;
+    } else if (playerId === "healthBarTwo") {
+        player = player2;
+    }
+
+    // Check if the player's coordinates match any creature's coordinates using a for loop
+    let creatureEncounter = false;
+    for (let i = 0; i < creatures.length; i++) {
+        if (isAtSamePosition(player, creatures[i])) {
+            creatureEncounter = true;
+            break;
+        }
+    }
+
+    // If the player is not at the same position as any creature, do nothing
+    if (!creatureEncounter) {
         return;
     }
 
@@ -2258,6 +2288,12 @@ function updateHealthBar(playerId, health) {
 
     // Subtract the damage amount from the player's health
     playerHealth -= amount;
+
+    // Ensure the player's health cannot be less than 0
+    if (playerHealth < 0) {
+        playerHealth = 0;
+    }
+
     // If the player's health reaches 0, then the dead function is called with the players-id
     if (playerHealth <= 0) {
         dead(playerId); 
@@ -2270,9 +2306,9 @@ function updateHealthBar(playerId, health) {
 // Function to heal a player
 function healPlayer(playerId, amount) {
     // If the player is already dead, then do nothing
-    if (playerId === 'healthBarOne' && !playerOneAlive) {
+    if (playerId === "healthBarOne" && !playerOneAlive) {
         return; 
-    } else if (playerId === 'healthBarTwo' && !playerTwoAlive) {
+    } else if (playerId === "healthBarTwo" && !playerTwoAlive) {
         return; 
     }
 
@@ -2552,7 +2588,7 @@ document.addEventListener("keydown", function(event) {
                 }
             }
         },
-        "8": function() {
+        "7": function() {
             // Checks if player 2 is alive and there's a current creature
             if (playerTwoAlive && currentCreatureIndex !== -1) {
                 const correctAnswerIndex = creatures[currentCreatureIndex].correctAnswerIndex;
@@ -2572,7 +2608,7 @@ document.addEventListener("keydown", function(event) {
                 }
             }
         },
-        "9": function() {
+        "8": function() {
             // Checks if player 2 is alive and there's a current creature
             if (playerTwoAlive && currentCreatureIndex !== -1) {
                 const correctAnswerIndex = creatures[currentCreatureIndex].correctAnswerIndex;
@@ -2592,7 +2628,7 @@ document.addEventListener("keydown", function(event) {
                 }
             }
         },
-        "0": function() {
+        "9": function() {
             // Checks if player 2 is alive and there's a current creature
             if (playerTwoAlive && currentCreatureIndex !== -1) {
                 const correctAnswerIndex = creatures[currentCreatureIndex].correctAnswerIndex;
